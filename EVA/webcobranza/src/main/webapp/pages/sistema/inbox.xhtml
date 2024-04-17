@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <f:event type="postAddToView" listener="#{correoBean.listarCantidades()}"  />
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Correos</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Sistema</a>
+                        </li>
+                        <li class="active">
+                            <strong>Correos</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content mailbox-content">
+                                <div class="file-manager">
+                                    <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">Compose Mail</a>
+                                    <div class="space-25"></div>
+                                    <h5>Folders</h5>
+                                    <ul class="folder-list m-b-md" style="padding: 0">
+                                        <li><a href="mailbox.html"> <i class="fa fa-inbox "></i> Inbox <span class="label label-warning pull-right">#{correoBean.countInbox}</span> </a></li>
+                                        <li><a href="mailbox.html"> <i class="fa fa-envelope-o"></i> Send Mail</a></li>
+                                        <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Important</a></li>
+                                        <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Drafts <span class="label label-danger pull-right">2</span></a></li>
+                                        <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Trash</a></li>
+                                    </ul>
+                                    <h5>Categories</h5>
+                                    <ul class="category-list" style="padding: 0">
+                                        <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
+                                        <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
+                                        <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
+                                        <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
+                                        <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
+                                    </ul>
+
+                                    <h5 class="tag-title">Labels</h5>
+                                    <ul class="tag-list" style="padding: 0">
+                                        <li><a href=""><i class="fa fa-tag"></i> Family</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Work</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Home</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Children</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Holidays</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Music</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Photography</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 animated fadeInRight">
+                        <div class="mail-box-header">
+
+                            <form method="get" action="index.html" class="pull-right mail-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm" name="search" placeholder="Search email"/>
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            Search
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <h2>
+                                Inbox #{correoBean.countInbox}
+                            </h2>
+                            <div class="mail-tools tooltip-demo m-t-md">
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                                    <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                                </div>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-exclamation"></i> </button>
+                                <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
+
+                            </div>
+                        </div>
+
+                        <div class="mail-box">
+                            <table class="table table-hover table-mail">
+                                <tbody>
+                                <ui:repeat var="correo" value="#{correoBean.correos}" varStatus="correoS">
+                                    <tr class="read">
+                                        <td class="check-mail">
+                                            <input type="checkbox" class="i-checks"/>
+                                        </td>
+                                        <td class="mail-ontact"><a href="mail_detail.html">#{correo.maeEmails.get(0).dnombre}</a></td>
+                                        <td class="mail-subject"><a href="mail_detail.html">#{correo.asunto}</a></td>
+                                        <td class=""><i class="fa fa-paperclip"></i></td>
+                                        <td class="text-right mail-date">
+                                    <h:outputLabel value="#{correo.fenvio}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy h:mm a" locale="es_PE" />
+                                    </h:outputLabel>
+                                    </td>
+                                    </tr>
+                                </ui:repeat>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+            <link href="../../resources/template/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+
+            <!--- Css datapicker -->
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <link href="../../resources/template/css/plugins/iCheck/custom.css" rel="stylesheet"/>
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <script>
+                $(document).ready(function () {
+                    $('.i-checks').iCheck({
+                        checkboxClass: 'icheckbox_square-green',
+                        radioClass: 'iradio_square-green'
+                    });
+                });
+            </script>
+
+            <h:outputScript library="javax.faces" name="jsf.js"/>
+
+
+
+            <script >
+                $('#divRangoFecha .input-daterange').datepicker({
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                });
+            </script>
+
+
+
+
+            <h:outputScript library="javax.faces" name="jsf.js"/>
+
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

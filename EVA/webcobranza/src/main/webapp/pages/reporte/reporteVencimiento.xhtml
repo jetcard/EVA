@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+            <f:event type="postAddToView" listener="#{clienteBean.listarFondos()}"  />
+            <div class="row wrapper border-bottom white-bg page-heading">
+                
+                <div class="col-lg-10">
+                    <h2>Por fecha de vencimiento de Cronograma</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Consulta</a>
+                        </li>
+                        <li class="active">
+                            <strong>Cronograma</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formEstaCuentaF" jsf:prependId="false">
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Por fecha de vencimiento de Cronograma</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div id="divRangoFecha" class="form-group">
+                                                <label class="font-noraml">Rango de fechas</label>
+                                                <div id="datepicker" class="input-daterange input-group">
+                                                    <span class="input-group-addon">De</span>
+                                                    <h:inputText class="input-sm form-control" id="start" value="#{clienteBean.maeInversion.finicio}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                    <span class="input-group-addon">a</span>
+                                                    <h:inputText class="input-sm form-control" id="end"  value="#{clienteBean.maeInversion.ffin}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{clienteBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{clienteBean.maeFondoList}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="col-sm-3">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkBuscar" jsf:action="#{clienteBean.listarCronoEstado()}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>    
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <h:form>
+                    <!-- Detalle -->
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <!-- Lista de clientes -->
+                        <div class="col-sm-8">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> TCHN</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-clien">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tchn </th>
+                                                            <th>Fondo</th>
+                                                            <th>Estado</th>
+                                                            <th>Cuotas Atrasadas</th>                                                            
+                                                            <th>Cuotas Pagadas</th>                                                            
+                                                            <th>Cuotas x Generar</th>                                                            
+                                                            <th>Total Cuotas</th>
+                                                            <th>Fecha Ult.Deposito</th>
+                                                            <th>Fecha Vencimiento</th>
+                                                            <th>Estado</th>                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ui:repeat var="tchn" value="#{clienteBean.maeInversionList}" varStatus="tchnS">
+                                                        <tr>
+                                                            <td>                                                                
+                                                                <a data-toggle="tab" href="##{tchn.CInversion}" class="client-link">
+                                                                    #{tchn.CInversion}
+                                                                </a>
+                                                            </td>
+                                                            <td>#{tchn.cFONDO}</td>
+                                                            <td>#{tchn.cESTADOCRONO}</td>
+                                                            <td>#{tchn.NCuotasAtrasadas}</td>                                                                                                                        
+                                                            <td>#{tchn.nCUOTASPAGADAS}</td>                                                            
+                                                            <td>#{tchn.nCUOTASPENDXGENERAR}</td>                                                                                                                        
+                                                            <td>#{tchn.nTOTALCUOTAS}</td>
+                                                            <td>#{tchn.dFULTDEPOSITO}</td>
+                                                            <td>#{tchn.FVencimiento}</td>
+                                                             <td> 
+                                                            <ui:repeat var="tchnDet" value="#{tchn.maeInversionEstadoList}">
+                                                                <ui:fragment rendered="#{tchnDet.EEstadoId=='0003'}">
+                                                                    <span class="label label-warning">Ampliado</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{tchnDet.EEstadoId=='0004'}">
+                                                                    <span class="label label-warning">Refinanciado</span>
+                                                                </ui:fragment> 
+
+                                                                <ui:fragment rendered="#{tchnDet.EEstadoId=='0002'}">
+                                                                    <span class="label label-black">Cancelado</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{tchnDet.EEstadoId=='0005'}">
+                                                                    <span class="label label-danger">Judicial</span>
+                                                                </ui:fragment> 
+                                                                 <ui:fragment rendered="#{tchnDet.EEstadoId=='0007'}">
+                                                                    <span class="label label-warning">Transf.Endosado</span>
+                                                                </ui:fragment> 
+                                                                 <ui:fragment rendered="#{tchnDet.EEstadoId=='0008'}">
+                                                                    <span class="label label-warning">Transf.Refinan</span>
+                                                                </ui:fragment> 
+                                                                 <ui:fragment rendered="#{tchnDet.EEstadoId=='0009'}">
+                                                                    <span class="label label-warning">Transf.Ampliado</span>
+                                                                </ui:fragment> 
+                                                            </ui:repeat>
+                                                        </td>
+                                                        </tr>
+                                                    </ui:repeat> 
+                                                    </tbody>
+                                                    
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      
+                        <!-- Lista detalle TCHN -->
+                        <div class="col-sm-4">
+                            <div class="ibox ">
+                                <div class="ibox-content">
+                                    <div class="tab-content">
+                                        <ui:repeat var="inver" value="#{clienteBean.maeInversionList}" varStatus="inverS">
+                                            <div id="#{inver.CInversion.trim()}" class="tab-pane">
+                                                <div class="row m-b-lg">
+                                                    <div class="ibox-content">
+                                                        <strong>Datos #{inver.CInversion.trim()}</strong>
+                                                        <ul class="list-group clear-list">
+                                                            <li class="list-group-item fist-item">
+                                                                <span class="pull-right"> #{inver.cFONDO} </span>
+                                                                Fondo
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.FEmision} </span>
+                                                                Fecha Emisión
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.FVencimiento}</span>
+                                                                Fecha Vencimiento
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.NMeses} </span>
+                                                                Nro de Cuotas
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.PTasa} </span>
+                                                                TEA
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.IInversion} </span>
+                                                                Monto
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> #{inver.NDiasAnio} </span>
+                                                                Año
+                                                            </li>
+
+                                                            <li class="list-group-item">
+                                                                <span class="pull-right"> 
+                                                                    <ui:repeat var="inverDet" value="#{inver.maeInversionEstadoList}">
+                                                                        <ui:fragment rendered="#{inverDet.EEstadoId=='0003'}">
+                                                                            <span class="label label-warning">Ampliado</span>
+                                                                        </ui:fragment> 
+                                                                        <ui:fragment rendered="#{inverDet.EEstadoId=='0004'}">
+                                                                            <span class="label label-warning">Refinanciado</span>
+                                                                        </ui:fragment> 
+
+                                                                        <ui:fragment rendered="#{inverDet.EEstadoId=='0002'}">
+                                                                            <span class="label label-danger">Cancelado</span>
+                                                                        </ui:fragment> 
+                                                                        <ui:fragment rendered="#{inverDet.EEstadoId=='0005'}">
+                                                                            <span class="label label-danger">Judicial</span>
+                                                                        </ui:fragment> 
+                                                                         <ui:fragment rendered="#{inverDet.EEstadoId=='0007'}">
+                                                                            <span class="label label-danger">Transf.Endosado</span>
+                                                                        </ui:fragment> 
+                                                                         <ui:fragment rendered="#{inverDet.EEstadoId=='0008'}">
+                                                                            <span class="label label-danger">Transf.Refinanciado</span>
+                                                                        </ui:fragment> 
+                                                                         <ui:fragment rendered="#{inverDet.EEstadoId=='0009'}">
+                                                                            <span class="label label-danger">Transf.Ampliado</span>
+                                                                        </ui:fragment> 
+                                                                    </ui:repeat>
+
+                                                                </span>
+                                                                Estado
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="ibox-content">
+                                                        <strong>Propietarios</strong>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Apellidos</th>
+                                                                    <th>Nombres</th>
+                                                                    <th>Documento</th>
+                                                                    <th>%</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <ui:repeat var="prop" value="#{inver.maeInmueble.maePersonaInmuebleList}" varStatus="propS">
+                                                                <tr>
+                                                                    <td>#{prop.maePersona.DApePat} #{prop.maePersona.DApeMat}</td>
+                                                                    <td>#{prop.maePersona.DNombres}</td>
+                                                                    <td>#{prop.maePersona.ANroDocumento}</td>
+                                                                    <td>#{prop.PInmueble}</td>
+                                                                </tr>
+                                                            </ui:repeat>
+                                                            </tbody>
+                                                        </table>    
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                        </ui:repeat>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <!-- FooTable -->
+            <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/calendar.js"></script> 
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <!--- CSS tabla ====================================================================  -->
+            <!-- FooTable -->
+            <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+            <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+
+            <div jsf:id="demoIdAx">
+                <script>
+                    $(document).ready(function () {
+                        $(".touchspin1").TouchSpin({
+                            buttondown_class: 'btn btn-white',
+                            buttonup_class: 'btn btn-white'
+                        });
+                    });
+
+                    $('.footable').footable();
+                    $('.footable2').footable();
+                    $('.fullscreen-link').click(function () {
+                        var ibox = $(this).closest('div.ibox');
+                        var button = $(this).find('i');
+                        $('body').toggleClass('fullscreen-ibox-mode');
+                        button.toggleClass('fa-expand').toggleClass('fa-compress');
+                        ibox.toggleClass('fullscreen');
+                        setTimeout(function () {
+                            $(window).trigger('resize');
+                        }, 100);
+                    });
+                    $('.full-height-scroll').slimscroll({
+                        height: '100%'
+                    });
+                </script>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $(".touchspin1").TouchSpin({
+                        buttondown_class: 'btn btn-white',
+                        buttonup_class: 'btn btn-white'
+                    });
+                });
+
+                $('.footable').footable();
+                $('.footable2').footable();
+
+
+            </script>
+
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

@@ -1,0 +1,663 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservices.webcobranzas.pop/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="seguridadWS" targetNamespace="http://webservices.webcobranzas.pop/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.webcobranzas.pop/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservices.webcobranzas.pop/">
+  <xs:element name="obtenerUsuario" type="tns:obtenerUsuario"/>
+  <xs:element name="obtenerUsuarioResponse" type="tns:obtenerUsuarioResponse"/>
+  <xs:element name="validarUsuario" type="tns:validarUsuario"/>
+  <xs:element name="validarUsuarioResponse" type="tns:validarUsuarioResponse"/>
+  <xs:complexType name="validarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oTabUsuario" type="tns:tabUsuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tabUsuario">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cusuarioId" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcontrasenia" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeMenus" nillable="true" type="tns:maeMenu"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element name="nllamada" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="tabRols" nillable="true" type="tns:tabRol"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="base">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bgrabado" type="xs:string"/>
+      <xs:element minOccurs="0" name="cMonedaId" type="xs:string"/>
+      <xs:element minOccurs="0" name="cUsuarioAdd" type="xs:string"/>
+      <xs:element minOccurs="0" name="cUsuarioMod" type="xs:string"/>
+      <xs:element minOccurs="0" name="dDatoBusq" type="xs:string"/>
+      <xs:element minOccurs="0" name="eEstado" type="xs:string"/>
+      <xs:element minOccurs="0" name="fFinBusq" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fIniBusq" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fUsuarioAdd" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="fUsuarioMod" type="xs:dateTime"/>
+      <xs:element name="nFinBusq" type="xs:int"/>
+      <xs:element name="nIniBusq" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="maeMenu">
+    <xs:sequence>
+      <xs:element name="cmenu" type="xs:int"/>
+      <xs:element name="cmenuId" type="xs:int"/>
+      <xs:element name="cmenuPadre" type="xs:int"/>
+      <xs:element minOccurs="0" name="menuA" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAE" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAUrl" type="xs:string"/>
+      <xs:element minOccurs="0" name="simbolo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="oMenuList" nillable="true" type="tns:maeMenu"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="maePersona">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ANroDocumento" type="xs:string"/>
+          <xs:element minOccurs="0" name="CClasePersona" type="xs:string"/>
+          <xs:element minOccurs="0" name="CEstadoCivil" type="xs:string"/>
+          <xs:element minOccurs="0" name="CGradoInstruccion" type="xs:string"/>
+          <xs:element minOccurs="0" name="CNacionFructuacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="CNacionNaci" type="xs:string"/>
+          <xs:element minOccurs="0" name="CPersona" type="tns:number"/>
+          <xs:element name="CPersonaId" type="xs:int"/>
+          <xs:element minOccurs="0" name="CTipoDocumento" type="xs:string"/>
+          <xs:element minOccurs="0" name="CTipoPersona" type="xs:string"/>
+          <xs:element minOccurs="0" name="DApeMat" type="xs:string"/>
+          <xs:element minOccurs="0" name="DApePat" type="xs:string"/>
+          <xs:element minOccurs="0" name="DNombreComercial" type="xs:string"/>
+          <xs:element minOccurs="0" name="DNombres" type="xs:string"/>
+          <xs:element minOccurs="0" name="DRazonSocial" type="xs:string"/>
+          <xs:element minOccurs="0" name="FNacimiento" type="xs:dateTime"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeDireccionList" nillable="true" type="tns:maeDireccion"/>
+          <xs:element minOccurs="0" name="maeEmail" type="tns:maeEmail"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeEmailList" nillable="true" type="tns:maeEmail"/>
+          <xs:element minOccurs="0" name="maeFondo" type="tns:maeFondo"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeInversionList" nillable="true" type="tns:maeInversion"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maePersonaInmuebleList" nillable="true" type="tns:maePersonaInmueble"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeTelefonoList" nillable="true" type="tns:maeTelefono"/>
+          <xs:element minOccurs="0" name="cSexoId" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="number">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="maeDireccion">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ADir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="ADir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="AEstado" type="xs:string"/>
+          <xs:element minOccurs="0" name="BDefault" type="xs:string"/>
+          <xs:element name="CDireccionId" type="xs:int"/>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element name="CPersonaId" type="xs:int"/>
+          <xs:element minOccurs="0" name="CTipoDir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="CTipoDir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="CUbigueoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="ctipoDirId" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="dlatitud" type="xs:string"/>
+          <xs:element minOccurs="0" name="dlongitud" type="xs:string"/>
+          <xs:element minOccurs="0" name="dreferencia" type="xs:string"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="maeUbigeo" type="tns:maeUbigeo"/>
+          <xs:element name="NDir1" type="xs:int"/>
+          <xs:element name="NDir2" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeUbigeo">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CUbigeoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CUbigeoPad" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDUbigeoDep" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDUbigeoDist" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDUbigeoProv" type="xs:string"/>
+          <xs:element minOccurs="0" name="DUbigeo" type="xs:string"/>
+          <xs:element minOccurs="0" name="maeUbigeo" type="tns:maeUbigeo"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeEmail">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element name="benvio" type="xs:boolean"/>
+          <xs:element name="cemailId" type="xs:int"/>
+          <xs:element minOccurs="0" name="ctipoMailId" type="xs:string"/>
+          <xs:element minOccurs="0" name="dcontrasenia" type="xs:string"/>
+          <xs:element minOccurs="0" name="ddominio" type="xs:string"/>
+          <xs:element minOccurs="0" name="demail" type="xs:string"/>
+          <xs:element minOccurs="0" name="dnombre" type="xs:string"/>
+          <xs:element minOccurs="0" name="dsmtp" type="xs:string"/>
+          <xs:element minOccurs="0" name="dusuario" type="xs:string"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="msj" type="xs:string"/>
+          <xs:element minOccurs="0" name="msjEstado" type="xs:string"/>
+          <xs:element name="npuerto" type="xs:int"/>
+          <xs:element minOccurs="0" name="bDefault" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeFondo">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ADireccion" type="xs:string"/>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="DFondo" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeBancoList" nillable="true" type="tns:maeBanco"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeInversionList" nillable="true" type="tns:maeInversion"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeBanco">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element name="cbancoId" type="xs:int"/>
+          <xs:element name="csbs" type="xs:int"/>
+          <xs:element minOccurs="0" name="ddescCorto" type="xs:string"/>
+          <xs:element minOccurs="0" name="ddescripcion" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeBancoCuentas" nillable="true" type="tns:maeBancoCuenta"/>
+          <xs:element minOccurs="0" name="maeFondo" type="tns:maeFondo"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeBancoCuenta">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bsobregiro" type="tns:number"/>
+          <xs:element minOccurs="0" name="ccabArchPlan" type="xs:string"/>
+          <xs:element name="ccuentaId" type="xs:int"/>
+          <xs:element minOccurs="0" name="ctipoCuenta" type="xs:string"/>
+          <xs:element minOccurs="0" name="ctipoMoneda" type="xs:string"/>
+          <xs:element minOccurs="0" name="dnroCuenta" type="xs:string"/>
+          <xs:element minOccurs="0" name="fapertura" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="icostoDepo" type="tns:number"/>
+          <xs:element minOccurs="0" name="maeBanco" type="tns:maeBanco"/>
+          <xs:element minOccurs="0" name="maeFondo" type="tns:maeFondo"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="nsaldoContable" type="tns:number"/>
+          <xs:element minOccurs="0" name="nsaldoContableOld" type="tns:number"/>
+          <xs:element minOccurs="0" name="nsaldoDisponible" type="tns:number"/>
+          <xs:element minOccurs="0" name="nsaldoDisponibleOld" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeInversion">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bcancelado" type="xs:string"/>
+          <xs:element minOccurs="0" name="CInmuebleId" type="tns:number"/>
+          <xs:element minOccurs="0" name="CInversion" type="xs:string"/>
+          <xs:element minOccurs="0" name="CInversionIdOld" type="xs:string"/>
+          <xs:element minOccurs="0" name="ccodigoIdent" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cobMaeSeguimientoList" nillable="true" type="tns:cobMaeSeguimiento"/>
+          <xs:element minOccurs="0" name="corigenId" type="xs:string"/>
+          <xs:element minOccurs="0" name="eestadoCompromiso" type="xs:string"/>
+          <xs:element minOccurs="0" name="FColocacion" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="FEmision" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="FVencimiento" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ICuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="IInteres" type="tns:number"/>
+          <xs:element minOccurs="0" name="IInversion" type="tns:number"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeCargoList" nillable="true" type="tns:maeCargo"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeCronogramaList" nillable="true" type="tns:maeCronograma"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeCuotaPagoList" nillable="true" type="tns:maeCuotaPago"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeDepositoList" nillable="true" type="tns:maeDeposito"/>
+          <xs:element minOccurs="0" name="maeFondo" type="tns:maeFondo"/>
+          <xs:element minOccurs="0" name="maeInmueble" type="tns:maeInmueble"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeInversionEstadoList" nillable="true" type="tns:maeInversionEstado"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maePersonaList" nillable="true" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="NCuotasAtrasadas" type="tns:number"/>
+          <xs:element minOccurs="0" name="NDiasAnio" type="tns:number"/>
+          <xs:element name="NFinDiaBusq" type="xs:int"/>
+          <xs:element name="NIniDiaBusq" type="xs:int"/>
+          <xs:element minOccurs="0" name="NMeses" type="tns:number"/>
+          <xs:element minOccurs="0" name="NVencimientoDia" type="tns:number"/>
+          <xs:element name="ncompromPendi" type="xs:int"/>
+          <xs:element minOccurs="0" name="PTasa" type="tns:number"/>
+          <xs:element minOccurs="0" name="cInversionId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cMaeInversionId" type="tns:number"/>
+          <xs:element minOccurs="0" name="cPersonaId" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="cTipoInv" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="cobMaeSeguimiento">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element name="cmaeSeguimientoId" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cobSeguimientoList" nillable="true" type="tns:cobSeguimiento"/>
+          <xs:element minOccurs="0" name="eestadoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="cobSeguimiento">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element name="ccobSeguimientoId" type="xs:int"/>
+          <xs:element minOccurs="0" name="cobMaeSeguimiento" type="tns:cobMaeSeguimiento"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="cobSeguimientoDetList" nillable="true" type="tns:cobSeguimientoDet"/>
+          <xs:element minOccurs="0" name="eestadoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="ffecFin" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ffecIni" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType abstract="true" name="cobSeguimientoDet">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cobSeguimiento" type="tns:cobSeguimiento"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeCargo">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BCancelado" type="xs:string"/>
+          <xs:element minOccurs="0" name="CCargoId" type="tns:number"/>
+          <xs:element minOccurs="0" name="CConceptoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="DObs" type="xs:string"/>
+          <xs:element minOccurs="0" name="FCargo" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="FProceso" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ICargo" type="tns:number"/>
+          <xs:element minOccurs="0" name="IPendiente" type="tns:number"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element minOccurs="0" name="NCargo" type="tns:number"/>
+          <xs:element minOccurs="0" name="NCuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="NDeposito" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeCronograma">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="baprobado" type="xs:string"/>
+          <xs:element minOccurs="0" name="bcuotaGenerada" type="xs:string"/>
+          <xs:element minOccurs="0" name="fpago" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="icapital" type="tns:number"/>
+          <xs:element minOccurs="0" name="icuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="ideposito" type="tns:number"/>
+          <xs:element minOccurs="0" name="iinteres" type="tns:number"/>
+          <xs:element minOccurs="0" name="imora" type="tns:number"/>
+          <xs:element minOccurs="0" name="isaldo" type="tns:number"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element minOccurs="0" name="nSecuencia" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeCuotaPago">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BCancelado" type="xs:string"/>
+          <xs:element minOccurs="0" name="dsecuencia" type="xs:string"/>
+          <xs:element minOccurs="0" name="EFormaCancel" type="xs:string"/>
+          <xs:element minOccurs="0" name="FCancelado" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="FPagoCrono" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="FProceso" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ICuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="icapital" type="tns:number"/>
+          <xs:element minOccurs="0" name="icompensatorio" type="tns:number"/>
+          <xs:element minOccurs="0" name="imoratorio" type="tns:number"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeCuotaPagoDetList" nillable="true" type="tns:maeCuotaPagoDet"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element minOccurs="0" name="bCancelado" type="xs:string"/>
+          <xs:element minOccurs="0" name="eFormaCancel" type="xs:string"/>
+          <xs:element minOccurs="0" name="fCancelado" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="fPagoCrono" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="fProceso" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="iCuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="iPendiente" type="tns:number"/>
+          <xs:element name="nSecuencia" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeCuotaPagoDet">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="bcancelado" type="xs:string"/>
+          <xs:element minOccurs="0" name="cconceptoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="ffinIm" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="fgenCcpto" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="finiIm" type="xs:dateTime"/>
+          <xs:element name="iadeudadoIm" type="xs:double"/>
+          <xs:element name="iconcepto" type="xs:double"/>
+          <xs:element name="ipenAcum" type="xs:double"/>
+          <xs:element name="ipendiente" type="xs:double"/>
+          <xs:element minOccurs="0" name="maeCuotaPago" type="tns:maeCuotaPago"/>
+          <xs:element name="ndetalle" type="xs:int"/>
+          <xs:element name="ptasaIm" type="xs:double"/>
+          <xs:element minOccurs="0" name="fProceso" type="xs:dateTime"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeDeposito">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BAmpliacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="BAplicado" type="xs:string"/>
+          <xs:element minOccurs="0" name="BProntoPago" type="xs:string"/>
+          <xs:element minOccurs="0" name="BReFinancia" type="xs:string"/>
+          <xs:element minOccurs="0" name="bencontrado" type="xs:string"/>
+          <xs:element minOccurs="0" name="CBancoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CDocDepositoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CItipCta" type="xs:string"/>
+          <xs:element minOccurs="0" name="DBcoDescripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="DBcoNoperacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="DBcoSucursal" type="xs:string"/>
+          <xs:element minOccurs="0" name="dbcoReferenciaB" type="xs:string"/>
+          <xs:element minOccurs="0" name="dbcoUsuario" type="xs:string"/>
+          <xs:element minOccurs="0" name="dbcoUtc" type="xs:string"/>
+          <xs:element minOccurs="0" name="ddescripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="dmsjIndividual" type="xs:string"/>
+          <xs:element minOccurs="0" name="FBcoDeposito" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="IBcoDepositado" type="tns:number"/>
+          <xs:element minOccurs="0" name="IBcoSaldo" type="tns:number"/>
+          <xs:element minOccurs="0" name="ISaldo" type="tns:number"/>
+          <xs:element minOccurs="0" name="maeBancoCuenta" type="tns:maeBancoCuenta"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeDepositoPagoList" nillable="true" type="tns:maeDepositoPago"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element minOccurs="0" name="maeTipoCambio" type="tns:maeTipoCambio"/>
+          <xs:element minOccurs="0" name="bAmpliacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="bAplicado" type="xs:string"/>
+          <xs:element minOccurs="0" name="bProntoPago" type="xs:string"/>
+          <xs:element minOccurs="0" name="bReFinancia" type="xs:string"/>
+          <xs:element minOccurs="0" name="cBancoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cDocDepositoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cItipCta" type="xs:string"/>
+          <xs:element minOccurs="0" name="cMaeDepositoId" type="tns:number"/>
+          <xs:element minOccurs="0" name="dBcoDescripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="dBcoNoperacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="dBcoSucursal" type="xs:string"/>
+          <xs:element minOccurs="0" name="fBcoDeposito" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="iBcoDepositado" type="tns:number"/>
+          <xs:element minOccurs="0" name="iBcoDepositadoD" type="tns:number"/>
+          <xs:element minOccurs="0" name="iBcoSaldo" type="tns:number"/>
+          <xs:element minOccurs="0" name="iSaldo" type="tns:number"/>
+          <xs:element minOccurs="0" name="nDeposito" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeDepositoPago">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CConceptoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CGrpConcepto" type="xs:string"/>
+          <xs:element minOccurs="0" name="ddescripcion" type="xs:string"/>
+          <xs:element minOccurs="0" name="FPago" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="IPagado" type="tns:number"/>
+          <xs:element minOccurs="0" name="NCargo" type="tns:number"/>
+          <xs:element minOccurs="0" name="NCuota" type="tns:number"/>
+          <xs:element minOccurs="0" name="NDetalle" type="tns:number"/>
+          <xs:element minOccurs="0" name="cFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cInversionId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cMaeDepositoId" type="tns:number"/>
+          <xs:element minOccurs="0" name="cMaeInversionId" type="tns:number"/>
+          <xs:element minOccurs="0" name="cTipo_inv" type="xs:string"/>
+          <xs:element minOccurs="0" name="nDeposito" type="tns:number"/>
+          <xs:element minOccurs="0" name="nSecuencia" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeTipoCambio">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element name="cMaeTipoCambioId" type="xs:int"/>
+          <xs:element minOccurs="0" name="cTipoMoneda" type="xs:string"/>
+          <xs:element minOccurs="0" name="fCambio" type="xs:dateTime"/>
+          <xs:element name="nTipoCambioCom" type="xs:double"/>
+          <xs:element name="nTipoCambioVen" type="xs:double"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeInmueble">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ADir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="ADir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="BAsignacion" type="xs:string"/>
+          <xs:element minOccurs="0" name="CConservId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CInmueble" type="tns:number"/>
+          <xs:element minOccurs="0" name="CInmuebleId" type="tns:number"/>
+          <xs:element minOccurs="0" name="CTipoDir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="CTipoDir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="CUbigeoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CUsoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="DAnalisis" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDir1" type="xs:string"/>
+          <xs:element minOccurs="0" name="DDir2" type="xs:string"/>
+          <xs:element minOccurs="0" name="DOpinion" type="xs:string"/>
+          <xs:element minOccurs="0" name="FAntiguedad" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="maeInversion" type="tns:maeInversion"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maePersonaInmuebleList" nillable="true" type="tns:maePersonaInmueble"/>
+          <xs:element minOccurs="0" name="maeUbigeo" type="tns:maeUbigeo"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="maeValorizacionList" nillable="true" type="tns:maeValorizacion"/>
+          <xs:element minOccurs="0" name="NDir1" type="tns:number"/>
+          <xs:element minOccurs="0" name="NDir2" type="tns:number"/>
+          <xs:element minOccurs="0" name="PAsigMax" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maePersonaInmueble">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CPerInmuebleId" type="tns:number"/>
+          <xs:element minOccurs="0" name="maeInmueble" type="tns:maeInmueble"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="PInmueble" type="tns:number"/>
+          <xs:element minOccurs="0" name="cInmuebleId" type="tns:number"/>
+          <xs:element minOccurs="0" name="cPersonaId" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeValorizacion">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CConservId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CInforme" type="xs:string"/>
+          <xs:element minOccurs="0" name="CInmuebleId" type="tns:number"/>
+          <xs:element minOccurs="0" name="CPeritoId" type="tns:number"/>
+          <xs:element minOccurs="0" name="CServiciosId" type="xs:string"/>
+          <xs:element minOccurs="0" name="CValorizacionId" type="tns:number"/>
+          <xs:element minOccurs="0" name="FRealizacion" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ITipoCambio" type="tns:number"/>
+          <xs:element minOccurs="0" name="IValComercial" type="tns:number"/>
+          <xs:element minOccurs="0" name="IValEdificacion" type="tns:number"/>
+          <xs:element minOccurs="0" name="IValRealizacion" type="tns:number"/>
+          <xs:element minOccurs="0" name="IValReposicion" type="tns:number"/>
+          <xs:element minOccurs="0" name="IValTerreno" type="tns:number"/>
+          <xs:element minOccurs="0" name="NNiveles" type="tns:number"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeInversionEstado">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CInversionEstadoId" type="tns:number"/>
+          <xs:element minOccurs="0" name="EEstadoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cFondoId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cInversionId" type="xs:string"/>
+          <xs:element minOccurs="0" name="cMaeInversionId" type="tns:number"/>
+          <xs:element minOccurs="0" name="cTipo_inv" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="maeTelefono">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ANumero" type="xs:string"/>
+          <xs:element minOccurs="0" name="BDefault" type="xs:string"/>
+          <xs:element name="benvio" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="CFondoId" type="xs:string"/>
+          <xs:element name="CPersonaId" type="xs:int"/>
+          <xs:element name="CTelefonoId" type="xs:int"/>
+          <xs:element minOccurs="0" name="CTipoTel" type="xs:string"/>
+          <xs:element minOccurs="0" name="maePersona" type="tns:maePersona"/>
+          <xs:element minOccurs="0" name="msj" type="xs:string"/>
+          <xs:element minOccurs="0" name="msjEstado" type="xs:string"/>
+          <xs:element name="NAnexo" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="tabRol">
+    <xs:complexContent>
+      <xs:extension base="tns:base">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="crol" type="xs:string"/>
+          <xs:element name="crolId" type="xs:int"/>
+          <xs:element name="cusuarioRolId" type="xs:int"/>
+          <xs:element minOccurs="0" name="dnombre" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="validarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oTabUsuario" type="tns:tabUsuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:tabUsuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerUsuario">
+    <wsdl:part element="tns:obtenerUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerUsuarioResponse">
+    <wsdl:part element="tns:obtenerUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarUsuario">
+    <wsdl:part element="tns:validarUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarUsuarioResponse">
+    <wsdl:part element="tns:validarUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="seguridadWS">
+    <wsdl:operation name="validarUsuario">
+      <wsdl:input message="tns:validarUsuario" name="validarUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:validarUsuarioResponse" name="validarUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUsuario">
+      <wsdl:input message="tns:obtenerUsuario" name="obtenerUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerUsuarioResponse" name="obtenerUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="seguridadWSSoapBinding" type="tns:seguridadWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="validarUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="validarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="seguridadWS">
+    <wsdl:port binding="tns:seguridadWSSoapBinding" name="seguridadWSPort">
+      <soap:address location="http://localhost:8686/ProcesamientoCredencial-ejb-1.0-SNAPSHOT/seguridadWS/seguridadWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

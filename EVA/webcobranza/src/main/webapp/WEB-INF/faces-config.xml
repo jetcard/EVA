@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <protected-views>
+        
+        <url-pattern>
+            /pages/laft/reporte/reporteOperacion.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/laft/reporte/reporteOperacionMes.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/reporte/reporteDepositoAsesor.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/laft/persona/personasReportadas.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/laft/persona/registrarPerReportada.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/cobranza/clienteBusqueda.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/sistema/cargaDatos.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/sistema/correos.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/sistema/mensajes.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/cobranza/clienteDeudor.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/caja/Deposito/banco.xhtml
+        </url-pattern>
+        <url-pattern>
+            /pages/util/tipoCambio.xhtml
+        </url-pattern>
+         <url-pattern>
+            /pages/legal/gen_demanda.xhtml
+        </url-pattern>
+    </protected-views>
+    
+    <application>
+        <locale-config>
+            <default-locale>es_PE</default-locale>
+            <supported-locale>en_US</supported-locale>
+            <supported-locale>es</supported-locale>
+            <supported-locale>es_PE</supported-locale>
+            <supported-locale>de</supported-locale>
+            <supported-locale>fr_FR</supported-locale>
+            <supported-locale>it_IT</supported-locale>
+            <supported-locale>pt_br</supported-locale>
+            <supported-locale>en_AR</supported-locale>
+        </locale-config>
+    </application>
+    <render-kit>
+        <renderer>
+            <component-family>javax.faces.Messages</component-family>
+            <renderer-type>javax.faces.Messages</renderer-type>
+            <renderer-class>pop.webcobranzas.util.BootstrapMessagesRenderer</renderer-class>
+        </renderer>
+    </render-kit>    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dashboard</from-outcome>
+            <to-view-id>/dashboard.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    
+</faces-config>

@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:pf="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <f:event type="postAddToView" listener="#{estadoDocumentoManBean.listarProvincia()}"  />
+            <f:event type="postAddToView" listener="#{estadoDocumentoManBean.listarFondos()}"  />
+            <f:event type="postAddToView" listener="#{estadoDocumentoManBean.listarEstadoInversion()}"  />
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Mantenimiento</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Mantenimiento</a>
+                        </li>
+                        <li class="active">
+                            <strong>Estado de TCHN</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formDeudorBusq" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar de Clientes</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <input jsf:id="codigo" jsf:value="#{estadoDocumentoManBean.maeInversion.CInversion}" class="input form-control" type="text" placeholder="Código"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <input jsf:id="documento" jsf:value="#{estadoDocumentoManBean.maeInversion.getcPersonaId().ANroDocumento}" class="input form-control" type="text" placeholder="Documento"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input jsf:id="apeNom" jsf:value="#{estadoDocumentoManBean.maeInversion.dDatoBusq}" class="input form-control" type="text" placeholder="Apellidos o nombres"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 02 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Provincia:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{estadoDocumentoManBean.maeUbigeoP.CUbigeoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItems value="#{estadoDocumentoManBean.ubigeoProv}" var="prov" itemValue="#{prov.CUbigeoId}"  itemLabel="#{prov.DDUbigeoProv}" />
+                                                        <f:ajax listener="#{estadoDocumentoManBean.listarDistrito}" render="distrito"/>
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Distrito:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu id="distrito" value="#{estadoDocumentoManBean.maeUbigeoD.CUbigeoId}"  class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItems value="#{estadoDocumentoManBean.ubigeoDist}" var="dist" itemValue="#{dist.CUbigeoId}"  itemLabel="#{dist.DDUbigeoDist}" />
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{estadoDocumentoManBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{estadoDocumentoManBean.maeFondoList}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Estado:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{estadoDocumentoManBean.maeInversion.eestadoCompromiso}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{estadoDocumentoManBean.cobTablasEstInvList}"  var="tablas" itemValue="#{tablas.ctablaDetId}"  itemLabel="#{tablas.ddescCorta}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 03 Filtros -->
+                                    <div class="row">
+
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkActualizar" jsf:action="#{estadoDocumentoManBean.buscarDeudores()}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+                <!-- Detalle -->
+                <!-- Fila 0002 -->
+                <div class="row">
+                    <!-- Lista de clientes -->
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <i class="fa fa-folder"></i> Detalle de Operaciones
+                            </div>
+                            <div class="ibox-content">
+                                <form jsf:id="formDeudorBusqB" >
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-cliente-deudor">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fondo </th>
+                                                    <th>Código </th>
+                                                    <th>Distrito</th>
+
+                                                    <th style="background-color: #006495; color: #ffffff;">Testimonio</th>
+                                                    <th style="background-color: #006495; color: #ffffff;">Digitación</th>
+
+                                                    <th style="background-color: #004C70; color: #ffffff;">TCHN Recepción</th>
+                                                    <th style="background-color: #004C70; color: #ffffff;">Digitación</th>
+                                                    <th style="background-color: #004C70; color: #ffffff;">Registro</th>
+
+                                                    <th style="background-color: #0093D1; color: #ffffff;">Inscripción Recepción</th>
+                                                    <th style="background-color: #0093D1; color: #ffffff;">Digitación</th>
+
+
+                                                    <th style="background-color: #F2635F; color: #ffffff;">Fecha Mand</th>
+                                                    <th style="background-color: #F2635F; color: #ffffff;">Fecha Poder</th>
+
+                                                    <th>Cliente </th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ui:repeat var="inver" value="#{estadoDocumentoManBean.maeInversionList}" varStatus="inverS">
+                                                <tr >
+                                                    <td>#{inver.maeFondo.DFondo}</td>
+                                                    <td>
+                                                        <a data-toggle="tab" href="##{inver.CInversion}" class="client-link">
+                                                            #{inver.CInversion}
+                                                        </a>
+                                                    </td>
+                                                    <td>#{inver.maeInmueble.maeUbigeo.DDUbigeoDist}</td>
+                                                    <td class="blue">Testimonio</td>
+                                                    <td>Test. Dig</td>
+
+                                                    <td>TCHN</td>
+                                                    <td>TCHN Dig</td>
+                                                    <td>TCHN Registro</td>
+
+                                                    <td>Inscripción</td>
+                                                    <td>Fecha Ins. Hip</td>
+                                                    <td>Fecha Ins. Mand</td>
+
+                                                    <td>#{inver.getcPersonaId().DApePat} #{inver.getcPersonaId().DApeMat}, #{inver.getcPersonaId().DNombres}</td>
+
+                                                    <td>
+                                                <ui:repeat var="invEst" value="#{inver.maeInversionEstadoList}">
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0003'}">
+                                                        <span class="label label-orange">Ampliado</span><br/>
+                                                    </ui:fragment> 
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0004'}">
+                                                        <span class="label label-success">Refinanciado</span><br/>
+                                                    </ui:fragment> 
+
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0002'}">
+                                                        <span class="label label-black">Cancelado</span><br/>
+                                                    </ui:fragment> 
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0005'}">
+                                                        <span class="label label-danger">Judicial</span><br/>
+                                                    </ui:fragment> 
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0006'}">
+                                                        <span class="label label-info">Cobranza</span><br/>
+                                                    </ui:fragment> 
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0007'}">
+                                                        <span class="label label-orange">Transf.Endosado</span><br/>
+                                                    </ui:fragment>                                                     
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0008'}">
+                                                        <span class="label label-success">Transf.ReFinanciado</span><br/>
+                                                    </ui:fragment>                                                                                        
+                                                    <ui:fragment rendered="#{invEst.EEstadoId=='0009'}">
+                                                        <span class="label label-orange">Transf.Ampliado</span><br/>
+                                                    </ui:fragment>                                                                                      
+                                                </ui:repeat>
+                                                </td>
+                                                </tr>
+                                            </ui:repeat>  
+
+                                            <tr >
+                                                <td>FONDO PEREZ HIDALGO</td>
+                                                <td><a data-toggle="tab" href="##{inver.CInversion}" class="client-link">TCHN09423</a></td>
+                                                <td>VILLA EL SALVADOR</td>
+
+                                                <td>01/01/2017</td>
+                                                <td>01/01/2017</td>
+
+                                                <td>04/04/2017</td>
+                                                <td>04/04/2017</td>
+                                                <td>0006732</td>
+
+                                                <td>07/01/2017</td>
+                                                <td>07/01/2017</td>
+
+                                                <td>08/01/2017</td>
+                                                <td>08/01/2017</td>
+
+                                                <td>DORIA ROJAS, EDUARDO</td>
+
+                                                <td><span class="label label-info">Cobranza</span><br/></td>
+                                            </tr>
+
+                                            <tr >
+                                                <td>FONDO PEREZ HIDALGO</td>
+                                                <td><a data-toggle="tab" href="##{inver.CInversion}" class="client-link">TCHN09423</a></td>
+                                                <td>VILLA EL SALVADOR</td>
+
+                                                <td>01/01/2017</td>
+                                                <td>01/01/2017</td>
+
+                                                <td>04/04/2017</td>
+                                                <td>04/04/2017</td>
+                                                <td>0006732</td>
+
+                                                <td>07/01/2017</td>
+                                                <td>07/01/2017</td>
+
+                                                <td>08/01/2017</td>
+                                                <td>08/01/2017</td>
+
+                                                <td>DORIA ROJAS, EDUARDO</td>
+
+                                                <td><span class="label label-info">Cobranza</span><br/></td>
+                                            </tr>
+
+                                            <tr >
+                                                <td>FONDO PEREZ HIDALGO</td>
+                                                <td><a data-toggle="tab" href="##{inver.CInversion}" class="client-link">TCHN09423</a></td>
+                                                <td>VILLA EL SALVADOR</td>
+
+                                                <td>01/01/2017</td>
+                                                <td>01/01/2017</td>
+
+                                                <td>04/04/2017</td>
+                                                <td>04/04/2017</td>
+                                                <td>0006732</td>
+
+                                                <td>07/01/2017</td>
+                                                <td>07/01/2017</td>
+
+                                                <td>08/01/2017</td>
+                                                <td>08/01/2017</td>
+
+                                                <td>DORIA ROJAS, EDUARDO</td>
+
+                                                <td><span class="label label-info">Cobranza</span><br/></td>
+                                            </tr>
+
+                                            <tr >
+                                                <td>FONDO PEREZ HIDALGO</td>
+                                                <td><a data-toggle="tab" href="##{inver.CInversion}" class="client-link">TCHN09423</a></td>
+                                                <td>VILLA EL SALVADOR</td>
+
+                                                <td>01/01/2017</td>
+                                                <td>01/01/2017</td>
+
+                                                <td>04/04/2017</td>
+                                                <td>04/04/2017</td>
+                                                <td>0006732</td>
+
+                                                <td>07/01/2017</td>
+                                                <td>07/01/2017</td>
+
+                                                <td>08/01/2017</td>
+                                                <td>08/01/2017</td>
+
+                                                <td>DORIA ROJAS, EDUARDO</td>
+
+                                                <td><span class="label label-info">Cobranza</span><br/></td>
+                                            </tr>
+
+                                            <tr >
+                                                <td>FONDO PEREZ HIDALGO</td>
+                                                <td><a data-toggle="tab" href="##{inver.CInversion}" class="client-link">TCHN09423</a></td>
+                                                <td>VILLA EL SALVADOR</td>
+
+                                                <td>01/01/2017</td>
+                                                <td>01/01/2017</td>
+
+                                                <td>04/04/2017</td>
+                                                <td>04/04/2017</td>
+                                                <td>0006732</td>
+
+                                                <td>07/01/2017</td>
+                                                <td>07/01/2017</td>
+
+                                                <td>08/01/2017</td>
+                                                <td>08/01/2017</td>
+
+                                                <td>DORIA ROJAS, EDUARDO</td>
+
+                                                <td><span class="label label-info">Cobranza</span><br/></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fila 0003 -->
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1"> Testimonio</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2">TCHN</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-3">Inscripción</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-4">Otros</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-5">Archivos</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <form jsf:id="formDetDocSegui" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <!-- Fecha -->
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <label>Fecha :</label> 
+                                                                <div class="data_1" >
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                        </h:inputText>                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-7">
+                                                            <label>Archivo:</label> 
+                                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                <div class="form-control" data-trigger="fileinput">
+                                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-default btn-file">
+                                                                    <span class="fileinput-new">Seleccionar archivo</span>
+                                                                    <span class="fileinput-exists">Cambiar</span>
+                                                                    <o:inputFile id="file" value="#{documentoBean.documentoDetBean.fileUploadBean.files}" multiple="true" />
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Borrar</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label>Observaciones :</label> 
+                                                            <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                             p:placeholder="Escribir comentarios..." >
+                                                            </h:inputTextarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row border-bottom white-bg dashboard-header">
+                                                        <div class="col-sm-10">
+                                                            <div class="form-group">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-primary" name="btnGrabar0001"  
+                                                                    jsf:id="btnGrabar0001"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" >
+                                                                <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                <i class="fa fa-upload"></i>
+                                                                <span class="bold">Grabar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 animated fadeIn">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a 
+                                                                        target="_blank">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                        <div class="file-name">
+                                                                            9423_TEST_7bfc989c-4771-49eb-bb61-f9cbfb45beab.pdf
+                                                                            <br/>
+                                                                            <small>
+                                                                                JYOVERA
+                                                                                <h:outputLabel class="text-danger" 
+                                                                                               value="01/01/2017 15:25:35">
+                                                                                </h:outputLabel>
+                                                                            </small>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    <form jsf:id="formDetDocSeguiB" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <!-- Fecha -->
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <label>Fecha:</label> 
+                                                                <div class="data_1" >
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                        </h:inputText>                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-3">
+                                                            <label>Registro:</label> 
+                                                            <div class="form-group">
+                                                                <input jsf:id="codigoTCHN"  class="input form-control" type="text" placeholder="Registro"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>Archivo:</label> 
+                                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                <div class="form-control" data-trigger="fileinput">
+                                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-default btn-file">
+                                                                    <span class="fileinput-new">Seleccionar archivo</span>
+                                                                    <span class="fileinput-exists">Cambiar</span>
+                                                                    <o:inputFile id="file2" value="#{documentoBean.documentoDetBean.fileUploadBean.files}" multiple="true" />
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Borrar</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label>Observaciones :</label> 
+                                                            <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                             p:placeholder="Escribir comentarios..." >
+                                                            </h:inputTextarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row border-bottom white-bg dashboard-header">
+                                                        <div class="col-sm-10">
+                                                            <div class="form-group">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-primary" name="btnGrabar0002"  
+                                                                    jsf:id="btnGrabar0002"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" >
+                                                                <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                <i class="fa fa-upload"></i>
+                                                                <span class="bold">Grabar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 animated fadeIn">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a 
+                                                                        target="_blank">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                        <div class="file-name">
+                                                                            9423_TCHN_7bfc989c-4771-49eb-bb61-f9cbfb45beab.pdf
+                                                                            <br/>
+                                                                            <small>
+                                                                                JYOVERA
+                                                                                <h:outputLabel class="text-danger" 
+                                                                                               value="01/01/2017 15:25:35">
+                                                                                </h:outputLabel>
+                                                                            </small>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <form jsf:id="formDetDocSeguiC" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <!-- Fecha -->
+                                                        <div class="col-md-5">
+                                                            <div class="form-group">
+                                                                <label>Fecha :</label> 
+                                                                <div class="data_1" >
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                        </h:inputText>                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-7">
+                                                            <br/>
+                                                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                <div class="form-control" data-trigger="fileinput">
+                                                                    <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                                                    <span class="fileinput-filename"></span>
+                                                                </div>
+                                                                <span class="input-group-addon btn btn-default btn-file">
+                                                                    <span class="fileinput-new">Seleccionar archivo</span>
+                                                                    <span class="fileinput-exists">Cambiar</span>
+                                                                    <o:inputFile id="file3" value="#{documentoBean.documentoDetBean.fileUploadBean.files}" multiple="true" />
+                                                                </span>
+                                                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Borrar</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label>Observaciones :</label> 
+                                                            <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                             p:placeholder="Escribir comentarios..." >
+                                                            </h:inputTextarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row border-bottom white-bg dashboard-header">
+                                                        <div class="col-sm-10">
+                                                            <div class="form-group">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-primary" name="btnGrabar0003"  
+                                                                    jsf:id="btnGrabar0003"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" >
+                                                                <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                <i class="fa fa-upload"></i>
+                                                                <span class="bold">Grabar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 animated fadeIn">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a 
+                                                                        target="_blank">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                        <div class="file-name">
+                                                                            9423_INSC_7bfc989c-4771-49eb-bb61-f9cbfb45beab.pdf
+                                                                            <br/>
+                                                                            <small>
+                                                                                JYOVERA
+                                                                                <h:outputLabel class="text-danger" 
+                                                                                               value="01/01/2017 15:25:35">
+                                                                                </h:outputLabel>
+                                                                            </small>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <form jsf:id="formDetDocSeguiD" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="row">
+                                                        <!-- Fecha -->
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Fecha Mand.:</label> 
+                                                                <div class="data_1" >
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                        </h:inputText>                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Fecha Poder:</label> 
+                                                                <div class="data_1" >
+                                                                    <div class="input-group date">
+                                                                        <span class="input-group-addon">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                        </h:inputText>                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>  
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label>Observaciones :</label> 
+                                                            <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                             p:placeholder="Escribir comentarios..." >
+                                                            </h:inputTextarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row border-bottom white-bg dashboard-header">
+                                                        <div class="col-sm-10">
+                                                            <div class="form-group">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-primary" name="btnGrabar0004"  
+                                                                    jsf:id="btnGrabar0004"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" >
+                                                                <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                <i class="fa fa-upload"></i>
+                                                                <span class="bold">Grabar</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 animated fadeIn">
+                                                    <div class="row">
+
+                                                    </div>
+                                                </div>        
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="tab-5" class="tab-pane">
+                                    <form jsf:id="formDetDocSeguiE" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="ibox float-e-margins">
+                                                        <div class="ibox-content">
+                                                            <div class="file-manager">
+                                                                <h5>Direcctorios</h5>
+                                                                <ul class="folder-list" style="padding: 0">
+                                                                    <li><a href=""><i class="fa fa-folder"></i> ...</a></li>
+                                                                    <li><a href=""><i class="fa fa-folder"></i> INSCRIPCIONES 10077</a></li>
+                                                                    <li><a href=""><i class="fa fa-folder"></i> TCHN 10077</a></li>
+                                                                    <li><a href=""><i class="fa fa-folder"></i> TESTIMONIO 10077</a></li>
+                                                                </ul>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-9 animated fadeInRight">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        10077.pdf
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        Analisis Legal 10077.pdf
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        Codigo - 10077.pdf
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-excel-o fa-color-green"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        Cronograma y Liquidacion 10077.xls
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-image-o fa-color-blue-30"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        documents.jpg
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger align-right" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file-box">
+                                                                <div class="file">
+                                                                    <a href="#">
+                                                                        <span class="corner"></span>
+                                                                        <div class="icon ">
+                                                                            <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="file-name">
+                                                                        documents.jpg
+                                                                        <br/>
+                                                                        <small>Add: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <small>Mod: 16/05/2016 21:57:39</small>
+                                                                        <br/>
+                                                                        <center>
+                                                                            <button class="btn btn-outline btn-danger" type="button">
+                                                                                <i class="fa fa-trash-o"></i>
+                                                                            </button>
+                                                                        </center>  
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/calendar.js"></script> 
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <!-- FooTable -->
+            <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+            <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+            <!-- DROPZONE -->
+            <script src="../../resources/template/js/plugins/dropzone/dropzone.js"></script>
+
+            <link href="../../resources/template/css/plugins/dropzone/basic.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/dropzone/dropzone.css" rel="stylesheet"/>
+
+            <!-- Jasny -->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+            <link href="../../resources/template/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>  
+
+            <div jsf:id="demoIdAx">
+                <script>
+                    $(document).ready(function () {
+                        $(".touchspin1").TouchSpin({
+                            buttondown_class: 'btn btn-white',
+                            buttonup_class: 'btn btn-white'
+                        });
+                    });
+
+                    $('#data_1 .input-group.date').datepicker({
+                        timePicker: true,
+                        timePickerIncrement: 30,
+                        startDate: '01/01/2000',
+                        endDate: '01/01/2030',
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        autoclose: true,
+                        todayBtn: "linked"
+                    });
+
+                    $('.fullscreen-link').click(function () {
+                        var ibox = $(this).closest('div.ibox');
+                        var button = $(this).find('i');
+                        $('body').toggleClass('fullscreen-ibox-mode');
+                        button.toggleClass('fa-expand').toggleClass('fa-compress');
+                        ibox.toggleClass('fullscreen');
+                        setTimeout(function () {
+                            $(window).trigger('resize');
+                        }, 100);
+                    });
+                    $('.full-height-scroll').slimscroll({
+                        height: '100%'
+                    });
+                    $('.footable').footable();
+                    $('.footable2').footable();
+                    $('.clockpicker').clockpicker();
+                    // Tooltips demo
+                    $('.tooltip-demo').tooltip({
+                        selector: "[data-toggle=tooltip]",
+                        container: "body"
+                    });
+                </script>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $(".touchspin1").TouchSpin({
+                        buttondown_class: 'btn btn-white',
+                        buttonup_class: 'btn btn-white'
+                    });
+                    $('.clockpicker').clockpicker();
+                });
+
+            </script>
+
+            <div jsf:id="jsLoadComplement">
+                <script>
+
+                    $('.data_1 .input-group.date').datepicker({
+                        timePicker: true,
+                        timePickerIncrement: 30,
+                        startDate: '01/01/2000',
+                        endDate: '01/01/2030',
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        autoclose: true,
+                        todayBtn: "linked"
+                    });
+
+                </script>
+            </div>
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

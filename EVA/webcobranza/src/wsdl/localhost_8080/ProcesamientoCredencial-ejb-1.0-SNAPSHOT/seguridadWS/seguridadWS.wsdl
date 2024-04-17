@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservices.webcobranzas.pop/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="seguridadWS" targetNamespace="http://webservices.webcobranzas.pop/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.webcobranzas.pop/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservices.webcobranzas.pop/">
+  <xs:element name="authTest" type="tns:authTest"/>
+  <xs:element name="authTestResponse" type="tns:authTestResponse"/>
+  <xs:element name="cambiarUsuario" type="tns:cambiarUsuario"/>
+  <xs:element name="cambiarUsuarioResponse" type="tns:cambiarUsuarioResponse"/>
+  <xs:element name="obtenerUsuario" type="tns:obtenerUsuario"/>
+  <xs:element name="obtenerUsuarioResponse" type="tns:obtenerUsuarioResponse"/>
+  <xs:complexType name="obtenerUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuario" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bcontrasenia" type="xs:string"/>
+      <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+      <xs:element minOccurs="0" name="contraseniaB" type="xs:string"/>
+      <xs:element minOccurs="0" name="correo" type="tns:correo"/>
+      <xs:element name="estado" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="menu" nillable="true" type="tns:menu"/>
+      <xs:element name="numLlamada" type="xs:int"/>
+      <xs:element minOccurs="0" name="perApeMat" type="xs:string"/>
+      <xs:element minOccurs="0" name="perApePat" type="xs:string"/>
+      <xs:element name="perId" type="xs:int"/>
+      <xs:element minOccurs="0" name="perNom" type="xs:string"/>
+      <xs:element minOccurs="0" name="rol" type="tns:rol"/>
+      <xs:element minOccurs="0" name="telefono" type="tns:telefono"/>
+      <xs:element minOccurs="0" name="usuarioId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="correo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="corDesc" type="xs:string"/>
+      <xs:element name="corId" type="xs:int"/>
+      <xs:element minOccurs="0" name="corTipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="menu">
+    <xs:sequence>
+      <xs:element name="cmenu" type="xs:int"/>
+      <xs:element name="cmenuId" type="xs:int"/>
+      <xs:element name="cmenuPadre" type="xs:int"/>
+      <xs:element minOccurs="0" name="menuA" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAE" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAUrl" type="xs:string"/>
+      <xs:element minOccurs="0" name="simbolo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="oMenuList" nillable="true" type="tns:menu"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rol">
+    <xs:sequence>
+      <xs:element name="rolId" type="xs:int"/>
+      <xs:element minOccurs="0" name="rolNombre" type="xs:string"/>
+      <xs:element name="rolUsuarioId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="telefono">
+    <xs:sequence>
+      <xs:element name="telId" type="xs:int"/>
+      <xs:element minOccurs="0" name="telNumero" type="xs:string"/>
+      <xs:element minOccurs="0" name="telTipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authTest">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="authTestResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuarioB" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerUsuario">
+    <wsdl:part element="tns:obtenerUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerUsuarioResponse">
+    <wsdl:part element="tns:obtenerUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cambiarUsuario">
+    <wsdl:part element="tns:cambiarUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cambiarUsuarioResponse">
+    <wsdl:part element="tns:cambiarUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authTest">
+    <wsdl:part element="tns:authTest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authTestResponse">
+    <wsdl:part element="tns:authTestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="seguridadWS">
+    <wsdl:operation name="obtenerUsuario">
+      <wsdl:input message="tns:obtenerUsuario" name="obtenerUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerUsuarioResponse" name="obtenerUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="authTest">
+      <wsdl:input message="tns:authTest" name="authTest">
+    </wsdl:input>
+      <wsdl:output message="tns:authTestResponse" name="authTestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cambiarUsuario">
+      <wsdl:input message="tns:cambiarUsuario" name="cambiarUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:cambiarUsuarioResponse" name="cambiarUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="seguridadWSSoapBinding" type="tns:seguridadWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtenerUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="authTest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="authTest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authTestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cambiarUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cambiarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cambiarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="seguridadWS">
+    <wsdl:port binding="tns:seguridadWSSoapBinding" name="seguridadWSPort">
+      <soap:address location="http://localhost:8080/ProcesamientoCredencial-ejb-1.0-SNAPSHOT/seguridadWS/seguridadWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

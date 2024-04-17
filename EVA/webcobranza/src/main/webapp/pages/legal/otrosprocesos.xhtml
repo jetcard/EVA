@@ -1,0 +1,970 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core" >
+
+    <f:metadata>
+        <f:event type="postAddToView" listener="#{legalBean.listarFondos()}"/>
+        <f:event type="postAddToView" listener="#{legalBean.listarMateriaOtrosProcesos()}"/>
+        <f:event type="postAddToView" listener="#{legalBean.listarTipoOtrosProcesos()}"/>
+    </f:metadata>
+ 
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+               
+                <f:event type="preRenderView" listener="#{estadoCuentaBean.iniciarFecha()}" />
+                <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Clientes</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Legal</a>
+                        </li>
+                        <li class="active">
+                            <strong>Registrar otros procesos judiciales</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!--body onload="ocultar()"></body-->
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formEstaCuentaF" jsf:prependId="false" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar de Clientes</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                  <label class="font-noraml">Codigo:</label>
+                                                <input jsf:id="codigo" jsf:value="#{legalBean.maeInversion.CInversion}" class="input form-control" type="text" placeholder="TCHN" oninput="autocompletarCeros(this);"/>
+                                            </div>
+                                        </div>
+                                         <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{legalBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{legalBean.maeFondoList.subList(0,4)}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                  <label class="font-noraml">Dni:</label>
+                                                <input  jsf:id="documento" jsf:value="#{legalBean.maeInversion.getcPersonaId().ANroDocumento}" class="input form-control" type="text" placeholder="DNI"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkBuscar" jsf:actionListener="#{legalBean.buscarOtrosProcesos()}" class="btn btn-primary btn-block m-t"   >
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+                                       
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                    <p style="color:red">
+                        <strong>
+                        #{legalBean.mensajeRpta}
+                        </strong>
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <h:commandButton id="cbAgregar" value="Agregar" class="btn btn-primary btn-block m-t"  actionListener="#{legalBean.nuevoOtroProceso2}"/>
+                        </div>                    
+                        <div class="col-sm-8">
+                           
+                        </div>
+                        <div class="col-sm-2">
+                            <h:commandButton id="cbExcel" value="Excel" class="btn btn-primary btn-block m-t" actionListener="#{legalBean.exportarExcel}"/>
+                        </div>
+                    </div>
+                    <hr/>
+                   </div>                 
+                </form>
+
+                <h:form enctype="multipart/form-data" prependId="false"  >
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <!-- Lista de clientes -->
+                        <div class="col-sm-12">
+                                <div class="ibox-content">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> TCHN</a></li>
+                                    </ul>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fondo </th>
+                                                            <th>Código</th>
+                                                            <th>Propietario</th>
+                                                            <th>Estado</th>
+                                                            <th>Materia</th>
+                                                            <th>Tipo</th>
+                                                            <th>Organo</th>
+                                                            <th>Seguimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ui:repeat var="otroproc" value="#{legalBean.legalOtroProcesoList}" varStatus="tchnS">
+                                                        <tr height="10" >
+                                                            <td>#{otroproc.descFondo}</td>
+                                                            <td align="center">
+                                                                <span>
+                                                                    <ui:fragment id="f1" rendered="#{otroproc.estado.trim()==''}">
+                                                                    	#{otroproc.codigoTCHN}
+                                                                    </ui:fragment>
+                                                                    <ui:fragment id="f2" rendered="#{otroproc.estado.trim()=='01' || otroproc.estado.trim()=='02'}">
+                                                                        <h:commandButton id="btnModificar" value="#{otroproc.codigoTCHN}" styleClass="like-anchor" action="#{legalBean.modificaOtroProceso(otroproc)}"  />
+                                                                    </ui:fragment>
+                                                                </span>
+                                                            </td>                                                     
+                                                            <td>#{otroproc.apellidoPat} #{otroproc.apellidoMat}, #{otroproc.nombres}</td>
+                                                            <td>#{otroproc.descEstado}</td>
+                                                            <td>#{otroproc.descripcionMateria}</td>
+                                                            <td>#{otroproc.descripcionTipo}</td>
+                                                            <td>#{otroproc.organocompetente}</td>   
+                                                            <td>
+                                                                <span class="input-group-btn">
+                                                                    <ui:fragment id="f3" rendered="#{otroproc.numeroSeguimientos>0}">
+                                                                        <h:commandButton id="btnSeguiVer" value="Ver"  class="btn btn-primary btn-block m-t" action="#{legalBean.listarSeguimientosOtros(otroproc)}"  />
+                                                                    </ui:fragment>
+                                                                </span>
+                                                                <span class="input-group-btn">
+                                                                    <ui:fragment id="f4" rendered="#{otroproc.numeroSeguimientos==0 and otroproc.estado.trim()!=''}">
+                                                                    <h:commandButton id="btnSeguiNuevo" value="Nuevo Seguimiento"  class="btn btn-primary btn-block m-t" action="#{legalBean.nuevoSgtoOtroProceso(otroproc)}"  />
+                                                                    </ui:fragment>
+                                                                </span>                                                                
+                                                            </td>
+                                                        </tr>
+                                                    </ui:repeat> 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </h:form>
+
+
+                <form jsf:id="formAddOtro" rendered="#{legalBean.mostrarAddOtroProceso}"  onkeypress="return anular(event)">
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row" id="formularioDiv">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Registro de otro proceso judicial</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                         <thead>
+                                             <th>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                       <label class="font-noraml">Demandado:</label>
+                                                      </div>
+                                                      <div class="col-sm-4">
+                                                          #{legalBean.demandado} 
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Demandante: </label>
+                                                     </div>
+                                                     <div class="col-sm-2">
+                                                          #{legalBean.demandante} 
+                                                     </div>
+                                                 </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Materia: </label></div>
+                                                      <div class="col-sm-3">
+                                                          <h:selectOneMenu value="#{legalBean.materia}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione materia" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legMateriaOtroProcesoList}" var="item" itemValue="#{item.CTablaId}"  itemLabel="#{item.DTabla}" />
+                                                          </h:selectOneMenu>
+                                                      </div>
+                                                       <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Tipo: </label></div>
+                                                      <div class="col-sm-4">
+                                                          <h:selectOneMenu value="#{legalBean.tipoOtroProceso}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione tipo otro proceso judicial" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legTipoOtroProcesoList}" var="itemn" itemValue="#{itemn.CTablaId}"  itemLabel="#{itemn.DTabla}" />
+                                                          </h:selectOneMenu>
+                                                       </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Expediente: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="expediente" name="expediente" value="#{legalBean.nroExpediente}"  size="50"  class="input form-control" type="text" placeholder="Número expediente" align="left" required="true"/>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Organo: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="organoCompetente" name="organoCompetente" value="#{legalBean.organoCompetente}"  size="50"  class="input form-control" type="text" placeholder="Organo competente" align="left" required="true"/>
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Especialista: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="especialista" name="especialista" value="#{legalBean.especialista}"  size="50"  class="input form-control" type="text" placeholder="Especialista" align="left" required="true"/>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                            <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechademanda" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>                                                         
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Descripcion: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes" jsf:value="#{legalBean.descripcionOtroProceso}" class="input form-control"  placeholder="Descripción" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{legalBean.usuario}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.insertarOtroProceso()}"> 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-1" >
+                                                         <h:commandButton  type="reset" id="btnCerrarAgregar" value="Cerrar" class="btn btn-primary btn-block m-t" onclick="resetForm()"/> 
+                                                     </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form>                 
+                
+                <form jsf:id="formModiotro" rendered="#{legalBean.mostrarModiOtroProceso}"  onkeypress="return anular(event)">
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Modificar otro proceso judicial</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                         <thead>
+                                             <th>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                       <label class="font-noraml">Demandado:</label>
+                                                      </div>
+                                                      <div class="col-sm-4">
+                                                          #{legalBean.demandado} 
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Demandante: </label>
+                                                     </div>
+                                                     <div class="col-sm-2">
+                                                          #{legalBean.demandante} 
+                                                     </div>
+                                                 </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Materia: </label></div>
+                                                      <div class="col-sm-3">
+                                                          <h:selectOneMenu id="cboEspecie" value="#{legalBean.materia}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione materia" noSelectionOption="true"/>
+                                                            <f:selectItems value="#{legalBean.legMateriaOtroProcesoList}" var="itemn" itemValue="#{itemn.CTablaId}"  itemLabel="#{itemn.DTabla}" />
+                                                          </h:selectOneMenu>
+                                                      </div>
+                                                       <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Tipo: </label></div>
+                                                      <div class="col-sm-4">
+                                                          <h:selectOneMenu value="#{legalBean.tipoOtroProceso}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione tipo otro proceso judicial" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legTipoOtroProcesoList}" var="itemn" itemValue="#{itemn.CTablaId}"  itemLabel="#{itemn.DTabla}" />
+                                                          </h:selectOneMenu>
+                                                       </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Expediente: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="expediente2" name="expediente2" value="#{legalBean.nroExpediente}"  size="50"  class="input form-control" type="text" placeholder="Número expediente" align="left" required="true"/>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Organo: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="organoCompetente2" name="organoCompetente2" value="#{legalBean.organoCompetente}"  size="50"  class="input form-control" type="text" placeholder="Organo competente" align="left" required="true"/>
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Especialista: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <input jsf:id="especialista2" name="especialista2" value="#{legalBean.especialista}"  size="50"  class="input form-control" type="text" placeholder="Especialista" align="left" required="true"/>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                            <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechademanda2" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>                                                         
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Descripcion: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes2" jsf:value="#{legalBean.descripcionOtroProceso}" class="input form-control"  placeholder="Descripción" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{legalBean.usuario}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.modificarOtroProceso()}"> 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-1" >
+                                                         <h:commandButton   id="btn2"  value="cerrar" class="btn btn-primary btn-block m-t"   action="#{legalBean.cerrarPantallaModificarOtroProd()}"  /> 
+                                                     </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form>                 
+                
+                <h:form rendered="#{legalBean.mostrarVerSgtosOtroProceso}" enctype="multipart/form-data" prependId="false"  >
+                    <div class="row">
+                      <div class="col-sm-2" >
+                          <span class="input-group-btn">
+                              <table class="table"> <tr>
+                                      <th><h:commandButton id="btngaregaSegui" value="Agregar" class="btn btn-primary btn-block m-t"  action="#{legalBean.nuevoSgtoOtroProceso()}"  />
+                                          </th>
+                                   </tr>
+                              </table>       
+                     </span>
+                     </div>                    
+                     </div> 
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <!-- Lista de clientes -->
+                        <div class="col-sm-12">
+                                <div class="ibox-content">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Seguimiento</a></li>
+                                    </ul>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha </th>
+                                                            <th>Descripción</th>
+                                                            <th>       Accion       </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ui:repeat var="sgto" value="#{legalBean.legalSgtoOtroProcesoList}" varStatus="tchnS">
+                                                        <tr height="10" >
+                                                            <th>
+                                                                <h:outputLabel value="#{sgto.fecha}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                </h:outputLabel>  
+                                                            </th>
+                                                            <th>#{sgto.descripcion}</th>                                                        
+                                                            <th>
+                                                                <span class="input-group-btn">
+                                                                <h:commandButton id="btnAccion2" value="Modificar"  class="btn btn-primary btn-block m-t" action="#{legalBean.modificaSgtoOtroProceso(sgto)}"  />
+                                                                </span>
+                                                            </th>
+                                                        </tr>
+                                                    </ui:repeat> 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </h:form>
+               
+                <form jsf:id="formAddSgtoOtro" rendered="#{legalBean.mostrarAddSgtoOtroProceso}"  onkeypress="return anular(event)">
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Registro de seguimiento</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                         <thead>
+                                             <th>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                            <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechaoperacionsgto" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>     
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml"> </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Descripcion: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes" jsf:value="#{legalBean.descripcionOtroProceso}" class="input form-control"  placeholder="Descripción" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{legalBean.usuario}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.insertarSgtoOtroProceso()}"> 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-1" >
+                                                         <h:commandButton   id="btn2"  value="cerrar" class="btn btn-primary btn-block m-t"   action="#{legalBean.cerrarPantallaInsertarSgtoOtroProd()}"  /> 
+                                                     </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form>                                 
+                
+                <form jsf:id="formModiSgtoOtro" rendered="#{legalBean.mostrarModiSgtoOtroProceso}"  onkeypress="return anular(event)">
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Modificar seguimiento</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                         <thead>
+                                             <th>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                            <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechaoperacionsgto2" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>     
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml"> </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Descripcion: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes2" jsf:value="#{legalBean.descripcionOtroProceso}" class="input form-control"  placeholder="Descripción" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{legalBean.usuario}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.modificarSgtoOtroProceso()}"> 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-1" >
+                                                         <h:commandButton   id="btn2"  value="cerrar" class="btn btn-primary btn-block m-t"   action="#{legalBean.cerrarPantallaModiSgtoOtroProd()}"  /> 
+                                                     </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form>                                 
+                
+                
+                </div> 
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+            
+            <!-- FooTable -->
+            <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+            <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+            <link href="../../resources/template/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+
+            <!--- Css datapicker -->
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+            <link href="../../resources/personal/css/procesos.css" rel="stylesheet"/>
+            
+            <!-- Autocompetado del input codigo con ceros -->
+            <script src="../../resources/template/js/autocompletado.js"></script>
+            
+            <h:outputScript library="javax.faces" name="jsf.js"/>
+
+            <script >
+                                                    $('#divRangoFecha .input-daterange').datepicker({
+                                                        keyboardNavigation: false,
+                                                        forceParse: false,
+                                                        autoclose: true,
+                                                        format: 'dd/mm/yyyy',
+                                                        language: 'es',
+                                                        todayBtn: "linked"
+                                                    });
+                                                    $('#data_1 .input-group.date').datepicker({
+                                                        timePicker: true,
+                                                        timePickerIncrement: 30,
+                                                        startDate: '01/01/2008',
+                                                        endDate: '01/01/2030',
+                                                        format: 'dd/mm/yyyy',
+                                                        language: 'es',
+                                                        todayBtn: "linked",
+                                                        autoclose: true
+                                                    });
+            </script>
+
+               
+            <script type="text/javascript">
+               
+                function anular(e) {
+                    tecla = (document.all) ? e.keyCode : e.which;
+                    return (tecla != 13);
+               }  
+                
+                document.getElementById('codigo').addEventListener('input', function() {
+                    autocompletarCeros(this);
+                });
+                
+                function resetForm() {
+                    // Ocultar el formulario div al hacer clic en "Reset"
+                    var formularioDiv = document.getElementById("formularioDiv");
+                    formularioDiv.style.display = "none";
+                }                
+            </script> 
+             
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Procesar Deposito</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Procesar</a>
+                        </li>
+                        <li class="active">
+                            <strong>Procesar Deposito</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <!-- Filtros-->
+                <div class="row">
+                    <!-- Filtros-->
+                    <div class="col-lg-12">
+                        <form jsf:id="formCabecera" >
+                            <div class="ibox">
+                                <div class="ibox-title blue-bg">
+                                    <h5>Despositos</h5>
+                                </div>
+                                <div class="ibox-content ">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{depositoProBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItems value="#{depositoProBean.maeFondoList}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                        <f:ajax execute="@this" listener="#{depositoProBean.listarBanco}" render="divCuenta"/>
+                                                    </h:selectOneMenu>	
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4" jsf:id="divCuenta" >
+                                            <div class="form-group">
+                                                <label class="font-noraml">Cuenta: </label>
+
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{depositoProBean.maeCuenta.ccuentaId}" class="form-control m-b">
+                                                        <f:selectItems value="#{depositoProBean.maeCuentaList}" var="bancoCuen" 
+                                                                       itemValue="#{bancoCuen.ccuentaId}"  
+                                                                       itemLabel="#{bancoCuen.maeBanco.ddescCorto} - #{bancoCuen.dnroCuenta}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="col-md-2">
+                                                    <span class="input-group-btn">
+                                                        <a jsf:id="linkActualizar" jsf:action="#{depositoProBean.buscarDatos()}" class="btn btn-primary btn-block m-t">
+                                                            <i class="fa fa-search"></i>
+                                                            Buscar
+                                                        </a>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                
+
+                <!-- detalle -->
+                <div class="row">
+                    <form jsf:id="formDetaDepos" >
+                        <!-- Lista-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title blue-bg">
+                                    <h5>Lista de Despositos</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="table-responsive">
+                                        <table  class="table table-striped table-bordered table-hover dataTables-clien">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha </th>
+                                                    <th>Descripción </th>
+                                                    <th>Monto </th>
+                                                    <th>Saldo</th>
+                                                    <th>Sucursal </th>
+                                                    <th>Operacion</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ui:repeat var="depos" value="#{bancoBean.maeDepositoList}" varStatus="deposS">
+                                                <tr>
+                                                    <th> 
+                                                <h:outputLabel value="#{depos.FBcoDeposito}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                </h:outputLabel>
+                                                </th>
+                                                <th>#{depos.DBcoDescripcion} </th>
+                                                <th>
+                                                    #{depos.IBcoDepositado} 
+                                                </th>
+                                                <th>#{depos.IBcoSaldo} </th>
+                                                <th>#{depos.DBcoSucursal} </th>
+                                                <th>#{depos.DBcoNoperacion} </th>
+                                                <th>
+                                                <ui:fragment rendered="#{depos.bencontrado=='1'}">
+                                                    <span class="label label-danger">Grabado</span>
+                                                </ui:fragment> 
+                                                <ui:fragment rendered="#{depos.bencontrado=='0'}">
+                                                    <span class="label label-success">Ok</span>
+                                                </ui:fragment> 
+                                                </th>
+                                                </tr>
+                                            </ui:repeat>  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- detalle -->
+                <div class="row">
+                    <form jsf:id="formProcesarDepos" >
+                        <!-- Proceso -->
+                        <div class="col-lg-12">
+                            <!-- Button Filtros -->
+                            <div class="col-sm-2 col-sm-offset-9">
+                                <div class="widget text-center ">
+                                    <button jsf:id="btnGrabar"  class="btn btn-primary btn-lg"  jsf:action="#{bancoBean.grabarDepositos()}" >
+                                        <i class="fa fa-cogs"></i>
+                                        <span class="bold">Procesar Depositos</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../../resources/template/js/inspinia.js"></script>
+            <script src="../../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../../resources/personal/js/calendar.js"></script> 
+            <script src="../../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <link href="../../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+
+            <link href="../../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

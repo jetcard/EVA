@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Cargar</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Cargar</a>
+                        </li>
+                        <li class="active">
+                            <strong>Datos</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    
+                     <div class="col-lg-3">
+                       <div class="ibox">
+                            <div class="ibox-title">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5>Fondo Capital Emprendedor</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="btn-group">
+                                            <h:form prependId="false">
+                                                <button class="btn btn-primary" jsf:action="#{cargaDatosBean.actionFEM()}" >
+                                                    <f:ajax execute="@this" render="outputfemprendedor" onevent="monitorfemp"></f:ajax>
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
+                                                <h:outputText id="outputfemprendedor" value="#{cargaDatosBean.message}"></h:outputText>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div id="imagefemp" class="sk-spinner sk-spinner-wave" style="display:none;">
+                                    <div class="sk-rect1"></div>
+                                    <div class="sk-rect2"></div>
+                                    <div class="sk-rect3"></div>
+                                    <div class="sk-rect4"></div>
+                                    <div class="sk-rect5"></div>
+                                </div>
+                                <div id="resultadofemp" class="stat-percent font-bold text-success" style="display:none;">100% <i class="fa fa-bolt"></i></div>
+                                <div class="m-t-sm small">Server down since 4:32 pm.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5>Fondo Popular </h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="btn-group">
+                                            <h:form prependId="false">
+                                                <button class="btn btn-primary" jsf:action="#{cargaDatosBean.actionFPO()}" >
+                                                    <f:ajax execute="@this" render="outputfpop" onevent="monitorfpop"></f:ajax>
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
+                                                <h:outputText id="outputfpop" value="#{cargaDatosBean.message}"></h:outputText>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div id="imagefpop" class="sk-spinner sk-spinner-wave" style="display:none;">
+                                    <div class="sk-rect1"></div>
+                                    <div class="sk-rect2"></div>
+                                    <div class="sk-rect3"></div>
+                                    <div class="sk-rect4"></div>
+                                    <div class="sk-rect5"></div>
+                                </div>
+                                <div id="resultadofpop" class="stat-percent font-bold text-success" style="display:none;">100% <i class="fa fa-bolt"></i></div>
+                                <div class="m-t-sm small">Server down since 4:32 pm.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="col-lg-3">
+                       <div class="ibox">
+                            <div class="ibox-title">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5>Fondo MYPE</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="btn-group">
+                                            <h:form prependId="false">
+                                                <button class="btn btn-primary" jsf:action="#{cargaDatosBean.actionFMY()}" >
+                                                    <f:ajax execute="@this" render="outputfmype" onevent="monitorfmype"></f:ajax>
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
+                                                <h:outputText id="outputfmype" value="#{cargaDatosBean.message}"></h:outputText>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div id="imagefmype" class="sk-spinner sk-spinner-wave" style="display:none;">
+                                    <div class="sk-rect1"></div>
+                                    <div class="sk-rect2"></div>
+                                    <div class="sk-rect3"></div>
+                                    <div class="sk-rect4"></div>
+                                    <div class="sk-rect5"></div>
+                                </div>
+                                <div id="resultadofmype" class="stat-percent font-bold text-success" style="display:none;">100% <i class="fa fa-bolt"></i></div>
+                                <div class="m-t-sm small">Server down since 4:32 pm.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox">
+                            <div class="ibox-title">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h5>Fondo P. H. </h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="btn-group">
+                                            <h:form prependId="false">
+                                                <button class="btn btn-primary" jsf:action="#{cargaDatosBean.actionFPH()}" >
+                                                    <f:ajax execute="@this" render="outputfph" onevent="monitorfph"></f:ajax>
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
+                                                <h:outputText id="outputfph" value="#{cargaDatosBean.message}"></h:outputText>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div id="imagefph" class="sk-spinner sk-spinner-wave" style="display:none;">
+                                    <div class="sk-rect1"></div>
+                                    <div class="sk-rect2"></div>
+                                    <div class="sk-rect3"></div>
+                                    <div class="sk-rect4"></div>
+                                    <div class="sk-rect5"></div>
+                                </div>
+                                <div id="resultadofph" class="stat-percent font-bold text-success" style="display:none;">100% <i class="fa fa-bolt"></i></div>
+                                <div class="m-t-sm small">Server down since 4:32 pm.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+
+            <script>
+                function monitorfemp(data) {
+                    var loading = document.getElementById("imagefemp");
+                    var resultado = document.getElementById("resultadofemp");
+
+                    if (data.status == "begin") {
+                        loading.style.display = "block";
+                        resultado.style.display = "none";
+                    } else if (data.status == "success") {
+                        loading.style.display = "none";
+                        resultado.style.display = "block";
+                    }
+                }
+                
+                function monitorfpop(data) {
+                    var loading = document.getElementById("imagefpop");
+                    var resultado = document.getElementById("resultadofpop");
+
+                    if (data.status == "begin") {
+                        loading.style.display = "block";
+                        resultado.style.display = "none";
+                    } else if (data.status == "success") {
+                        loading.style.display = "none";
+                        resultado.style.display = "block";
+                    }
+                }
+                
+                function monitorfmype(data) {
+                    var loading = document.getElementById("imagefmype");
+                    var resultado = document.getElementById("resultadofmype");
+
+                    if (data.status == "begin") {
+                        loading.style.display = "block";
+                        resultado.style.display = "none";
+                    } else if (data.status == "success") {
+                        loading.style.display = "none";
+                        resultado.style.display = "block";
+                    }
+                }
+                function monitorfph(data) {
+                    var loading = document.getElementById("imagefph");
+                    var resultado = document.getElementById("resultadofph");
+
+                    if (data.status == "begin") {
+                        loading.style.display = "block";
+                        resultado.style.display = "none";
+                    } else if (data.status == "success") {
+                        loading.style.display = "none";
+                        resultado.style.display = "block";
+                    }
+                }
+                
+            </script>
+            <h:outputScript library="javax.faces" name="jsf.js"/>
+
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

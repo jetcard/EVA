@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:metadata>
+        <f:viewParam name="cpersonaid" value="#{clienteManBean.maePersona.CPersonaId}"/>
+        <f:viewAction action="#{clienteManBean.cargarDatos()}" />
+    </f:metadata>
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <f:event type="postAddToView" listener="#{clienteManBean.listarProvincia()}"  />
+
+            <div class="wrapper wrapper-content">
+                <!-- Datos Personales -->
+                <div class="row">
+                    <form jsf:id="formDatosPers" role="form" jsf:prependId="false">
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title yellow-bg">
+                                    <h5>Personales</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input class="input form-control text-uppercase" type="text" placeholder="Ape Paterno" 
+                                                       jsf:value="#{clienteManBean.maePersona.DApePat}" jsf:id="txtappat" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input class="input form-control text-uppercase" type="text" placeholder="Ape Materno" 
+                                                       jsf:value="#{clienteManBean.maePersona.DApeMat}" jsf:id="txtapmat" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input class="input form-control text-uppercase" type="text" placeholder="Nombres" 
+                                                       jsf:value="#{clienteManBean.maePersona.DNombres}" jsf:id="txtnomb" required=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.maePersona.CTipoDocumento}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasTipoDocList}" var="tDoc" itemValue="#{tDoc.ctablaDetId}"  itemLabel="#{tDoc.ddescCorta}" />
+                                                </h:selectOneMenu>	
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="Documento" 
+                                                       jsf:value="#{clienteManBean.maePersona.ANroDocumento}" jsf:id="txtdoc" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Fecha Nac.:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group" id="data_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                    <h:inputText class="input-sm form-control" id="dateInput" value="#{clienteManBean.maePersona.FNacimiento}" required="" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Sexo.:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.maePersona.cSexoId}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasSexoList}" var="tSexo" itemValue="#{tSexo.ctablaDetId}"  itemLabel="#{tSexo.ddescCorta}" />
+                                                </h:selectOneMenu>	
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Estado Civil:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.maePersona.CEstadoCivil}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasEstadoCivilList}" var="tEstCiv" itemValue="#{tEstCiv.ctablaDetId}"  itemLabel="#{tEstCiv.ddescCorta}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Grado.:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.maePersona.CGradoInstruccion}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasGradoList}" var="tGrado" itemValue="#{tGrado.ctablaDetId}"  itemLabel="#{tGrado.ddescCorta}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Profesión.:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu class="form-control m-b">
+                                                    <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="Centro de Labores"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Antigüedad:</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="2"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Prom Ingre</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="5000"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="onoffswitch">
+                                                    <input type="checkbox"  class="onoffswitch-checkbox" id="chkEstado" 
+                                                           jsf:value="#{clienteManBean.maePersona.eEstado}">
+                                                    </input>
+                                                    <label class="onoffswitch-label" for="chkEstado">
+                                                        <span class="onoffswitch-inner"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" name="btnGrabar"  
+                                            jsf:id="btnGrabar"  jsf:action="#{clienteManBean.grabarPersona()}" >
+                                        <f:ajax execute="formDatosPers" render="msjGrabar" />
+                                        <i class="fa fa-upload"></i>
+                                        <span class="bold">Grabar</span>
+                                    </button>
+                                    <div jsf:id="msjGrabar" jsf:name="msjGrabar">
+                                        <div jsf:rendered="#{clienteManBean.showMsg}">
+                                            <script type="text/javascript">
+                                                $(document).ready(function () {
+                                                    toastr.options = {
+                                                        "closeButton": true,
+                                                        "debug": false,
+                                                        "progressBar": true,
+                                                        "preventDuplicates": false,
+                                                        "positionClass": "toast-top-right",
+                                                        "onclick": null,
+                                                        "showDuration": "400",
+                                                        "hideDuration": "1000",
+                                                        "timeOut": "7000",
+                                                        "extendedTimeOut": "1000",
+                                                        "showEasing": "swing",
+                                                        "hideEasing": "linear",
+                                                        "showMethod": "fadeIn",
+                                                        "hideMethod": "fadeOut"
+                                                    };
+                                                    toastr.#{clienteManBean.tipoMsj}('#{clienteManBean.mensaje}', 'Mensaje');
+                                                });
+                                            </script>
+                                        </div>
+                                    </div> 
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Datos Comunicación -->
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="ibox">
+                            <div class="ibox-title blue-bg">
+                                <h5>Comunicación</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <form jsf:id="formDatosComunTel" role="form" jsf:prependId="false" >
+                                            <div class="ibox">
+                                                <div class="ibox-title blue-bg">
+                                                    <h5>Teléfono</h5>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <h:selectOneMenu value="#{clienteManBean.maeTelefono.CTipoTel}" class="form-control m-b">
+                                                                    <f:selectItems value="#{clienteManBean.cobTablasTeleList}" var="tTelef" itemValue="#{tTelef.ctablaDetId}"  itemLabel="#{tTelef.ddescCorta}" />
+                                                                </h:selectOneMenu>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label class="font-noraml"> Teléfono</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="btnAddTel"  
+                                                                    jsf:id="btnAddTel"  jsf:action="#{clienteManBean.agregarTel()}" >
+                                                                <f:ajax execute="formDatosComunTel" render="divTel msjTel" />
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input class="input form-control" type="text" placeholder="9993962375" 
+                                                                       jsf:value="#{clienteManBean.maeTelefono.ANumero}" name="txtnumero"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group">
+                                                                -
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <input class="input form-control" type="text" placeholder="552" 
+                                                                       jsf:value="#{clienteManBean.maeTelefono.NAnexo}"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" jsf:id="divTel" jsf:name="divTel">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Numero</th>
+                                                                    <th>Anexo</th>
+                                                                    <th>Automático</th>
+                                                                    <th>Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <ui:repeat var="tel" value="#{clienteManBean.maeTelefonos}" varStatus="telS">
+                                                                <tr>
+                                                                    <td>#{telS.index + 1}</td>
+                                                                    <td>
+                                                                <ui:fragment rendered="#{tel.CTipoTel=='0001'}">
+                                                                    <span class="label label-primary">Telefono Fijo</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{tel.CTipoTel=='0002'}">
+                                                                    <span class="label label-primary">Celular</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{tel.CTipoTel=='0003'}">
+                                                                    <span class="label label-primary">Fax</span>
+                                                                </ui:fragment> 
+                                                                </td>
+                                                                <td>#{tel.ANumero}</td>
+                                                                <td>#{tel.NAnexo}</td>
+                                                                <td>
+                                                                    <input type="checkbox" class="i-checks" jsf:value="#{tel.BDefault}"  >
+                                                                <f:ajax listener="#{clienteManBean.defaultTelef(tel)}" render="@form validateTele"/>
+                                                                </input>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn btn-white btn-sm"   
+                                                                            jsf:action="#{clienteManBean.editarTel(tel)}" >
+                                                                        <i class="fa fa-pencil"></i>
+                                                                        <f:ajax execute="@this" render="@form validateTele" />
+                                                                    </button>
+                                                                    <button class="btn btn-white btn-sm"   
+                                                                            jsf:action="#{clienteManBean.borrarTel(tel)}" >
+                                                                        <i class="fa fa-times"></i>
+                                                                        <f:ajax execute="@this" render="@form validateTele" />
+                                                                    </button>
+                                                                </td>
+                                                                </tr>
+                                                            </ui:repeat>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <form jsf:id="formDatosComunEma" role="form" >
+                                            <div class="ibox">
+                                                <div class="ibox-title blue-bg">
+                                                    <h5>Correo</h5>
+                                                </div>
+                                                <div class="ibox-content">
+
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <h:selectOneMenu value="#{clienteManBean.maeEmail.ctipoMailId}" class="form-control m-b">
+                                                                    <f:selectItems value="#{clienteManBean.cobTablasEmailList}" var="tEmail" itemValue="#{tEmail.ctablaDetId}"  itemLabel="#{tEmail.ddescCorta}" />
+                                                                </h:selectOneMenu>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label class="font-noraml"> Correo</label>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="btnAddEmail"  
+                                                                    jsf:id="btnAddEmail"  jsf:action="#{clienteManBean.agregarEmail()}" >
+                                                                <f:ajax execute="formDatosComunEma" render="divEmail msjEmail" />
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                            <div jsf:id="msjEmail" jsf:name="msjEmail">
+                                                                <div jsf:rendered="#{clienteManBean.showMsg}">
+                                                                    <script type="text/javascript">
+                                                                        $(document).ready(function () {
+                                                                            toastr.options = {
+                                                                                "closeButton": true,
+                                                                                "debug": false,
+                                                                                "progressBar": true,
+                                                                                "preventDuplicates": false,
+                                                                                "positionClass": "toast-top-right",
+                                                                                "onclick": null,
+                                                                                "showDuration": "400",
+                                                                                "hideDuration": "1000",
+                                                                                "timeOut": "7000",
+                                                                                "extendedTimeOut": "1000",
+                                                                                "showEasing": "swing",
+                                                                                "hideEasing": "linear",
+                                                                                "showMethod": "fadeIn",
+                                                                                "hideMethod": "fadeOut"
+                                                                            };
+                                                                            toastr.#{clienteManBean.tipoMsj}('#{clienteManBean.mensaje}', 'Mensaje');
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-10">
+                                                            <div class="form-group">
+                                                                <input class="input form-control" type="email" placeholder="correo"
+                                                                       jsf:value="#{clienteManBean.maeEmail.demail}"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" jsf:id="divEmail" jsf:name="divEmail">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Correo</th>
+                                                                    <th>Automático</th>
+                                                                    <th>Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <ui:repeat var="email" value="#{clienteManBean.maeEmails}" varStatus="emailS">
+                                                                <tr>
+                                                                    <td>#{emailS.index + 1}</td>
+                                                                    <td>
+                                                                <ui:fragment rendered="#{email.ctipoMailId=='0001'}">
+                                                                    <span class="label label-primary">Personal</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{email.ctipoMailId=='0002'}">
+                                                                    <span class="label label-primary">Laboral</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{email.ctipoMailId=='0003'}">
+                                                                    <span class="label label-primary">Privado</span>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{email.ctipoMailId=='0004'}">
+                                                                    <span class="label label-primary">Messenger</span>
+                                                                </ui:fragment>
+                                                                </td>
+                                                                <td>#{email.demail}</td>
+                                                                <td>
+                                                                    <input type="checkbox" class="i-checks" jsf:value="#{email.bDefault}"  >
+                                                                <f:ajax listener="#{clienteManBean.defaultEmail(email)}" render="@form"/>
+                                                                </input>
+                                                                </td>
+
+                                                                <td>
+                                                                    <button class="btn btn-white btn-sm"   
+                                                                            jsf:action="#{clienteManBean.editarEmail(email)}" >
+                                                                        <i class="fa fa-pencil"></i>
+                                                                        <f:ajax execute="@this" render="@form validateEmail" />
+                                                                    </button>
+                                                                    <button class="btn btn-white btn-sm"   
+                                                                            jsf:action="#{clienteManBean.borrarEmail(email)}" >
+                                                                        <i class="fa fa-times"></i>
+                                                                        <f:ajax execute="@this" render="@form validateEmail" />
+                                                                    </button>
+                                                                </td>
+                                                                </tr>
+                                                            </ui:repeat>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos Ubicacion -->
+                <div class="row">
+                    <form jsf:id="formDatosUbi" >
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title lazur-bg">
+                                    <h5>Ubicación</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu class="form-control m-b">
+                                                    <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu class="form-control m-b">
+                                                    <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.maeUbigeoP.CUbigeoId}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.ubigeoProv}" var="prov" itemValue="#{prov.CUbigeoId}"  itemLabel="#{prov.DDUbigeoProv}" />
+                                                    <f:ajax listener="#{clienteManBean.listarDistrito}" render="distrito"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu id="distrito" value="#{clienteManBean.maeUbigeoD.CUbigeoId}"  class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.ubigeoDist}" var="dist" itemValue="#{dist.CUbigeoId}"  itemLabel="#{dist.DDUbigeoDist}" />
+                                                </h:selectOneMenu>	
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.cobTablasVia.ctablaDetId}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasViaList}" var="tVia" itemValue="#{tVia.ctablaDetId}"  itemLabel="#{tVia.ddescCorta}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="descripcion"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Nro</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="554"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <h:selectOneMenu value="#{clienteManBean.cobTablasZona.ctablaDetId}" class="form-control m-b">
+                                                    <f:selectItems value="#{clienteManBean.cobTablasZonaList}" var="tZona" itemValue="#{tZona.ctablaDetId}"  itemLabel="#{tZona.ddescCorta}" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="descripcion"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <label class="font-noraml"> Nro</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <input class="input form-control" type="text" placeholder="554"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Provincia</th>
+                                                    <th>Distrito</th>
+                                                    <th>Direccion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ui:repeat var="dire" value="#{clienteManBean.maeDireccions}" varStatus="direS">
+                                                <tr>
+                                                    <td>#{direS.index + 1}</td>
+                                                    <td>#{dire.maeUbigeo.maeUbigeo.DUbigeo}</td>
+                                                    <td>#{dire.maeUbigeo.DUbigeo}</td>
+                                                    <td>#{dire.DDir1}</td>
+                                                </tr>
+                                            </ui:repeat>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <script >
+                                                $('#data_1 .input-group.date').datepicker({
+                                                    timePicker: true,
+                                                    timePickerIncrement: 30,
+                                                    startDate: '01/01/1900',
+                                                    endDate: '01/01/2025',
+                                                    format: 'dd/mm/yyyy',
+                                                    language: 'es'
+                                                });
+            </script>
+
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+            <link href="../../resources/template/css/plugins/iCheck/custom.css" rel="stylesheet"/>
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- Jquery Validate -->
+            <script src="../../resources/template/js/plugins/validate/jquery.validate.min.js"></script>
+
+            <div jsf:id="validateEmail">  
+                <script>
+                                                $(document).ready(function () {
+                                                    $("#formDatosComunEma").validate({
+                                                        rules: {
+                                                            password: {
+                                                                required: true,
+                                                                minlength: 3
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                </script>
+            </div>
+            <div jsf:id="validateTele">
+                <script>
+                    $(document).ready(function () {
+                        $("#formDatosComunTel").validate({
+                            rules: {
+                                txtnumero: {
+                                    number: true
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+            <div jsf:id="validateDatoPers">
+                <script>
+                    $(document).ready(function () {
+                        $("#formDatosPers").validate({
+                            rules: {
+                                txtappat: {
+                                    required: true,
+                                    minlength: 3
+                                },
+                                txtapmat: {
+                                    required: true,
+                                    minlength: 3
+                                },
+                                txtnomb: {
+                                    required: true,
+                                    minlength: 3
+                                },
+                                txtdoc: {
+                                    required: true,
+                                    minlength: 8,
+                                    number: true
+                                },
+                                txtfecnac: {
+                                    required: true
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

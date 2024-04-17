@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Registro de Operaciones Mensual</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Reportes</a>
+                        </li>
+                        <li class="active">
+                            <strong>Registro de Operaciones Mensuales</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+                <form jsf:id="formDepositoBMes" method="post">
+
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar los registro de las operaciones realizadas.</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <input jsf:id="dni" jsf:value="#{depositoBusMesBean.getDeposito().maeInversion.getcPersonaId().ANroDocumento}" class="input form-control" type="text" placeholder="DNI"/>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input jsf:id="apenom" jsf:value="#{depositoBusMesBean.getDeposito().dDatoBusq}" class="input form-control" type="text" placeholder="Apellidos y nombres "/>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 02 Filtros -->   
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div id="divRangoFecha" class="form-group">
+                                                <label class="font-noraml">Rango de fechas</label>
+                                                <div id="datepicker" class="input-daterange input-group">
+                                                    <span class="input-group-addon">De</span>
+                                                    <!--
+                                                    <input class="input-sm form-control" type="text" value="" name="start"/>
+                                                    -->
+                                                    <h:inputText class="input-sm form-control" id="dateInput" value="#{depositoBusMesBean.deposito.fIniBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                    <span class="input-group-addon">a</span>
+                                                    <h:inputText class="input-sm form-control" id="fFinBusq" value="#{depositoBusMesBean.deposito.fFinBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                    <!--
+                                                    <input class="input-sm form-control" type="text" value="" name="end"/>
+                                                    -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Rango de Montos</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">$</span>
+                                                    <input jsf:id="nIniBusq" jsf:value="#{depositoBusMesBean.deposito.nIniBusq}" class="form-control" type="text"/>
+                                                    <span class="input-group-addon">.00</span>
+                                                    <span class="input-group-addon">a</span>
+                                                    <span class="input-group-addon">$</span>
+                                                    <input jsf:id="nFinBusq" jsf:value="#{depositoBusMesBean.deposito.nFinBusq}" class="form-control" type="text"/>
+                                                    <span class="input-group-addon">.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="font-noraml">Moneda</label>
+                                            <h:selectOneMenu value="#{depositoBusMesBean.deposito.cMonedaId}" class="form-control m-b">
+                                                <f:selectItem itemValue="0001" itemLabel="Soles" />
+                                                <f:selectItem itemValue="0002" itemLabel="Dolares" />	   							
+                                            </h:selectOneMenu>	
+                                            <!--
+                                            <select class="form-control m-b" name="account">
+                                                <option>Soles</option>
+                                                <option>Dolares</option>
+                                            </select>
+                                            -->
+                                        </div>
+                                    </div>
+                                    <!-- Fila 03 Filtros -->
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-offset-10">
+                                            <span class="input-group-btn">
+                                                <button jsf:action="#{depositoBusMesBean.actualizarDepo()}" class="btn btn btn-primary">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Detalle -->
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Detalle de Operaciones Mensuales</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Mes</th>
+                                                    <th>Fondo</th>
+                                                    <th>Código</th>
+                                                    <th>Apellidos y Nombres</th>
+                                                    <th>Monto S/</th>
+                                                    <th>Monto D/</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ui:repeat var="depo" value="#{depositoBusMesBean.listDepositos}" varStatus="depoS">
+                                                <tr class="gradeA">
+                                                    <td>#{depoS.index}</td>
+                                                    <td>
+                                                <h:outputText value="#{depo.FBcoDeposito}" >
+                                                    <f:convertDateTime pattern="MMM"/>
+                                                </h:outputText> - 
+                                                <h:outputText value="#{depo.FBcoDeposito}" >
+                                                    <f:convertDateTime pattern="yyyy"/>
+                                                </h:outputText>
+                                                </td>
+                                                <td>#{depo.maeInversion.maeFondo.DFondo}</td>
+                                                <td>#{depo.maeInversion.CInversion}</td>
+                                                <td>#{depo.maeInversion.getcPersonaId().DApePat} #{depo.maeInversion.getcPersonaId().DApeMat}, #{depo.maeInversion.getcPersonaId().DNombres}</td>
+                                                <td>#{depo.IBcoDepositado}</td>
+                                                <td>#{depo.getiBcoDepositadoD()}</td>
+                                                </tr>
+                                            </ui:repeat>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Mes</th>
+                                                    <th>Fondo</th>
+                                                    <th>Código</th>
+                                                    <th>Apellidos y Nombres</th>
+                                                    <th>Monto S/</th>
+                                                    <th>Monto D/</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>  
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../../resources/template/js/inspinia.js"></script>
+            <script src="../../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../../resources/personal/js/calendar.js"></script> 
+            <script src="../../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <!--- Css datapicker -->
+            <link href="../../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <script >
+                $('#divRangoFecha .input-daterange').datepicker({
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                });
+            </script>
+
+        </ui:define>
+    </ui:composition>
+</html>

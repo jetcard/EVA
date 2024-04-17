@@ -1,0 +1,651 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"b
+      xmlns:f="http://java.sun.com/jsf/core" >
+
+    <f:metadata>
+        <f:viewParam name="cinversion" value="#{legalBean.maeInversion.CInversion}"/>
+        <f:event type="postAddToView" listener="#{legalBean.listarFondos()}"  />
+        <f:event type="postAddToView" listener="#{legalBean.listarEtapas()}"  />
+        <f:event type="postAddToView" listener="#{legalBean.listarTiposGastosJudiciales()}"  />
+    </f:metadata>
+ 
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+               
+                <f:event type="preRenderView" listener="#{estadoCuentaBean.iniciarFecha()}" />
+                <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Clientes</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Legal</a>
+                        </li>
+                        <li class="active">
+                            <strong>Registrar gastos judiciales</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!--body onload="ocultar()"></body-->
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formEstaCuentaF" jsf:prependId="false" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar de Clientes</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                  <label class="font-noraml">Codigo:</label>
+                                                <input jsf:id="codigo" jsf:value="#{legalBean.maeInversion.CInversion}" class="input form-control" type="text" placeholder="TCHN" oninput="autocompletarCeros(this);"/>
+                                            </div>
+                                        </div>
+                                         <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{legalBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{legalBean.maeFondoList.subList(0,4)}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                  <label class="font-noraml">Dni:</label>
+                                                <input  jsf:id="documento" jsf:value="#{legalBean.maeInversion.getcPersonaId().ANroDocumento}" class="input form-control" type="text" placeholder="DNI"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkBuscar" jsf:actionListener="#{legalBean.buscarTchnLegalForGastos()}" class="btn btn-primary btn-block m-t"   >
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+                                       
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-title">
+                    <p style="color:red">
+                        <strong>
+                        #{legalBean.mensajeRpta}
+                        </strong>
+                    </p>
+                   </div>                    
+                </form>
+
+                <h:form enctype="multipart/form-data" prependId="false"  >
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <!-- Lista de clientes -->
+                        <div class="col-sm-12">
+                                <div class="ibox-content">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> TCHN</a></li>
+                                    </ul>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fondo </th>
+                                                            <th>Código</th>
+                                                            <th>Demandado</th>
+                                                            <th>Demandante</th>
+                                                            <th>       Accion       </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <ui:repeat var="tchn" value="#{legalBean.legalTchnList}" varStatus="tchnS">
+                                                        <tr height="10" >
+                                                            <th>#{tchn.fondo.DFondo}</th>
+                                                            <th>#{tchn.maeInversion.CInversion}</th>                                                        
+                                                            <th>#{tchn.maeInversion.getcPersonaId().DApePat} #{tchn.maeInversion.getcPersonaId().DApeMat}, #{tchn.maeInversion.getcPersonaId().DNombres}</th>
+                                                            <th>#{tchn.fondo.DFondo}</th>
+                                                            <th>
+                                                                <span class="input-group-btn">
+                                                                    <h:commandButton id="btnSegui" value="Ver"  class="btn btn-primary btn-block m-t" action="#{legalBean.ListarGastosJudiciales(tchn)}"  />
+                                                                </span>
+                                                            </th>
+                                                        </tr>
+                                                    </ui:repeat> 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </h:form>
+
+
+                <h:form id="frmListaGastos"  rendered="#{legalBean.mostrarListaGastosJudiciales}"  >
+                    <h:inputHidden value="#{legalBean.codigoTCHN}" id="hdCodigoTCHN" class="userId-class"></h:inputHidden> 
+                    <h:inputHidden value="#{legalBean.fondo}" id="hdFondo" class="userId-class"></h:inputHidden> 
+                    <h:inputHidden value="#{legalBean.nroExpediente}" id="hdNroExpediente" class="userId-class"></h:inputHidden> 
+                    <h:inputHidden value="#{legalBean.nroDocumento}" id="hdNroDocumento" class="userId-class"></h:inputHidden> 
+                <ul class="nav nav-tabs">
+                                 <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Lista de gastos judiciales</a></li>
+               </ul> 
+               <div class="row">
+                 <div class="col-sm-2" >
+                     <span class="input-group-btn">
+                         <table class="table"> <tr>
+                                 <th><h:commandButton id="btngarega" value="Agregar" class="btn btn-primary btn-block m-t"  action="#{legalBean.nuevoGastoJudicial(tchn)}"  />
+                                     </th>
+                              </tr>
+                         </table>       
+                </span>
+                </div>                    
+                </div>                         
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <!-- Lista de clientes -->
+                        <div class="col-sm-12">
+                                <div class="ibox-content">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Etapa</th>
+                                                            <th>Fecha operaci&oacute;n</th>
+                                                            <th>Tipo Gasto</th>
+                                                            <th>Monto</th>
+                                                            <th>Accion          </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ui:repeat var="gasto" value="#{legalBean.legGastoJudicialList}"  varStatus="tchnSEG2">
+                                                        <tr height="10">
+                                                            <th>#{gasto.descEtapa}</th>
+                                                            <th>
+                                                            <h:outputLabel value="#{gasto.fecha}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                            </h:outputLabel>
+                                                            </th>                                                        
+                                                            <th>#{gasto.descTipogasto}</th>
+                                                            <th>#{gasto.monto}</th>
+                                                            <th>
+                                                                <div class="col-sm-2" >
+                                                                 <span class="input-group-btn">
+                                                                     <h:commandButton id="btnmodi" value="Modificar" class="btn btn-primary btn-block m-t"  action="#{legalBean.modificargastojudicial(gasto)}" />
+                                                                 </span>
+                                                               </div>
+                                                             </th>
+                                                        </tr>
+                                                        </ui:repeat>
+                                                    </tbody>
+                                                </table>
+                                              
+                                            </div>
+                                </div>
+                        </div>
+                    </div>
+                </h:form>                
+                
+                <form jsf:id="formAddGasto" rendered="#{legalBean.mostrarAddGastoJudicial}"  onkeypress="return anular(event)">
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Registro de gasto judicial</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                       <ui:repeat var="tchn2" value="#{legalBean.legGastoJudicialList2}" varStatus="tchnS2">
+                                         <thead>
+                                             <th>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                       <label class="font-noraml">Etapa </label>
+                                                      </div>
+                                                      <div class="col-sm-4"    >
+                                                          <h:selectOneMenu value="#{legalBean.etapa}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione etapa" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legEtapaList}" var="legetapa" itemValue="#{legetapa.CEtapaId}"  itemLabel="#{legetapa.DEtapa}" />
+                                                        </h:selectOneMenu>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                     </div>
+                                                     <div class="col-sm-2">
+                                                         <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechaoperacion" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Expediente: </label></div>
+                                                      <div class="col-sm-3">
+                                                          <Strong>#{tchn2.nroexpediente}</Strong>
+                                                      </div>
+                                                       <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Comprobante: </label></div>
+                                                      <div class="col-sm-4">
+                                                          <input jsf:id="COMPROBANTENRO" name="COMPROBANTENRO" value="#{legalBean.comprobanteNumero}"  size="50"  class="input form-control" type="text" placeholder="Número comprobante" align="left" required="true"/>
+                                                       </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Tipo: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <h:selectOneMenu value="#{legalBean.tipoGastoJudicial}" class="form-control m-b">
+                                                            <f:selectItem itemLabel="Seleccione tipo gasto judicial" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legTiposGastosJudiList}" var="legetapa" itemValue="#{legetapa.CTablaId}"  itemLabel="#{legetapa.DTabla}" />
+                                                        </h:selectOneMenu>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Monto (S/.): </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <h:inputText  id="monto2"  value="#{legalBean.montoGastoJudicial}" class="input form-control" size="5" validatorMessage="Ingrese monto entre 1 y 20 000">
+                                                          <f:validateDoubleRange minimum = "1.00" maximum = "20000.00" />
+                                                          </h:inputText>  
+                                                          <h:message for="monto2" style = "color:red" showSummary="Monto no es correcto" />
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Comentarios: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes" jsf:value="#{legalBean.comentario}" class="input form-control"  placeholder="Comentarios" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{tchn2.getcUsuarioAdd()}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.insertarGastoJudicial(tchn2)}" > 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-sm-1" >
+                                                         <h:commandButton   id="btn2"  value="cerrar" class="btn btn-primary btn-block m-t"   action="#{legalBean.cerrarPantallaInsertarGasto()}"  /> 
+                                                     </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                         </ui:repeat> 
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form> 
+                
+                
+               <form jsf:id="formModiGasto" rendered="#{legalBean.mostrarModificaGastoJudicial}"  onkeypress="return anular(event)">
+                   <h:inputHidden value="#{legalBean.idLegGastoJudicial}" id="hdidLegGastoJudicial" class="userId-class"></h:inputHidden> 
+                    <!-- Fila 03 Detalle --> 
+                    <div class="row">
+                         <!-- Filtros-->
+                         <div class="col-lg-12">
+                             <div class="ibox">
+                                    <ul class="nav nav-tabs">
+                                              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Modificar gasto judicial</a></li>
+                                   </ul>
+                                 <div class="ibox-content">
+                                      <table class="table table-bordered" >
+                                       <tbody>
+                                       <ui:repeat var="tchn2" value="#{legalBean.legGastoJudicialList2}" varStatus="tchnS2">
+                                         <thead>
+                                             <th>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                       <label class="font-noraml">Etapa</label>
+                                                      </div>
+                                                      <div class="col-sm-4"    >
+                                                          <h:selectOneMenu value="#{legalBean.etapa}" class="form-control m-b" id="cbEtapa">
+                                                            <f:selectItem itemLabel="Seleccione etapa" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legEtapaList}" var="legetapa" itemValue="#{legetapa.CEtapaId}"  itemLabel="#{legetapa.DEtapa}" />
+                                                        </h:selectOneMenu>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Fecha: </label>
+                                                     </div>
+                                                     <div class="col-sm-2">
+                                                         <div class="form-group" id="data_1">
+                                                             <div class="input-group date">
+                                                                 <span class="input-group-addon">
+                                                                     <i class="fa fa-calendar"></i>
+                                                                 </span>
+                                                                 <h:inputText class="input-sm form-control" id="fechaoperacion" value="#{legalBean.fechaOperacion}" required="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                 </h:inputText>
+                                                             </div>
+                                                           </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Expediente: </label></div>
+                                                      <div class="col-sm-3">
+                                                          <Strong>#{tchn2.nroexpediente}</Strong>
+                                                      </div>
+                                                       <div class="col-sm-1" ></div> 
+                                                      <div class="col-sm-1">  <label class="font-noraml">Comprobante: </label></div>
+                                                      <div class="col-sm-4">
+                                                          <input jsf:id="COMPROBANTENRO" name="COMPROBANTENRO" value="#{legalBean.comprobanteNumero}"  size="50"  class="input form-control" type="text" placeholder="Número comprobante" align="left" required="true"/>
+                                                       </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                  <div class="row">
+                                                     <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Tipo: </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <h:selectOneMenu value="#{legalBean.tipoGastoJudicial}" class="form-control m-b" id="cbTipoGasto">
+                                                            <f:selectItem itemLabel="Seleccione tipo gasto judicial" noSelectionOption="true" />
+                                                            <f:selectItems value="#{legalBean.legTiposGastosJudiList}" var="legetapa" itemValue="#{legetapa.CTablaId}"  itemLabel="#{legetapa.DTabla}" />
+                                                        </h:selectOneMenu>
+                                                     </div>
+                                                     <div class="col-sm-1">
+                                                      <label class="font-noraml">Monto (S/.): </label>
+                                                      </div>
+                                                     <div class="col-sm-4">
+                                                         <h:inputText  id="monto3"  value="#{legalBean.montoGastoJudicial}" class="input form-control" size="5" validatorMessage="Ingrese monto entre 1 y 20 000">
+                                                          <f:validateDoubleRange minimum = "1.00" maximum = "20000.00" />
+                                                          </h:inputText>  
+                                                          <h:message for="monto3" style = "color:red" showSummary="Monto no es correcto" />
+                                                     </div>
+                                                 </div>
+                                                 
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 
+
+                                                 <div class="row"> <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">
+                                                      <div class="col-sm-1"></div>
+                                                      <div class="col-sm-1">
+                                                      <label class="font-noraml">Comentarios: </label>
+                                                      </div>
+                                                     <div class="col-sm-9">
+                                                         <textarea jsf:id="lsdes" jsf:value="#{legalBean.comentario}" class="input form-control"  placeholder="Comentarios" align="left"  ></textarea>
+                                                     </div>
+                                                </div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>
+                                                 <div class="row">  <div class="col-sm-1"></div></div>                                                
+                                                 
+                                                 <div class="row">
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">Ultimo Usuario:  </label>
+                                                     </div>
+                                                      <div class="col-sm-1">
+                                                          <label class="font-noraml">#{tchn2.getcUsuarioAdd()}</label>
+                                                     </div>
+                                                     
+                                                     <div class="col-sm-3"> </div>
+                                                     <div class="col-sm-1" id="bt1" >
+                                                         <h:commandButton   id="btn1"  value="Guardar" class="btn btn-primary btn-block m-t"  action="#{legalBean.modificarGastoJudicial(tchn2)}" > 
+                                                         </h:commandButton>
+                                                    </div>
+                                                    <div  jsf:id="msg"  jsf:name="msg">
+                                                        <div jsf:rendered="#{legalBean.showMsg}">
+                                                            <script type="text/javascript">
+                                                                $(document).ready(function () {
+                                                                    toastr.options = {
+                                                                        "closeButton": true,
+                                                                        "debug": false,
+                                                                        "progressBar": true,
+                                                                        "preventDuplicates": false,
+                                                                        "positionClass": "toast-top-right",
+                                                                        "onclick": null,
+                                                                        "showDuration": "400",
+                                                                        "hideDuration": "1000",
+                                                                        "timeOut": "7000",
+                                                                        "extendedTimeOut": "1000",
+                                                                        "showEasing": "swing",
+                                                                        "hideEasing": "linear",
+                                                                        "showMethod": "fadeIn",
+                                                                        "hideMethod": "fadeOut"
+                                                                    };
+                                                                    toastr.#{legalBean.tipoMsj}('#{legalBean.mensaje}', 'Mensaje');
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-1" >
+                                                         <h:commandButton   id="btn2"  value="cerrar" class="btn btn-primary btn-block m-t"   action="#{legalBean.cerrarPantallaModificarGasto()}"  /> 
+                                                    </div>
+                                                 </div>
+                                             </th>
+                                          </thead>
+                                         </ui:repeat> 
+                                        </tbody>
+                                     </table>
+                                 </div>   
+                                </div>
+                             </div>
+                         </div>
+                </form>                 
+                
+                </div> 
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+            
+            <!-- FooTable -->
+            <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+            <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+            <link href="../../resources/template/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+
+            <!--- Css datapicker -->
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <!-- Autocompetado del input codigo con ceros -->
+            <script src="../../resources/template/js/autocompletado.js"></script>
+            
+            <h:outputScript library="javax.faces" name="jsf.js"/>
+
+            <script >
+                                                    $('#divRangoFecha .input-daterange').datepicker({
+                                                        keyboardNavigation: false,
+                                                        forceParse: false,
+                                                        autoclose: true,
+                                                        format: 'dd/mm/yyyy',
+                                                        language: 'es',
+                                                        todayBtn: "linked"
+                                                    });
+                                                    $('#data_1 .input-group.date').datepicker({
+                                                        timePicker: true,
+                                                        timePickerIncrement: 30,
+                                                        startDate: '01/01/2008',
+                                                        endDate: '01/01/2030',
+                                                        format: 'dd/mm/yyyy',
+                                                        language: 'es',
+                                                        todayBtn: "linked",
+                                                        autoclose: true
+                                                    });
+            </script>
+
+               
+            <script type="text/javascript">
+               
+                function anular(e) {
+                    tecla = (document.all) ? e.keyCode : e.which;
+                    return (tecla != 13);
+               }  
+                document.getElementById('codigo').addEventListener('input', function() {
+                    autocompletarCeros(this);
+                });                
+                  
+            </script> 
+             
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

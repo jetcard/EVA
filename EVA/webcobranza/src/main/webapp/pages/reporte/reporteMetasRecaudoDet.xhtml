@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:pf="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <f:event type="postAddToView" listener="#{metasCobranzaBean.listarAnios()}"  />
+            <f:event type="postAddToView" listener="#{metasCobranzaBean.listarMes()}"  />
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Detalle de Recaudación</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Reportes</a>
+                        </li>
+                        <li class="active">
+                            <strong>Avance de Recaudación</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formFiltroBusq" jsf:prependId="false" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar Avance de Recaudación</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Año</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{metasCobranzaBean.cobCronogramaMetaResumen.n_anio}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Seleccionar" noSelectionOption="true" />
+                                                        <f:selectItems value="#{metasCobranzaBean.maeAnioList}"  var="anios" itemValue="#{anios.CAnioId}"  itemLabel="#{anios.DAnio}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Mes</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{metasCobranzaBean.cobCronogramaMetaResumen.n_mes}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Seleccionar" noSelectionOption="true" />
+                                                        <f:selectItems value="#{metasCobranzaBean.maeMesList}"  var="mes" itemValue="#{mes.CMesId}"  itemLabel="#{mes.DMes}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <div class="col-sm-3">
+                                            <div id="divRangoFechaB" class="form-group">
+                                                <label class="font-noraml">Fecha avance</label>
+                                                <div id="datepicker" class="input-daterange input-group">
+                                                    <span class="input-group-addon">Día</span>
+                                                    <h:inputText class="input-sm form-control" id="start" value="#{metasCobranzaBean.cobCronogramaMetaResumen.f_fecha_id}" >
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="input-group-btn">
+                                                
+                                                <a jsf:id="linkBuscar" jsf:action="#{metasCobranzaBean.exportarReporteRecaudo()}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <span class="input-group-btn">
+
+                                                <a jsf:id="linkReporte" jsf:action="#{metasCobranzaBean.generarReporteRecaudo}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-print"></i>
+                                                    Reporte
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+                <!-- Detalle -->
+                <!-- Fila 0004 -->
+                <div class="row">
+                    <!-- Lista de cdr -->
+                    <div class="col-sm-12">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-1">
+                                            <i class="fa fa-phone"></i> Recaudación</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-1" class="tab-pane active">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-clien">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fondo</th>    
+                                                        <th>Inversion</th>
+                                                        <th>Moneda</th>
+                                                        <th>Fecha_Deposito</th>
+                                                        <th>Monto_Deposito</th>
+                                                        <th>Fecha_Deposito_Ant</th>
+                                                        <th>Monto_Deposito_Ant</th>
+                                                        <th>Asesor</th>
+                                                        <th>Gestor</th>  
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Recaudos -->
+                                                    <ui:repeat var="metas" value="#{metasCobranzaBean.cobCronogramaRecaudoResumenList}" varStatus="metaS">
+                                                        <tr class="feed-element" >
+                                                            <td>#{metas.c_fondo}</td>
+                                                            <td>#{metas.c_inversion}</td>
+                                                            <td>#{metas.moneda}</td>
+                                                            <td>
+                                                                <h:outputText value="#{metas.f_deposito}" >
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"  />
+                                                                </h:outputText>
+                                                            </td>
+                                                            <td>
+                                                                <ui:fragment rendered="#{metas.moneda.trim()=='SOLES'}">     
+                                                                    <h:outputText value="#{metas.i_deposito}" >
+                                                                            <f:convertNumber  locale="en-ZA"  currencySymbol="S/." groupingUsed="true" maxFractionDigits="2" type="currency" />
+                                                                     </h:outputText>
+                                                                </ui:fragment>   
+                                                                <ui:fragment rendered="#{metas.moneda.trim()=='DOLARES'}">     
+                                                                    <h:outputText value="#{metas.i_deposito}" >
+                                                                            <f:convertNumber  locale="en-ZA"  currencySymbol="$." groupingUsed="true" maxFractionDigits="2" type="currency" />
+                                                                     </h:outputText>
+                                                                </ui:fragment> 
+                                                            </td> 
+                                                            <td>
+                                                                <h:outputText value="#{metas.f_deposito_ant}" >
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"  />
+                                                                </h:outputText>
+                                                            </td>
+                                                            <td>
+                                                                <ui:fragment rendered="#{metas.moneda.trim()=='SOLES'}">    
+                                                                  <h:outputText value="#{metas.i_deposito_ant}" >
+                                                                        <f:convertNumber  locale="en-ZA"  currencySymbol="S/." groupingUsed="true" maxFractionDigits="2" type="currency" />
+                                                                 </h:outputText>
+                                                                </ui:fragment> 
+                                                                <ui:fragment rendered="#{metas.moneda.trim()=='DOLARES'}">    
+                                                                  <h:outputText value="#{metas.i_deposito_ant}" >
+                                                                        <f:convertNumber  locale="en-ZA"  currencySymbol="$." groupingUsed="true" maxFractionDigits="2" type="currency" />
+                                                                 </h:outputText>
+                                                                </ui:fragment>  
+                                                             </td>                                                 
+                                                            <td>#{metas.c_asesor}</td>
+                                                            <td>#{metas.c_gestor}</td>        
+                                                        </tr>
+                                                    </ui:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/calendar.js"></script> 
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+
+            <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+
+
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+            <!-- FooTable -->
+            <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+            <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+            <!-- Toastr script -->
+            <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+            <!-- Toastr style -->
+            <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+            <div jsf:id="demoIdAx">
+                <script>
+
+                    $('#data_1 .input-group.date').datepicker({
+                        timePicker: true,
+                        timePickerIncrement: 30,
+                        startDate: '01/01/2000',
+                        endDate: '01/01/2030',
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        autoclose: true,
+                        todayBtn: "linked"
+                    });
+
+                    $('#divRangoFecha .input-daterange').datepicker({
+                        keyboardNavigation: false,
+                        forceParse: false,
+                        autoclose: true,
+                        format: 'dd/mm/yyyy',
+                        language: 'es'
+                    });
+                    
+                    $('#divRangoFechaB .input-daterange').datepicker({
+                        keyboardNavigation: false,
+                        forceParse: false,
+                        autoclose: true,
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        todayBtn: "linked"
+                    });
+
+                    $('.footable').footable();
+                </script>
+            </div>
+
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Personas Reportadas</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Personas</a>
+                        </li>
+                        <li class="active">
+                            <strong>Personas Reportadas</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formLastPerReport" method="post">
+
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar los personas reportadas.</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <input jsf:id="dni" jsf:value="#{personaLaftBean.laftPersona.aNroDocumento}" class="input form-control" type="text" placeholder="DNI"/>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input jsf:id="apenom" jsf:value="#{personaLaftBean.laftPersona.dDatoBusq}" class="input form-control" type="text" placeholder="Apellidos y nombres "/>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 02 Filtros -->   
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div id="data_5" class="form-group">
+                                                <label class="font-noraml">Rango de fechas</label>
+                                                <div id="datepicker" class="input-daterange input-group">
+                                                    <span class="input-group-addon">De</span>
+
+                                                    <h:inputText class="input-sm form-control" id="dateInput" value="#{personaLaftBean.laftPersona.fIniBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                    <span class="input-group-addon">a</span>
+                                                    <h:inputText class="input-sm form-control" id="fFinBusq" value="#{personaLaftBean.laftPersona.fFinBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Button Filtros -->
+                                        <div class="col-sm-2 col-sm-offset-6">
+                                            <label class="font-noraml"></label>
+                                            <span class="input-group-btn">
+                                                <button jsf:action="#{personaLaftBean.buscarLaftPersona()}"  class="btn btn btn-primary">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </button>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Detalle -->
+                    <!-- Fila 0002 -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Lista de Personas Registradas por Levantamiento Bancario</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Fecha</th>
+                                                    <th>Documento</th>
+                                                    <th>Entidad</th>
+                                                    <th>Apellidos y Nombres</th>
+                                                    <th>Observación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ui:repeat var="perso" value="#{personaLaftBean.listLaftPersona}" varStatus="persoS">
+                                                <tr class="gradeA">
+                                                    <td>#{persoS.index}</td>
+                                                    <td>
+                                                <h:outputText value="#{perso.getfRegistro()}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText>
+                                                </td>
+                                                <td>#{perso.getaNroDocumento()} </td>
+                                                <td>#{perso.getcEntidadId()}</td>
+                                                <td>#{perso.DApePat} #{perso.DApeMat}, #{perso.DNombres}</td>
+                                                <td>#{perso.getdObservaciones()}</td>
+                                                </tr>
+                                            </ui:repeat>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Fecha</th>
+                                                    <th>Documento</th>
+                                                    <th>Entidad</th>
+                                                    <th>Apellidos y Nombres</th>
+                                                    <th>Observación</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../../resources/template/js/bootstrap.min.js"></script>
+            <script src="../../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../../resources/template/js/inspinia.js"></script>
+            <script src="../../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Color picker -->
+            <script src="../../../resources/template/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+            <!-- Clock picker -->
+            <script src="../../../resources/template/js/plugins/clockpicker/clockpicker.js"></script>
+
+            <!-- Image cropper -->
+            <script src="../../../resources/template/js/plugins/cropper/cropper.min.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- TouchSpin -->
+            <script src="../../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../../resources/personal/js/calendar.js"></script> 
+            <script src="../../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <script src="../../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+            <script src="../../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+            
+        </ui:define>
+
+    </ui:composition>
+
+</html>

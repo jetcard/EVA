@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="es_PE" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <head jsf:id="head"> 
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- color  -->
+        <meta name="theme-color" content="#1976d2"/>
+
+        <title>Popular SAFI</title>
+        
+        <link href="#{request.contextPath}/resources/template/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/template/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+
+        <!-- Toastr style -->
+        <link href="#{request.contextPath}/resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+        <script src="#{request.contextPath}/resources/template/js/plugins/toastr/toastr.min.js" type="text/javascript"></script>
+
+        <!-- Gritter -->
+        <link href="#{request.contextPath}/resources/template/js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
+
+        <link href="#{request.contextPath}/resources/template/css/animate.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/template/css/style.css" rel="stylesheet"/>
+    </head>
+    <body jsf:id="body" class="pace-done fixed-nav fixed-nav-basic #{loginBean.fnavBar ? 'mini-navbar' : ''}">
+    <style>
+
+        .alert .glyphicon{
+            display:table-cell;
+        }
+        .alert div,
+        .alert span{
+            padding-left: 5px;
+            display:table-cell;
+        }
+
+    </style> 
+        <div id="wrapper">
+            <!-- Menu de navegacion -->
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav metismenu" id="side-menu">
+                        <li class="nav-header">
+                            <div class="dropdown profile-element"> <span>
+                                <img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjUxMiI+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PHBhdGggZD0ibTE2IDE3YTYgNiAwIDEgMSA2LTYgNiA2IDAgMCAxIC02IDZ6bTAtMTBhNCA0IDAgMSAwIDQgNCA0IDQgMCAwIDAgLTQtNHoiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJtMTYgMzFhMTUgMTUgMCAwIDEgLTExLjU5LTUuNDlsLS41Mi0uNjQuNTItLjYzYTE1IDE1IDAgMCAxIDIzLjE4IDBsLjUyLjYzLS41Mi42NGExNSAxNSAwIDAgMSAtMTEuNTkgNS40OXptLTkuNDktNi4xMmExMyAxMyAwIDAgMCAxOSAwIDEzIDEzIDAgMCAwIC0xOSAweiIgZmlsbD0iI2ZmZmZmZiIvPjxwYXRoIGQ9Im0xNiAzMWExNSAxNSAwIDEgMSAxMS41OS01LjQ5IDE1IDE1IDAgMCAxIC0xMS41OSA1LjQ5em0wLTI4YTEzIDEzIDAgMSAwIDEzIDEzIDEzIDEzIDAgMCAwIC0xMy0xM3oiIGZpbGw9IiNmZmZmZmYiLz48cGF0aCBkPSJtNS4xOCAyNC44OHMxMC4wNyAxMS4yNSAyMC4zMiAxLjEybDEuMzItMS4xMnMtOC41Ni04Ljg4LTE3LjI1LTMuNTV6IiBmaWxsPSIjZmZmZmZmIi8+PGNpcmNsZSBjeD0iMTYiIGN5PSIxMSIgcj0iNSIgZmlsbD0iI2ZmZmZmZiIvPjwvZz48L3N2Zz4=' width="64" height="64"/>
+                                <!--img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOCAxOCI+PHBhdGggc3R5bGU9Im9wYWNpdHk6IDAuNTsgZmlsbDogd2hpdGUiIGQ9Ik00IDE1IEM0IDEzLjM1IDQuMjEgMTMgNi41IDEzIEExLjUgMS41IDAgMCAwIDcuOTEgMTIgTDEwLjA5IDEyIEExLjUgMS41IDAgMCAwIDExLjUgMTMgQzEzLjc5IDEzIDE0IDEzLjM1IDE0IDE1IFoiIC8+PHBhdGggc3R5bGU9ImZpbGw6IG5vbmU7IHN0cm9rZTogd2hpdGUiIGQ9Ik0zLjUgMTUgQzMuNSAxMyA0IDEyLjUgNi41IDEyLjUgQTEgMSAwIDAgMCA3LjUgMTEuNSBDNy41IDExLjUgNS41IDEwIDUuNSA3IEEzLjUgMy41IDAgMCAxIDEyLjUgNyBDMTIuNSAxMCAxMC41IDExLjUgMTAuNSAxMS41IEExIDEgMCAwIDAgMTEuNSAxMi41IEMxNCAxMi41IDE0LjUgMTMgMTQuNSAxNSIgLz48L3N2Zz4=" width="64" height="64"/-->
+                                    <!--img alt="image" class="img-circle" src="#{request.contextPath}/resources/template/img/profile_small.jpg" /-->
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"> 
+                                        <span class="block m-t-xs"> <strong class="font-bold">#{loginBean.username}</strong></span> 
+                                        <span class="text-muted text-xs block">#{loginBean.usuario.correo.corDesc}</span>                                         
+                                        <!--span class="text-muted text-xs block">Área de ...<b class="caret"></b></span--> 
+                                    </span> 
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li><a href="profile.html">Perfil</a></li>
+                                    <li><a href="contacts.html">Contactos</a></li>
+                                    <li><a href="mailbox.html">Mail</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="login.html">Cerrar</a></li>
+                                </ul>
+                            </div>
+                            <div class="logo-element">
+                                #{loginBean.username.substring(0,2)}+
+                            </div>
+                        </li>
+
+                        <!-- Lista de Menu-->
+                        <ui:repeat value="#{loginBean.usuarioSession.menu}" var="menuB" >
+                            <li class="#{menuB.menuAE}">
+                                <a href="#{menuB.menuAUrl}" title="#{menuB.menuA}"><i class="fa fa-#{menuB.simbolo}"></i><span class="nav-label">#{menuB.menuA}</span><span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level collapse">
+
+                                    <ui:repeat value="#{menuB.OMenuList}"  var="menuBB">
+                                        <li class="#{menuBB.menuAE}">
+                                            <a jsf:outcome="#{menuBB.menuAUrl}"  >#{menuBB.menuA} </a>
+                                        </li>
+                                    </ui:repeat>
+                                    
+                                </ul>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="page-wrapper" class="gray-bg">
+                <!-- Header -->
+                <div class="row border-bottom">
+                    <!-- Header -->
+                    <nav class="navbar navbar-fixed-top white-bg" role="navigation" style="margin-bottom: 0">
+                        <!-- Barra de busqueda-->
+                        <div class="navbar-header">
+                            <form jsf:id="formBtnNavBar" jsf:prependId="false">
+                                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"
+                                   jsf:action="#{loginBean.cambiarNavBar()}" >
+                                    <i class="fa fa-bars"></i> 
+                                    <f:ajax execute="@form" />
+                                </a> 
+                            </form>
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <a class="right-sidebar-toggle">
+                                    <i class="fa fa-blank"></i>
+                                </a>
+                            </li>                            
+                            <li>
+                                <div class="text-center link-block">
+                                    <span id="usernamePost" >
+                                        <i class="fa fa-user"></i> <strong>#{loginBean.username}</strong>
+                                    </span>
+                                </div>
+                            </li>
+                            <!-- Correos -->
+                            <!--li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-messages">
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="#{request.contextPath}/resources/template/img/a7.jpg"/>
+                                            </a>
+                                            <div>
+                                                <small class="pull-right">46h ago</small>
+                                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. 
+
+                                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="#{request.contextPath}/resources/template/img/a4.jpg"/>
+                                            </a>
+                                            <div>
+                                                <small class="pull-right text-navy">5h ago</small>
+                                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. 
+                                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="dropdown-messages-box">
+                                            <a href="profile.html" class="pull-left">
+                                                <img alt="image" class="img-circle" src="#{request.contextPath}/resources/template/img/profile.jpg"/>
+                                            </a>
+                                            <div>
+                                                <small class="pull-right">23h ago</small>
+                                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>.
+                                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="mailbox.html">
+                                                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li-->
+
+                            <!-- Compromisos 
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-money"></i>  <span class="label label-warning">3</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <a href="#">
+                                            <div>
+                                                <i class="fa fa-envelope fa-fw"></i> Tienes 5 seguimientos Popular
+                                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <div>
+                                                <i class="fa fa-envelope fa-fw"></i> Tienes 10 seguimientos Emprendedor
+                                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <div>
+                                                <i class="fa fa-envelope fa-fw"></i> Tienes 9 seguimientos Mype
+                                                <span class="pull-right text-muted small">4 minutes ago</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="notifications.html">
+                                                <strong>Ver todos los seguimientos</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            -->
+                            <!-- Notify-->
+                            <!--li id="liNotify" class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-bell"></i>  
+                                    <span class="label label-primary">0</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="text-center link-block">
+                                            <a href="#{request.contextPath}/pages/util/notificaciones/notificaciones.xhtml">
+                                                <strong>Ver todos los seguimientos</strong>
+                                                <i class="fa fa-angle-right"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div id="divNotifyMaster" >
+                                </div>
+                            </li-->
+                            <li>
+                                <form role="form"  jsf:id="formLogout" method="POST" jsf:prependId="false">
+                                    <a href="#{request.contextPath}/login.xhtml?faces-redirect=true" jsf:action="#{loginBean.logout()}" >
+                                        <i class="fa fa-sign-out"></i> Cerrar Sesión
+                                    </a>
+                                </form>
+                            </li>
+
+                        </ul>
+
+                    </nav>
+                </div>
+
+                <!-- Filas-->
+
+                <ui:insert name="content">Main Content</ui:insert>
+
+                <!-- Footer 
+                <div class="footer">
+                    <div class="pull-right">
+                        Jhon <strong>Yovera</strong>.
+                    </div>
+                    <div>
+                        <strong>Copyright</strong> Popular SAFI @copy; 2015-2016
+                    </div>
+                </div>    
+                -->
+            </div>
+
+            <!-- Detalle de chat 
+            <div class="small-chat-box fadeInRight animated">
+
+                <div class="heading" draggable="true">
+                    <small class="chat-date pull-right">
+                        02.19.2015
+                    </small>
+                    Small chat
+                </div>
+
+                <div class="content">
+
+                    <div class="left">
+                        <div class="author-name">
+                            Monica Jackson <small class="chat-date">
+                                10:02 am
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            Lorem Ipsum is simply dummy text input.
+                        </div>
+
+                    </div>
+                    <div class="right">
+                        <div class="author-name">
+                            Mick Smith
+                            <small class="chat-date">
+                                11:24 am
+                            </small>
+                        </div>
+                        <div class="chat-message">
+                            Lorem Ipsum is simpl.
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="author-name">
+                            Alice Novak
+                            <small class="chat-date">
+                                08:45 pm
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            Check this stock char.
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="author-name">
+                            Anna Lamson
+                            <small class="chat-date">
+                                11:24 am
+                            </small>
+                        </div>
+                        <div class="chat-message">
+                            The standard chunk of Lorem Ipsum
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="author-name">
+                            Mick Lane
+                            <small class="chat-date">
+                                08:45 pm
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            I belive that. Lorem Ipsum is simply dummy text.
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-chat">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control"/> 
+                        <span class="input-group-btn"> 
+                            <button
+                                class="btn btn-primary" type="button">Send
+                            </button> 
+                        </span>
+                    </div>
+                </div>
+            </div>
+            -->
+            
+            <!-- Detalle de chat 
+            <div class="small-chat-box fadeInRight animated">
+
+                <div class="heading" draggable="true">
+                    <small class="chat-date pull-right">
+                        02.19.2015
+                    </small>
+                    Small chat
+                </div>
+
+                <div class="content">
+
+                    <div class="left">
+                        <div class="author-name">
+                            Monica Jackson <small class="chat-date">
+                                10:02 am
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            Lorem Ipsum is simply dummy text input.
+                        </div>
+
+                    </div>
+                    <div class="right">
+                        <div class="author-name">
+                            Mick Smith
+                            <small class="chat-date">
+                                11:24 am
+                            </small>
+                        </div>
+                        <div class="chat-message">
+                            Lorem Ipsum is simpl.
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="author-name">
+                            Alice Novak
+                            <small class="chat-date">
+                                08:45 pm
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            Check this stock char.
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="author-name">
+                            Anna Lamson
+                            <small class="chat-date">
+                                11:24 am
+                            </small>
+                        </div>
+                        <div class="chat-message">
+                            The standard chunk of Lorem Ipsum
+                        </div>
+                    </div>
+                    <div class="left">
+                        <div class="author-name">
+                            Mick Lane
+                            <small class="chat-date">
+                                08:45 pm
+                            </small>
+                        </div>
+                        <div class="chat-message active">
+                            I belive that. Lorem Ipsum is simply dummy text.
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-chat">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control"/> 
+                        <span class="input-group-btn"> 
+                            <button
+                                class="btn btn-primary" type="button">Send
+                            </button> 
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+            -->
+            
+            <!--chat 
+            <div id="small-chat">
+
+                <span class="badge badge-warning pull-right">5</span>
+                <a class="open-small-chat">
+                    <i class="fa fa-comments"></i>
+
+                </a>
+            </div>
+            -->
+        </div>    
+        <script src="#{request.contextPath}/resources/personal/js/websocket.js" type="text/javascript"></script>
+
+    </body>
+</html>

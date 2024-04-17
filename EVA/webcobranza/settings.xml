@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+-->
+<settings xmlns="https://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!--proxies>
+        <proxy>
+            <host>my.proxy.host</host>
+        </proxy>
+    </proxies-->
+
+     <profile>
+     
+      <repositories>
+      
+        <repository>
+             <id>central</id>
+             <name>Central Repository</name>
+             <url>https://repo.maven.apache.org/maven2</url>
+             <snapshots>
+              <enabled>false</enabled>
+             </snapshots>
+        </repository>
+      </repositories>
+       
+    </profile>
+    <!--pluginGroups>
+        <pluginGroup>org.codehaus.mojo</pluginGroup>
+    </pluginGroups-->
+       <mirrors>
+        <mirror>
+          <id>other-mirror</id>
+          <name>Other Mirror Repository</name>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <mirrorOf>central</mirrorOf>
+        </mirror>
+      </mirrors>
+</settings>

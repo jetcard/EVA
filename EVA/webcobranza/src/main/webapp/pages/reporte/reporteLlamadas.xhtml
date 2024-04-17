@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:pf="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+            <f:event type="postAddToView" listener="#{cdrBean.listarDispositivo()}"  />
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Clientes</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Reportes</a>
+                        </li>
+                        <li class="active">
+                            <strong>Llamadas</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formFiltroBusq" jsf:prependId="false" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar de Llamadas</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div id="divRangoFecha" class="form-group">
+                                                <label class="font-noraml">Rango de fechas</label>
+                                                <div id="datepicker" class="input-daterange input-group">
+                                                    <span class="input-group-addon">De</span>
+                                                    <h:inputText class="input-sm form-control" id="start" value="#{cdrBean.cobCdrB.fIniBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                    <span class="input-group-addon">a</span>
+                                                    <h:inputText class="input-sm form-control" id="end"  value="#{cdrBean.cobCdrB.fFinBusq}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Gestor</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{cdrBean.cobCdrB.src}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItems value="#{cdrBean.cobDevices}" var="dev" itemValue="#{dev.devId}"  itemLabel="#{dev.devDescripcion}" />
+                                                    </h:selectOneMenu>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Disposicion</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{cdrBean.cobCdrB.disposition}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItem itemValue="ANSWERED" itemLabel="CONTESTADO" />
+                                                        <f:selectItem itemValue="BUSY" itemLabel="OCUPADO" />
+                                                        <f:selectItem itemValue="FAILED" itemLabel="FALLIDO" />
+                                                        <f:selectItem itemValue="NO ANSWER " itemLabel="NO CONTESTADO" />
+                                                    </h:selectOneMenu>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkActualizar" jsf:action="#{cdrBean.buscarCdr()}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+                <!-- Detalle -->
+                <!-- Fila 0004 -->
+                <div class="row">
+                    <!-- Lista de cdr -->
+                    <div class="col-sm-12">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-1">
+                                            <i class="fa fa-phone"></i> Llamadas</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-1" class="tab-pane active">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover dataTables-clien">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nro</th>
+                                                        <th>Fecha</th>
+                                                        <th>Origen</th>
+                                                        <th>Asesor</th>
+                                                        <th>Destino</th>
+                                                        <th>Dst. Canal</th>
+                                                        <th>Cliente</th>
+                                                        <th>Disposición</th>
+                                                        <th>Audio</th>
+                                                        <th>Tipificación</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <!-- Llamadas -->
+                                                <ui:repeat var="cdr" value="#{cdrBean.cobCdrs}" varStatus="cdrS">
+                                                    <tr class="feed-element" >
+                                                        <!-- Nro -->
+                                                        <td>#{cdrS.index + 1}</td>
+                                                        <!-- Fecha -->
+                                                        <td>
+                                                            <h:outputText value="#{cdr.calldate}" >
+                                                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss a"  /> 
+                                                            </h:outputText>
+                                                        
+                                                        </td>
+                                                        <!-- Origen -->
+                                                        <td>#{cdr.src}</td>
+                                                        <!-- Asesor -->
+                                                        <td>#{cdr.outbound_cnam}</td>
+                                                        <!-- Destino -->
+                                                        <td>#{cdr.dst}</td>
+                                                        <!-- Dst. Canal -->
+                                                        <td>#{cdr.dstchannel}</td>
+                                                        <!-- Cliente -->
+                                                        <td>#{ empty cdr.listTchn ? cdr.listTchn2 : cdr.listTchn}</td>
+                                                        <!-- Disposicion -->
+                                                        <td>
+                                                            <ui:fragment rendered="#{cdr.disposition=='ANSWERED'}">
+                                                                CONTESTADO
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{cdr.disposition=='BUSY'}">
+                                                                OCUPADO
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{cdr.disposition=='FAILED'}">
+                                                                FALLIDO
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{cdr.disposition=='NO ANSWER'}">
+                                                                NO CONTESTADO
+                                                            </ui:fragment> 
+                                                        </td>
+                                                        <!-- Audio -->
+                                                        <td>
+                                                            <audio controls="true" preload="none" >
+                                                                <source  src="#{request.contextPath}/media/#{cdr.recordingfile}" type="audio/wav" />
+                                                            </audio>
+                                                        </td>
+                                                        <!-- Tipificación -->
+                                                        <td>
+                                                            <a jsf:outcome="reporteTipificaciones" class="btn btn-white btn-sm" target="_blank">
+                                                                <i class="fa fa-external-link"></i>
+                                                                Tip
+                                                                <f:param name="numerocontac" value="#{cdr.dst}"/>
+                                                                <f:param name="fechacontac" value="#{cdr.calldateB}"/>
+                                                                <f:param name="centralcontac" value="#{ empty cdr.did ? ' ': cdr.did}"/>
+                                                                <f:param name="numerocontacb" value="#{cdr.src}"/>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            <!-- JS -->
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+
+            <!-- Mainly scripts -->
+            <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+            <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+            <!-- Custom and plugin javascript -->
+            <script src="../../resources/template/js/inspinia.js"></script>
+            <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+            <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+            <!-- Chosen -->
+            <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+            <!-- JSKnob -->
+            <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+            <!-- Input Mask-->
+            <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+            <!-- Data picker -->
+            <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+            <!-- NouSlider -->
+            <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+            <!-- Switchery -->
+            <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+            <!-- IonRangeSlider -->
+            <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+            <!-- iCheck -->
+            <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+            <!-- MENU -->
+            <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+            <!-- Date range use moment.js same as full calendar plugin -->
+            <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+            <!-- Date range picker -->
+            <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+            <!-- Select2 -->
+            <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+            <!-- grafico personal -->
+            <script src="../../resources/personal/js/calendar.js"></script> 
+            <script src="../../resources/personal/js/table.js"></script> 
+
+            <!--- tabla -->
+            <link href="../../resources/personal/js/datatable/datatables.min.css" rel="stylesheet" type="text/css"/>
+            <script src="../../resources/personal/js/datatable/datatables.min.js" type="text/javascript"></script>
+
+            <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+            <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+
+            <div jsf:id="demoIdAx">
+                <script>
+
+                    $('#data_1 .input-group.date').datepicker({
+                        timePicker: true,
+                        timePickerIncrement: 30,
+                        startDate: '01/01/2000',
+                        endDate: '01/01/2030',
+                        format: 'dd/mm/yyyy',
+                        language: 'es',
+                        autoclose: true,
+                        todayBtn: "linked"
+                    });
+
+                    $('#divRangoFecha .input-daterange').datepicker({
+                        keyboardNavigation: false,
+                        forceParse: false,
+                        autoclose: true,
+                        format: 'dd/mm/yyyy',
+                        language: 'es'
+                    });
+
+                </script>
+            </div>
+
+
+        </ui:define>
+
+    </ui:composition> 
+
+</html>

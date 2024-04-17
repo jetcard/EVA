@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+ <head jsf:id="head">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <title>INSPINIA | 404 Error</title>
+
+    <link href="#{request.contextPath}/resources/template/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/template/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+
+    <link href="#{request.contextPath}/resources/template/css/animate.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/template/css/style.css" rel="stylesheet"/>
+
+</head>
+
+<body class="gray-bg" jsf:id="body">
+
+
+    <div class="middle-box text-center animated fadeInDown">
+        <h1>500</h1>
+        <h3 class="font-bold">Internal Server Error</h3>
+        
+        <div class="error-desc">
+            The server encountered something unexpected that didn't allow it to complete the request. We apologize.<br/>
+            You can go back to main page: <br/>
+            <a jsf:outcome="/dashboard.xhtml" class="btn btn-primary m-t" >Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="#{request.contextPath}/resources/template/js/jquery-2.1.1.js"></script>
+    <script src="#{request.contextPath}/resources/template/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

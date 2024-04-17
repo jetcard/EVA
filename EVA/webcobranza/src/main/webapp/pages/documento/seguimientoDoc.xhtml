@@ -1,0 +1,1727 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es" 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:pf="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/personal/plantillas/template.xhtml">
+        <ui:define name="content">
+
+        <!-- JS -->
+        <!-- Mainly scripts -->
+        <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+        <script src="../../resources/template/js/bootstrap.min.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="../../resources/template/js/inspinia.js"></script>
+        <script src="../../resources/template/js/plugins/pace/pace.min.js"></script>
+        <script src="../../resources/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+        <!-- Chosen -->
+        <script src="../../resources/template/js/plugins/chosen/chosen.jquery.js"></script>
+
+        <!-- JSKnob -->
+        <script src="../../resources/template/js/plugins/jsKnob/jquery.knob.js"></script>
+
+        <!-- Data picker -->
+        <script src="../../resources/template/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+        <!-- NouSlider -->
+        <script src="../../resources/template/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+        <!-- Switchery -->
+        <script src="../../resources/template/js/plugins/switchery/switchery.js"></script>
+
+        <!-- IonRangeSlider -->
+        <script src="../../resources/template/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+        <!-- iCheck -->
+        <script src="../../resources/template/js/plugins/iCheck/icheck.min.js"></script>
+
+        <!-- MENU -->
+        <script src="../../resources/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+        <!-- Date range use moment.js same as full calendar plugin -->
+        <script src="../../resources/template/js/plugins/fullcalendar/moment.min.js"></script>
+
+        <!-- Date range picker -->
+        <script src="../../resources/template/js/plugins/daterangepicker/daterangepicker.js"></script>
+
+        <!-- Select2 -->
+        <script src="../../resources/template/js/plugins/select2/select2.full.min.js"></script>
+
+        <!-- TouchSpin -->
+        <script src="../../resources/template/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+        <!-- grafico personal -->
+        <script src="../../resources/personal/js/calendar.js"></script> 
+        <script src="../../resources/personal/js/table.js"></script> 
+
+        <!--- tabla -->
+        <script src="../../resources/template/js/plugins/jeditable/jquery.jeditable.js"></script>
+        <script src="../../resources/template/js/plugins/dataTables/datatables.min.js"></script>
+
+        <link href="../../resources/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet"/>
+
+        <link href="../../resources/template/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+        <link href="../../resources/template/css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet"/>
+        <link href="../../resources/template/css/plugins/clockpicker/clockpicker.css" rel="stylesheet"/>
+
+        <!-- FooTable -->
+        <script src="../../resources/template/js/plugins/footable/footable.all.min.js"></script>
+        <link href="../../resources/template/css/plugins/footable/footable.core.css" rel="stylesheet"/>
+
+        <!-- Toastr script -->
+        <script src="../../resources/template/js/plugins/toastr/toastr.min.js"></script>
+        <!-- Toastr style -->
+        <link href="../../resources/template/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+
+        <!-- DROPZONE -->
+        <script src="../../resources/template/js/plugins/dropzone/dropzone.js"></script>
+
+        <link href="../../resources/template/css/plugins/dropzone/basic.css" rel="stylesheet"/>
+        <link href="../../resources/template/css/plugins/dropzone/dropzone.css" rel="stylesheet"/>
+
+        <!-- Jasny -->
+        <script src="../../resources/template/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+        <link href="../../resources/template/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet"/>                     
+            
+        <script type="text/javascript">
+            enviando3=false;
+            function callGrabar3()
+            {
+                if (enviando3)
+                {
+                    return;
+                }
+                else
+                {
+                    enviando3=true;
+                }
+                document.getElementById('btnGrabar0003Sh').disabled = true;
+                setTimeout(clickGrabar3(),200);
+                toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "progressBar": true,
+                 "preventDuplicates": false,
+                 "positionClass": "toast-top-right",
+                 "onclick": null,
+                 "showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             };
+             toastr.info('Grabando....', 'Mensaje');
+            }
+            
+            function clickGrabar3()
+            {
+                for (let elem of document.getElementsByTagName("button")) {
+                    if (elem.id.indexOf("btnGrabar0003Hd")>-1)
+                    {
+                        elem.click();
+                        enviando3=false;
+                    }
+                }
+           }
+           
+            enviando2=false;
+            function callGrabar2()
+            {
+                if (enviando2)
+                {
+                    return;
+                }
+                else
+                {
+                    enviando2=true;
+                }
+                document.getElementById('btnGrabar0002Sh').disabled = true;
+                setTimeout(clickGrabar2(),200);
+                toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "progressBar": true,
+                 "preventDuplicates": false,
+                 "positionClass": "toast-top-right",
+                 "onclick": null,
+                 "showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             };
+             toastr.info('Grabando....', 'Mensaje');
+            }
+            
+            function clickGrabar2()
+            {
+                for (let elem of document.getElementsByTagName("button")) {
+                    if (elem.id.indexOf("btnGrabar0002Hd")>-1)
+                    {
+                        elem.click();
+                        enviando2=false;
+                    }
+                }
+           }
+           
+            enviando4=false;
+            function callGrabar4()
+            {
+                if (enviando4)
+                {
+                    return;
+                }
+                else
+                {
+                    enviando4=true;
+                }
+                document.getElementById('btnGrabar0004Sh').disabled = true;
+                setTimeout(clickGrabar4(),200);
+                toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "progressBar": true,
+                 "preventDuplicates": false,
+                 "positionClass": "toast-top-right",
+                 "onclick": null,
+                 "showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             };
+             toastr.info('Grabando....', 'Mensaje');
+            }
+            
+            function clickGrabar4()
+            {
+                for (let elem of document.getElementsByTagName("button")) {
+                    if (elem.id.indexOf("btnGrabar0004Hd")>-1)
+                    {
+                        elem.click();
+                        enviando4=false;
+                    }
+                }
+           }
+           
+            enviando5=false;
+            function callGrabar5()
+            {
+                if (enviando5)
+                {
+                    return;
+                }
+                else
+                {
+                    enviando5=true;
+                }
+                document.getElementById('btnGrabar0005Sh').disabled = true;
+                setTimeout(clickGrabar5(),200);
+                toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "progressBar": true,
+                 "preventDuplicates": false,
+                 "positionClass": "toast-top-right",
+                 "onclick": null,
+                 "showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             };
+             toastr.info('Grabando....', 'Mensaje');
+            }
+            
+            function clickGrabar5()
+            {
+                for (let elem of document.getElementsByTagName("button")) {
+                    if (elem.id.indexOf("btnGrabar0005Hd")>-1)
+                    {
+                        elem.click();
+                        enviando5=false;
+                    }
+                }
+           }
+           
+            enviando6=false;
+            function callGrabar6()
+            {
+                if (enviando6)
+                {
+                    return;
+                }
+                else
+                {
+                    enviando6=true;
+                }
+                document.getElementById('btnGrabar0006Sh').disabled = true;
+                setTimeout(clickGrabar6(),200);
+                toastr.options = {
+                 "closeButton": true,
+                 "debug": false,
+                 "progressBar": true,
+                 "preventDuplicates": false,
+                 "positionClass": "toast-top-right",
+                 "onclick": null,
+                 "showDuration": "400",
+                 "hideDuration": "1000",
+                 "timeOut": "7000",
+                 "extendedTimeOut": "1000",
+                 "showEasing": "swing",
+                 "hideEasing": "linear",
+                 "showMethod": "fadeIn",
+                 "hideMethod": "fadeOut"
+             };
+             toastr.info('Grabando....', 'Mensaje');
+            }
+            
+            function clickGrabar6()
+            {
+                for (let elem of document.getElementsByTagName("button")) {
+                    if (elem.id.indexOf("btnGrabar0006Hd")>-1)
+                    {
+                        elem.click();
+                        enviando6=false;
+                    }
+                }
+           }           
+         </script>
+           
+            
+            <f:event type="postAddToView" listener="#{documentoBean.listarProvincia()}"  />
+            <f:event type="postAddToView" listener="#{documentoBean.listarFondos()}"  />
+            <f:event type="postAddToView" listener="#{documentoBean.listarTipoDocumento()}"  />
+            <f:event type="postAddToView" listener="#{documentoBean.documentoDetBean.listarSede()}"  />
+            <f:event type="postAddToView" listener="#{documentoBean.documentoDetBean.listarCargo()}"  />
+
+            <!-- Paginacion header -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Documentos</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.xhtml">Inicio</a>
+                        </li>
+                        <li>
+                            <a>Inicio</a>
+                        </li>
+                        <li class="active">
+                            <strong>Seguimiento de Documentos</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Filas-->
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <form jsf:id="formDocumentoBusq" >
+                    <!-- Filtros-->
+                    <div class="row">
+                        <!-- Filtros-->
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>
+                                        Filtros
+                                        <small>Buscar de Clientes</small>
+                                    </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <!-- Fila 01 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <input jsf:id="codigo" jsf:value="#{documentoBean.maeInversion.CInversion}" class="input form-control" type="text" placeholder="Código"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <input jsf:id="documento" jsf:value="#{documentoBean.maeInversion.getcPersonaId().ANroDocumento}" class="input form-control" type="text" placeholder="Documento"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <input jsf:id="apeNom" jsf:value="#{documentoBean.maeInversion.dDatoBusq}" class="input form-control" type="text" placeholder="Apellidos o nombres"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fila 02 Filtros --> 
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Dias vencidos:</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">#</span>
+                                                    <input jsf:id="NIniDiaBusq" jsf:value="#{documentoBean.maeInversion.NIniDiaBusq}" class="form-control" type="text"/>
+                                                    <span class="input-group-addon">a</span>
+                                                    <input jsf:id="NFinDiaBusq" jsf:value="#{documentoBean.maeInversion.NFinDiaBusq}" class="form-control" type="text"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Cuotas Vencidas:</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">#</span>
+                                                    <input jsf:id="nIniBusq" jsf:value="#{documentoBean.maeInversion.nIniBusq}" class="form-control" type="text"/>
+                                                    <span class="input-group-addon">a</span>
+                                                    <input jsf:id="nFinBusq" jsf:value="#{documentoBean.maeInversion.nFinBusq}" class="form-control" type="text"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Provincia:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{documentoBean.maeUbigeoP.CUbigeoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItems value="#{documentoBean.ubigeoProv}" var="prov" itemValue="#{prov.CUbigeoId}"  itemLabel="#{prov.DDUbigeoProv}" />
+                                                        <f:ajax listener="#{documentoBean.listarDistrito}" render="distrito"/>
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Distrito:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu id="distrito" value="#{documentoBean.maeUbigeoD.CUbigeoId}"  class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todas" noSelectionOption="true" />
+                                                        <f:selectItems value="#{documentoBean.ubigeoDist}" var="dist" itemValue="#{dist.CUbigeoId}"  itemLabel="#{dist.DDUbigeoDist}" />
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- Fila 03 Filtros -->
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Fondo:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{documentoBean.maeFondo.CFondoId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{documentoBean.maeFondoList}" var="fondo" itemValue="#{fondo.CFondoId}"  itemLabel="#{fondo.DFondo}" />
+                                                    </h:selectOneMenu>	
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="font-noraml">Estado:</label>
+                                                <div class="input-group">
+                                                    <h:selectOneMenu value="#{documentoBean.tabTipoDocumento.ctabTipoDocId}" class="form-control m-b">
+                                                        <f:selectItem itemLabel="Todos" noSelectionOption="true" />
+                                                        <f:selectItems value="#{documentoBean.tabTipoDocumentos}"  var="tablas" itemValue="#{tablas.ctabTipoDocId}"  itemLabel="#{tablas.dnombre}" />
+                                                    </h:selectOneMenu>	
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span class="input-group-btn">
+                                                <a jsf:id="linkActualizar" jsf:action="#{documentoBean.buscarDocumentos()}" class="btn btn-primary btn-block m-t">
+                                                    <i class="fa fa-search"></i>
+                                                    Buscar
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form> 
+                <!-- Detalle -->
+                <!-- Fila 0002 -->
+                <!-- Lista de clientes -->
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Clientes</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-1" class="tab-pane active">
+                                        <form jsf:id="formDocumentoBusqResult" >
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-cliente-deudor">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>Fondo </th>
+                                                            <th>Código </th>
+                                                            <th>Distrito</th>
+                                                            <th>Cliente </th>
+                                                            <th>C. Pendiente </th>
+                                                            <th>Tipo Doc </th>
+                                                            <th>Estado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <ui:repeat var="docum" value="#{documentoBean.documentoList}" varStatus="documS">
+                                                        <tr>
+                                                            <td>#{docum.maeInversion.maeFondo.DFondo}</td>
+                                                            <td>
+                                                                <a jsf:action="#{documentoBean.documentoDetBean.documentoDetalle(docum.maeInversion)}" data-toggle="tab" href="##{docum.maeInversion.CInversion.trim()}" class="client-link" >
+                                                                    #{docum.maeInversion.CInversion}
+                                                                    <f:ajax execute="@this" render="formDetalleDocumento formDetDocSegui jsLoadComplement"/>
+                                                                </a>
+                                                        <ui:fragment rendered="#{docum.maeInversion.ncompromPendi>0}">
+                                                            <span class="label label-info pull-right">#{docum.maeInversion.ncompromPendi}</span>
+                                                        </ui:fragment>
+
+                                                        </td>
+                                                        <td>#{docum.maeInversion.maeInmueble.maeUbigeo.DDUbigeoDist}</td>
+                                                        <td>#{docum.maeInversion.getcPersonaId().DApePat} #{docum.maeInversion.getcPersonaId().DApeMat}, #{docum.maeInversion.getcPersonaId().DNombres}</td>
+                                                        <td>#{docum.maeInversion.NCuotasAtrasadas}</td>
+                                                        <td>#{docum.tabTipoDocumento.dnombreCorto}</td>
+                                                        <td>
+                                                        <ui:repeat var="invEst" value="#{docum.maeInversion.maeInversionEstadoList}">
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0003'}">
+                                                                <span class="label label-orange">Ampliado</span><br/>
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0004'}">
+                                                                <span class="label label-success">Refinanciado</span><br/>
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0002'}">
+                                                                <span class="label label-black">Cancelado</span><br/>
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0005'}">
+                                                                <span class="label label-danger">Judicial</span><br/>
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0006'}">
+                                                                <span class="label label-info">Cobranza</span><br/>
+                                                            </ui:fragment> 
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0007'}">
+                                                                <span class="label label-orange">Trans.Endosado</span><br/>
+                                                            </ui:fragment>                                                             
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0008'}">
+                                                                <span class="label label-success">Trans.Refinanciado</span><br/>
+                                                            </ui:fragment>                                                                                            
+                                                            <ui:fragment rendered="#{invEst.EEstadoId=='0009'}">
+                                                                <span class="label label-orange">Trans.Ampliado</span><br/>
+                                                            </ui:fragment>                                                                                              
+                                                        </ui:repeat>
+                                                        </td>
+                                                        </tr>
+                                                    </ui:repeat>  
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <form jsf:id="formDetalleDocumento" role="form" jsf:prependId="false" >
+                        <!-- Lista telfonos -->
+                        <div class="col-sm-3">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <div id="#{documentoBean.documentoDetBean.maeInversion.CInversion.trim()}" class="tab-pane">
+                                        <!-- datos -->
+                                        <div class="row m-b-lg">
+                                            <div class="col-lg-12 text-center">
+                                                <label class="control-label">#{documentoBean.documentoDetBean.maeInversion.CInversion}</label> <br/>
+                                                <label class="control-label">#{documentoBean.documentoDetBean.maeInversion.getcPersonaId().DApePat} #{documentoBean.documentoDetBean.maeInversion.getcPersonaId().DApeMat}, #{documentoBean.documentoDetBean.maeInversion.getcPersonaId().DNombres}</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- tabla -->
+                                        <div class="row" jsf:id="divTipoDoc" jsf:name="divTipoDoc">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr class="bg-success">
+                                                        <td >
+                                                            Tipo
+                                                        </td>
+                                                        <td>
+                                                            #{documentoBean.documentoDetBean.tabDocumentosDetV.tabTipoDocumentoEstado.tabTipoDocumento.dnombre}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Usuario
+                                                        </td>
+                                                        <td>
+                                                            #{documentoBean.documentoDetBean.tabDocumentosDetV.tabDocumentos.cUsuarioAdd}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Fecha
+                                                        </td>
+                                                        <td>
+                                                <h:outputText value="#{documentoBean.documentoDetBean.tabDocumentosDetV.tabDocumentos.fUsuarioAdd}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  />
+                                                </h:outputText>
+                                                </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!-- tabla -->
+                                        <div class="row" jsf:id="divTipoDocDet" jsf:name="divTipoDocDet">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr class="bg-success">
+                                                        <td>
+                                                            Estado
+                                                        </td>
+                                                        <td>
+                                                            #{documentoBean.documentoDetBean.tabDocumentosDetV.tabTipoDocumentoEstado.dnombre}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Usuario
+                                                        </td>
+                                                        <td>
+                                                            #{documentoBean.documentoDetBean.tabDocumentosDetV.cUsuarioAdd}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Fecha
+                                                        </td>
+                                                        <td>
+                                                <h:outputText value="#{documentoBean.documentoDetBean.tabDocumentosDetV.fUsuarioAdd}" >
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"  />
+                                                </h:outputText>
+                                                </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>                                       
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+
+                <!-- Detalle -->
+                <!-- Fila 0004 -->
+                <form jsf:id="formDetDocSegui" role="form" jsf:prependId="false" enctype="multipart/form-data">
+                    <div class="row" style="min-height: 300px;">
+                        <div class="tabs-container">
+                            <div class="tabs-left">
+                                <ul class="nav nav-tabs">
+                                    <ui:repeat var="docCab" value="#{documentoBean.documentoDetBean.tabDocumentosCabList}" varStatus="docCabS">
+                                        <li class="">
+                                            <a data-toggle="tab" href="##{docCab.ctabDocumentosId}"> #{docCab.tabTipoDocumento.dnombre}</a>
+                                        </li>
+                                    </ui:repeat>
+                                </ul>
+                                <div class="tab-content ">
+                                    <ui:repeat var="docCab" value="#{documentoBean.documentoDetBean.tabDocumentosCabList}" varStatus="docCabS">
+                                        <div id="#{docCab.ctabDocumentosId}" class="tab-pane">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div>
+                                                        <!-- Nav tabs -->
+                                                        <ul class="nav nav-tabs" role="tablist">
+                                                            <ui:repeat var="docCabDet" value="#{docCab.tabDocumentosDets}" varStatus="docCabDetS">
+                                                                <li role="presentation">
+                                                                    <a href="#Det_#{docCabDet.ctabDocumentosDetId}" aria-controls="home" role="tab" data-toggle="tab">
+                                                                        #{docCabDet.tabTipoDocumentoEstado.dnombre}
+                                                                    </a>
+                                                                </li>
+                                                            </ui:repeat>
+                                                        </ul>
+                                                        <!-- Tab panes -->
+                                                        <div class="tab-content">
+                                                            <ui:repeat var="docCabDet" value="#{docCab.tabDocumentosDets}" varStatus="docCabDetS">
+                                                                <div role="tabpanel" class="tab-pane" id="Det_#{docCabDet.ctabDocumentosDetId}">
+                                                                    <div class="ibox-content">
+                                                                        <div>
+                                                                            <!-- Tipo de visualizacion 0001 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0001'}">
+                                                                                <!-- lectura  -->
+                                                                                <div class="hr-line-dashed"></div>
+                                                                                <!-- Ususario -->
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="form-group">
+                                                                                        <label>Usuario :</label> 
+                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                    </div>
+                                                                                </div> 
+                                                                                <!-- Fecha -->
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="form-group">
+                                                                                        <label>Fecha :</label> 
+                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                        </h:outputLabel>
+                                                                                    </div>
+                                                                                </div> 
+                                                                                <!-- Observaciones -->
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="form-group">
+                                                                                        <label>Observaciones :</label> 
+                                                                                        <span class="text-danger">#{docCabDet.dobs}</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </ui:fragment>
+
+                                                                            <!-- Tipo de visualizacion 0002 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0002'}">
+                                                                                <!-- Tipo de visualizacion 0002  - lectura -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='01'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-5">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.ffecha}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-7">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.dobs}">
+                                                                                                        </h:outputLabel>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Ususario -->
+                                                                                                <div class="col-sm-8">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Usuario :</label> 
+                                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <ui:repeat var="docCabDetArc" value="#{docCabDet.tabArchivos}" varStatus="docCabDetArcS">
+                                                                                                        <div class="file-box">
+                                                                                                            <div class="file">
+                                                                                                                <a jsf:actionListener="#{documentoBean.documentoDetBean.viewArchivo(docCabDetArc)}" 
+                                                                                                                   target="_blank">
+                                                                                                                    <span class="corner"></span>
+                                                                                                                    <div class="icon">
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0003'}">
+                                                                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0001'}">
+                                                                                                                            <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                    </div>
+                                                                                                                    <div class="file-name">
+                                                                                                                        #{docCabDetArc.dnombreArc}
+                                                                                                                        <br/>
+                                                                                                                        <small>
+                                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                                           value="#{docCabDetArc.fUsuarioAdd}">
+                                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                                            </h:outputLabel>
+
+                                                                                                                        </small>
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </ui:repeat>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                                <!-- Tipo de visualizacion 0002  - editar -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='00'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-5">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <div class="data_1" >
+                                                                                                            <div class="input-group date">
+                                                                                                                <span class="input-group-addon">
+                                                                                                                    <i class="fa fa-calendar"></i>
+                                                                                                                </span>
+                                                                                                                <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                </h:inputText>                                                                                
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-7">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="col-sm-10">
+                                                                                                    <div class="form-group">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-2">
+                                                                                                    
+                                                                                                    <button id="btnGrabar0002Sh" type="button" class="btn btn-primary " onclick="callGrabar2();">
+                                                                                                            <i class="fa fa-upload"></i>
+                                                                                                           <span class="bold">Grabar</span>
+                                                                                                    </button>                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    <button class="btn btn-primary" name="btnGrabar0002"  
+                                                                                                            jsf:id="btnGrabar0002Hd"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" style="Display:none">
+                                                                                                        <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                                                        <i class="fa fa-upload"></i>
+                                                                                                        <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <div class="file-box">
+                                                                                                        <div class="file">
+                                                                                                            <a jsf:actionListener="#{documentoBean.documentoDetBean.printPreRep(docCab.getTabTipoDocumento())}" 
+                                                                                                               target="_blank" >
+                                                                                                                <span class="corner"></span>
+                                                                                                                <div class="icon">
+                                                                                                                    <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                </div>
+                                                                                                                <div class="file-name">
+                                                                                                                    Documento_preliminar.docx
+                                                                                                                    <br/>
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>        
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                            </ui:fragment>
+
+                                                                            <!-- Tipo de visualizacion 0003 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0003'}">
+                                                                                <!-- Tipo de visualizacion 0003 -lectura -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='01'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-5">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.ffecha}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-7">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.dobs}">
+                                                                                                        </h:outputLabel>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Ususario -->
+                                                                                                <div class="col-sm-8">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Usuario :</label> 
+                                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                                <!-- Tipo de visualizacion 0003 - editar -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='00'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-5">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <div class="data_1" >
+                                                                                                            <div class="input-group date">
+                                                                                                                <span class="input-group-addon">
+                                                                                                                    <i class="fa fa-calendar"></i>
+                                                                                                                </span>
+                                                                                                                <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                </h:inputText>                                                                                
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-7">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="col-sm-10">
+                                                                                                    <div class="form-group">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-2">
+                                                                                                    
+                                                                                                     <button id="btnGrabar0003Sh" type="button" class="btn btn-primary " onclick="callGrabar3();">
+                                                                                                            <i class="fa fa-upload"></i>
+                                                                                                           <span class="bold">Grabar</span>
+                                                                                                     </button>
+                                                                                                    
+                                                                                                    <button class="btn btn-primary" name="btnGrabar0003Hd"  
+                                                                                                            jsf:id="btnGrabar0003Hd"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" style="Display:none;">
+                                                                                                        <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                                                        <i class="fa fa-upload"></i>
+                                                                                                        <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12"> 
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>        
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                            </ui:fragment>
+
+                                                                            <!-- Tipo de visualizacion 0004 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0004'}">
+                                                                                <!-- Tipo de visualizacion 0004  - lectura -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='01'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="row">
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-5">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha :</label> 
+                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                           value="#{docCabDet.ffecha}">
+                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                            </h:outputLabel>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- Observaciones -->
+                                                                                                    <div class="col-sm-7">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Acción : </label> 
+                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                           value=" #{docCabDet.dtablaDet}">
+                                                                                                            </h:outputLabel>    
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.dobs}">
+                                                                                                        </h:outputLabel>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Ususario -->
+                                                                                                <div class="col-sm-8">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Usuario :</label> 
+                                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <ui:repeat var="docCabDetArc" value="#{docCabDet.tabArchivos}" varStatus="docCabDetArcS">
+                                                                                                        <div class="file-box">
+                                                                                                            <div class="file">
+                                                                                                                <a jsf:actionListener="#{documentoBean.documentoDetBean.viewArchivo(docCabDetArc)}" 
+                                                                                                                   target="_blank">
+                                                                                                                    <span class="corner"></span>
+                                                                                                                    <div class="icon">
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0003'}">
+                                                                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0001'}">
+                                                                                                                            <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                    </div>
+                                                                                                                    <div class="file-name">
+                                                                                                                        #{docCabDetArc.dnombreArc}
+                                                                                                                        <br/>
+                                                                                                                        <small>
+                                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                                           value="#{docCabDetArc.fUsuarioAdd}">
+                                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                                            </h:outputLabel>
+
+                                                                                                                        </small>
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </ui:repeat>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                                <!-- Tipo de visualizacion 0004  - editar -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='00'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="row">
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-5">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha :</label> 
+                                                                                                            <div class="data_1" >
+                                                                                                                <div class="input-group date">
+                                                                                                                    <span class="input-group-addon">
+                                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                                    </span>
+                                                                                                                    <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                    </h:inputText>                                                                                
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- Observaciones -->
+                                                                                                    <div class="col-sm-7">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Acción :</label> 
+                                                                                                            <h:selectOneMenu value="#{documentoBean.documentoDetBean.codcargo}" class="form-control m-b">
+                                                                                                                <f:selectItem itemLabel="Seleccione Sede" noSelectionOption="true"  />
+                                                                                                                <f:selectItems value="#{documentoBean.documentoDetBean.cobTablasCargoList}" var="prov" itemValue="#{prov.ctablaDetId}"  itemLabel="#{prov.ddescCorta}" />
+                                                                                                            </h:selectOneMenu>	
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="col-sm-10">
+                                                                                                    <div class="form-group">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-2">
+                                                                                                    
+                                                                                                    <button id="btnGrabar0004Sh" type="button" class="btn btn-primary " onclick="callGrabar4();">
+                                                                                                            <i class="fa fa-upload"></i>
+                                                                                                           <span class="bold">Grabar</span>
+                                                                                                    </button>                                                                                                    
+                                                                                                    
+                                                                                                    <button class="btn btn-primary" name="btnGrabar0004"  
+                                                                                                            jsf:id="btnGrabar0004Hd"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" Style="display:none">
+                                                                                                        <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                                                        <i class="fa fa-upload"></i>
+                                                                                                        <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeIn">
+                                                                                            <div class="row">
+                                                                                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                                                                    <div class="form-control" data-trigger="fileinput">
+                                                                                                        <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+                                                                                                        <span class="fileinput-filename"></span>
+                                                                                                    </div>
+                                                                                                    <span class="input-group-addon btn btn-default btn-file">
+                                                                                                        <span class="fileinput-new">Seleccionar archivo</span>
+                                                                                                        <span class="fileinput-exists">Cambiar</span>
+                                                                                                        <o:inputFile id="file" value="#{documentoBean.documentoDetBean.fileUploadBean.files}" multiple="true" />
+                                                                                                    </span>
+                                                                                                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Borrar</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>        
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                            </ui:fragment>
+
+                                                                            <!-- Tipo de visualizacion 0005 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0005'}">
+                                                                                <!-- Tipo de visualizacion 0005  - lectura -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='01'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-9">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="row">
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-5">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha :</label> 
+                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                           value="#{docCabDet.ffecha}">
+                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                            </h:outputLabel>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- Observaciones -->
+                                                                                                    <div class="col-sm-7">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Tipo : </label> 
+                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                           value="#{docCabDet.dobs}">
+                                                                                                            </h:outputLabel>    
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.dobs}">
+                                                                                                        </h:outputLabel>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Ususario -->
+                                                                                                <div class="col-sm-8">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Usuario :</label> 
+                                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-3 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <ui:repeat var="docCabDetArc" value="#{docCabDet.tabArchivos}" varStatus="docCabDetArcS">
+                                                                                                        <div class="file-box">
+                                                                                                            <div class="file">
+                                                                                                                <a jsf:actionListener="#{documentoBean.documentoDetBean.viewArchivo(docCabDetArc)}" 
+                                                                                                                   target="_blank">
+                                                                                                                    <span class="corner"></span>
+                                                                                                                    <div class="icon">
+                                                                                                                        <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                    </div>
+                                                                                                                    <div class="file-name">
+                                                                                                                        #{docCabDetArc.dnombreArc}
+                                                                                                                        <br/>
+                                                                                                                        <small>
+                                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                                           value="#{docCabDetArc.fUsuarioAdd}">
+                                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                                            </h:outputLabel>
+                                                                                                                        </small>
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </ui:repeat>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                                <!-- Tipo de visualizacion 0005  - editar -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='00'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-9">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="row">
+                                                                                                    <!-- Asiento -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Asiento :</label> 
+                                                                                                            <input jsf:id="inAsiento" class="input form-control" type="text" placeholder="Asiento" jsf:value="#{documentoBean.documentoDetBean.maeHipoteca.casientoId}" />
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- Partida -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Partida :</label> 
+                                                                                                            <input jsf:id="inPartida" class="input form-control" type="text" placeholder="Partida" jsf:value="#{documentoBean.documentoDetBean.maeHipoteca.cpartidaElecId}"/>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- Sede -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Sede :</label>
+                                                                                                            <div class="input-group">
+                                                                                                                <h:selectOneMenu value="#{documentoBean.documentoDetBean.maeHipoteca.csede.ctablaDetId}" class="form-control m-b" >
+                                                                                                                    <f:selectItem itemLabel="Seleccione Sede" noSelectionOption="true"  />
+                                                                                                                    <f:selectItems value="#{documentoBean.documentoDetBean.cobTablasSedeList}" var="sed" itemValue="#{sed.ctablaDetId}"  itemLabel="#{sed.ddescCorta}"  />
+                                                                                                                </h:selectOneMenu>	
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha Escritura:</label> 
+                                                                                                            <div class="data_1" >
+                                                                                                                <div class="input-group date">
+                                                                                                                    <span class="input-group-addon">
+                                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                                    </span>
+                                                                                                                    <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.maeHipoteca.fasiento}">
+                                                                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                    </h:inputText>                                                                                
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <!-- Notario -->
+                                                                                                    <div class="col-sm-5">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Notario :</label> 
+                                                                                                            <input jsf:id="inNotario" class="input form-control" type="text" placeholder="Notario" jsf:value="#{documentoBean.documentoDetBean.maeHipoteca.dnomNotaria}"/>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- tchn -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>TCHN :</label> 
+                                                                                                            <input jsf:id="inTCHN" class="input form-control" type="text" placeholder="TCHN" jsf:value="#{documentoBean.documentoDetBean.maeHipoteca.ctchnReal}"/>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-4">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha TCHN:</label> 
+                                                                                                            <div class="data_1" >
+                                                                                                                <div class="input-group date">
+                                                                                                                    <span class="input-group-addon">
+                                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                                    </span>
+                                                                                                                    <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.maeHipoteca.femisionTchn}">
+                                                                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                    </h:inputText>                                                                                
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <!-- tchn -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Asiento TCHN :</label> 
+                                                                                                            <input jsf:id="inAsientoTCHN" class="input form-control" type="text" placeholder="Asiento TCHN" jsf:value="#{documentoBean.documentoDetBean.maeHipoteca.casientoTchn}"/>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                    <!-- Sede -->                                                                                                   
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Sede TCHN :</label>
+                                                                                                            <div class="input-group">
+                                                                                                                <h:selectOneMenu value="#{documentoBean.documentoDetBean.maeHipoteca.csedeTchn.ctablaDetId}" class="form-control m-b" >
+                                                                                                                    <f:selectItem itemLabel="Seleccione Sede" noSelectionOption="true"  />
+                                                                                                                    <f:selectItems value="#{documentoBean.documentoDetBean.cobTablasSedeList}" var="sed" itemValue="#{sed.ctablaDetId}"  itemLabel="#{sed.ddescCorta}"  />
+                                                                                                                </h:selectOneMenu>	
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                    <!-- Fecha -->
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Fecha Generación:</label> 
+                                                                                                            <div class="data_1" >
+                                                                                                                <div class="input-group date">
+                                                                                                                    <span class="input-group-addon">
+                                                                                                                        <i class="fa fa-calendar"></i>
+                                                                                                                    </span>
+                                                                                                                    <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                                                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                    </h:inputText>                                                                                
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div> 
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Provincia:</label>
+                                                                                                            <div class="input-group">
+                                                                                                                <h:selectOneMenu value="#{documentoBean.documentoDetBean.maeUbigeoP.CUbigeoId}" class="form-control m-b" >
+                                                                                                                    <f:selectItem itemLabel="Seleccione Prov" noSelectionOption="true"  />
+                                                                                                                    <f:selectItems value="#{documentoBean.ubigeoProv}" var="prov" itemValue="#{prov.CUbigeoId}"  itemLabel="#{prov.DDUbigeoProv}"  />
+                                                                                                                    <f:ajax listener="#{documentoBean.documentoDetBean.listarDistrito}" render="distritoDet"/>
+                                                                                                                </h:selectOneMenu>	
+
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <div class="form-group">
+                                                                                                            <label>Distrito:</label>
+                                                                                                            <div class="input-group">
+                                                                                                                <h:selectOneMenu id="distritoDet" value="#{documentoBean.documentoDetBean.maeUbigeoD.CUbigeoId}"  class="form-control m-b">
+                                                                                                                    <f:selectItem itemLabel="Seleccione Dist" noSelectionOption="true" />
+                                                                                                                    <f:selectItems value="#{documentoBean.documentoDetBean.ubigeoDist}" var="dist" itemValue="#{dist.CUbigeoId}"  
+                                                                                                                                   itemLabel="#{dist.DDUbigeoDist}" />
+                                                                                                                </h:selectOneMenu>	
+
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Dirección :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.maeInmueble.DDir1}"
+                                                                                                                         p:placeholder="Escribir Direccion..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Referencia :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.maeInmueble.ddir3}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="col-sm-10">
+                                                                                                    <div class="form-group">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-2">
+                                                                                                    <button id="btnGrabar0005Sh" type="button" class="btn btn-primary " onclick="callGrabar5();">
+                                                                                                            <i class="fa fa-upload"></i>
+                                                                                                           <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                    
+                                                                                                    <button class="btn btn-primary" name="btnGrabar0005"  
+                                                                                                            jsf:id="btnGrabar0005Hd"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" style="display:none">
+                                                                                                        <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                                                        <i class="fa fa-upload"></i>
+                                                                                                        <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-3 animated fadeIn">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <div class="file-box">
+                                                                                                        <div class="file">
+                                                                                                            <a jsf:actionListener="#{documentoBean.documentoDetBean.printPreCN}" 
+                                                                                                               target="_blank" >
+                                                                                                                <span class="corner"></span>
+                                                                                                                <div class="icon">
+                                                                                                                    <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                </div>
+                                                                                                                <div class="file-name">
+                                                                                                                    Documento_preliminar.docx
+                                                                                                                    <br/>
+                                                                                                                    <small>Fecha: Jan 11, 2014</small>
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>        
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                            </ui:fragment>
+
+                                                                            <!-- Tipo de visualizacion 0006 -->
+                                                                            <!-- Tipo de visualizacion 0006 -->
+                                                                            <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.ctipoVisualzaId=='0006'}">
+                                                                                <!-- Tipo de visualizacion 0002  - lectura -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='01'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-6">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha Generación: </label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.ffecha}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-6">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha Demanda: </label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fopc1}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header"> 
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-7">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.dobs}">
+                                                                                                        </h:outputLabel>    
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Ususario -->
+                                                                                                <div class="col-sm-8">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Usuario :</label> 
+                                                                                                        <span class="text-danger">#{docCabDet.cUsuarioAdd}</span>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-4">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha :</label> 
+                                                                                                        <h:outputLabel class="text-danger" 
+                                                                                                                       value="#{docCabDet.fUsuarioAdd}">
+                                                                                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                        </h:outputLabel>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <ui:repeat var="docCabDetArc" value="#{docCabDet.tabArchivos}" varStatus="docCabDetArcS">
+                                                                                                        <div class="file-box">
+                                                                                                            <div class="file">
+                                                                                                                <a jsf:actionListener="#{documentoBean.documentoDetBean.viewArchivo(docCabDetArc)}" 
+                                                                                                                   target="_blank">
+                                                                                                                    <span class="corner"></span>
+                                                                                                                    <div class="icon">
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0003'}">
+                                                                                                                            <i class="fa fa-file-pdf-o fa-color-red"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                        <ui:fragment rendered="#{docCabDetArc.ctipoArcId=='0001'}">
+                                                                                                                            <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                        </ui:fragment>
+                                                                                                                    </div>
+                                                                                                                    <div class="file-name">
+                                                                                                                        #{docCabDetArc.dnombreArc}
+                                                                                                                        <br/>
+                                                                                                                        <small>
+                                                                                                                            <h:outputLabel class="text-danger" 
+                                                                                                                                           value="#{docCabDetArc.fUsuarioAdd}">
+                                                                                                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                                                                                                            </h:outputLabel>
+
+                                                                                                                        </small>
+                                                                                                                    </div>
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </ui:repeat>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                                <!-- Tipo de visualizacion 0006  - editar -->
+                                                                                <ui:fragment rendered="#{docCabDet.tabTipoDocumentoEstado.bsoloLectura=='00'}">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-6">
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-6">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha generación:</label> 
+                                                                                                        <div class="data_1" >
+                                                                                                            <div class="input-group date">
+                                                                                                                <span class="input-group-addon">
+                                                                                                                    <i class="fa fa-calendar"></i>
+                                                                                                                </span>
+                                                                                                                <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaCorte}">
+                                                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                </h:inputText>                                                                                
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                                <!-- Fecha -->
+                                                                                                <div class="col-sm-6">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Fecha demanda:</label> 
+                                                                                                        <div class="data_1" >
+                                                                                                            <div class="input-group date">
+                                                                                                                <span class="input-group-addon">
+                                                                                                                    <i class="fa fa-calendar"></i>
+                                                                                                                </span>
+                                                                                                                <h:inputText class="input-sm form-control" value="#{documentoBean.documentoDetBean.fechaDemanda}">
+                                                                                                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                                                                                </h:inputText>                                                                                
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div> 
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <!-- Observaciones -->
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="form-group">
+                                                                                                        <label>Observaciones :</label> 
+                                                                                                        <h:inputTextarea class="form-control"  value="#{documentoBean.documentoDetBean.observaciones}"
+                                                                                                                         p:placeholder="Escribir comentarios..." >
+                                                                                                        </h:inputTextarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row border-bottom white-bg dashboard-header">
+                                                                                                <div class="col-sm-10">
+                                                                                                    <div class="form-group">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-2">
+                                                                                                    <button id="btnGrabar0006Sh" type="button" class="btn btn-primary " onclick="callGrabar6();">
+                                                                                                            <i class="fa fa-upload"></i>
+                                                                                                           <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                    
+                                                                                                    <button class="btn btn-primary" name="btnGrabar0006"  
+                                                                                                            jsf:id="btnGrabar0006Hd"  jsf:action="#{documentoBean.documentoDetBean.grabarDocumentoDetalle(docCabDet)}" style="display:none">
+                                                                                                        <f:ajax execute="formDetDocSegui" render="msjGrabar formDetDocSegui jsLoadComplement" />
+                                                                                                        <i class="fa fa-upload"></i>
+                                                                                                        <span class="bold">Grabar</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-sm-6 animated fadeInRight">
+                                                                                            <div class="row">
+                                                                                                <div class="col-lg-12">
+                                                                                                    <div class="file-box">
+                                                                                                        <div class="file">
+                                                                                                            <a jsf:actionListener="#{documentoBean.documentoDetBean.printPreRep(docCab.getTabTipoDocumento())}" 
+                                                                                                               target="_blank" >
+                                                                                                                <span class="corner"></span>
+                                                                                                                <div class="icon">
+                                                                                                                    <i class="fa fa-file-word-o fa-color-blue"></i>
+                                                                                                                </div>
+                                                                                                                <div class="file-name">
+                                                                                                                    Documento_preliminar.docx
+                                                                                                                    <br/>
+                                                                                                                </div>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>        
+                                                                                    </div>
+                                                                                </ui:fragment>
+                                                                            </ui:fragment>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </ui:repeat>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div jsf:id="msjGrabar" jsf:name="msjGrabar">
+                    <div jsf:rendered="#{documentoBean.documentoDetBean.showMsg}">
+                        <script type="text/javascript">
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "progressBar": true,
+                                "preventDuplicates": false,
+                                "positionClass": "toast-top-right",
+                                "onclick": null,
+                                "showDuration": "400",
+                                "hideDuration": "1000",
+                                "timeOut": "7000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.#{documentoBean.documentoDetBean.tipoMsj}('#{documentoBean.documentoDetBean.mensaje}', 'Mensaje');
+                        </script>
+                    </div>
+                </div>
+
+
+            </div>  
+
+            <div jsf:id="jsLoadComplement">
+                <script>
+
+                            $('.data_1 .input-group.date').datepicker({
+                                timePicker: true,
+                                timePickerIncrement: 30,
+                                startDate: '01/01/2000',
+                                endDate: '01/01/2030',
+                                format: 'dd/mm/yyyy',
+                                language: 'es',
+                                autoclose: true,
+                                todayBtn: "linked"
+                            });
+
+                </script>
+            </div>
+        </ui:define>
+
+    </ui:composition> 
+
+</html>
+
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="768.0" prefWidth="1366.0" styleClass="incio_body" stylesheets="@../resource/css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxcripto.controller.InicioController">
+    
+    <children>
+        <HBox alignment="CENTER" layoutX="376.0" layoutY="293.0" prefHeight="511.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="768.0" prefWidth="1000.0">
+                    <children>
+                        <AnchorPane prefHeight="480.0" prefWidth="735.0" styleClass="incio_content_background">
+                            <VBox.margin>
+                               
+                            </VBox.margin>
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="480.0" prefWidth="1000.0">
+                                    <children>
+                              <ImageView fitHeight="253.0" fitWidth="319.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resource/image/logo_utp.png" />
+                                 </image>
+                              </ImageView>
+                                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="580.0" styleClass="incio_content_background">
+                                            <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                    <children>
+                                                        
+                                                        <StackPane fx:id="stkPanel" layoutY="168.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="600.0" styleClass="progress_bar_panel" visible="false">
+                                                            <children>
+                                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER" />
+                                                            </children>
+                                                        </StackPane>
+                                                        <Button fx:id="btnStart" alignment="CENTER" contentDisplay="CENTER" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#start" prefHeight="80.0" prefWidth="350.0" text="INICIAR" AnchorPane.leftAnchor="120.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                    <Label text="YOVERA RAMOS JHON ALEX" />
+                                    <Label text=" " />
+                                    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="257.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../resource/image/twitter.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="73.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                             <image>
+                                                <Image url="@../resource/image/facebook.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </GridPane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+            <ImageView fitHeight="424.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/image/candado.png" />
+               </image>
+            </ImageView>
+            </children>
+        </HBox> 
+    </children>
+    
+    
+</AnchorPane>

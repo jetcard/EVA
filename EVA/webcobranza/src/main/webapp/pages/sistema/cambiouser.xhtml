@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <head jsf:id="head">
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <title>POPULAR | Login</title>
+
+        <link href="../../resources/template/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="../../resources/template/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+
+        <link href="../../resources/template/css/animate.css" rel="stylesheet"/>
+        <link href="../../resources/template/css/style.css" rel="stylesheet"/>
+
+
+
+    <body class="gray-bg" jsf:id="body">
+
+        <div class="middle-box text-center loginscreen animated fadeInDown">
+            <div>
+                <div>
+                    <h1 class="logo-name">EVA</h1>
+                </div>
+                <h3>Bienvenido al EVA</h3>
+                <p>Cambio de contraseña</p>
+                <div>
+                    <h2>#{loginBean.usuario.usuarioId}</h2>
+                </div>
+                <form class="m-t" role="form" method="POST" jsf:id="formLogin" jsf:prependId="false" >
+                    <div class="form-group">
+                        <input jsf:id="claveOld" jsf:value="#{cambiarUsuarioBean.usuario.contrasenia}" type="password" class="form-control" placeholder="Contraseña actual" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <input jsf:id="claveNew" jsf:value="#{cambiarUsuarioBean.contraseniaA}" type="password" class="form-control" placeholder="Nueva contraseña" required=""/>
+                    </div>
+                    <div class="form-group">
+                        <input jsf:id="claveNewTwo" jsf:value="#{cambiarUsuarioBean.contraseniaB}" type="password" class="form-control" placeholder="Nueva contraseña" required=""/>
+                    </div>
+                    <button jsf:id="btnIngresar" name="btnIngresar" jsf:action="#{cambiarUsuarioBean.changePassword}"  class="btn btn-primary block full-width m-b">Cambiar</button>
+
+                    <!-- Mensaje de error -->
+                    <ui:fragment rendered="#{cambiarUsuarioBean.flgError=='E'}">
+
+                        <div class="alert alert-danger alert-dismissable">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            <h:message for="btnIngresar"/>
+                        </div>
+                    </ui:fragment>
+                </form>
+                <p class="m-t"> <small>Popular SAFI WEB &copy; 2016</small> </p>
+            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="../../resources/template/js/jquery-2.1.1.js"></script>
+        <script src="../../resources/template/js/bootstrap.min.js"></script>
+        
+
+    <link href="../../resources/template/css/plugins/passtrength/passtrength.css" rel="stylesheet"/>
+    <script src="../../resources/template/js/plugins/passtrength/jquery.passtrength.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $('#claveOld').passtrength({
+                minChars: 6,
+                passwordToggle: true,
+                tooltip: true
+            });
+            $('#claveNew').passtrength({
+                minChars: 6,
+                passwordToggle: true,
+                tooltip: true
+            });
+            $('#claveNewTwo').passtrength({
+                minChars: 6,
+                passwordToggle: true,
+                tooltip: true
+            });
+        });
+    </script>
+
+</body>
+</head>
+
+
+</html>
+

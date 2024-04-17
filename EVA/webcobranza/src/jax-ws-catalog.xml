@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/D:/ultimaversioneva/EVA-20200522_SIS_0156_CambioxNuevaMetodologiaCalculoInteres/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/E:/EVAYUL/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/E:/EVA-20190628_LEG_0129_LEGAL_DEMANDA_YUL/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/D:/FUENTESEVA20190912/EVA-20190821_LEG_0131_VALIDACION_LEGAL_REG_CORREO_FACT_ELEC/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/D:/FUENTESEVA20190912/EVA-20191030_SIS_0133_586_MIGRAR_EVA_localhost/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/D:/ultimaversioneva/EVA-20200522_SIS_0156_CambioxNuevaMetodologiaCalculoInteres/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/C:/PROYECTOS/EVA-20201016_SIS_0152_Interes/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/E:/eva/EVA/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/E:/EVAElimSeg/EVA/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/C:/Proyectos/evatelefonos/EVA-20211221_SIS_0227_FIX_VULNERABILIDAD_LOG4J/webcobranza/src/wsdl/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="file:/C:/Proyectos/evatelefonos/EVA-20211221_SIS_0227_FIX_VULNERABILIDAD_LOG4J/webcobranza/seguridadWS.wsdl" uri="wsdl/seguridadWS.wsdl"/>
+    <system systemId="http://localhost:8080/ProcesamientoCredencial-ejb-1.0-SNAPSHOT/seguridadWS/seguridadWS?wsdl" uri="wsdl/localhost_8686/ProcesamientoCredencial-ejb-1.0-SNAPSHOT/seguridadWS/seguridadWS.wsdl"/>
+</catalog>

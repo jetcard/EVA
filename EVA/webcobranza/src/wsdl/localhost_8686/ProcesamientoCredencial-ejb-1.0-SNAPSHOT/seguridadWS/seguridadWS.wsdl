@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://webservices.webcobranzas.pop/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="seguridadWS" targetNamespace="http://webservices.webcobranzas.pop/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.webcobranzas.pop/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservices.webcobranzas.pop/">
+  <xs:element name="authTest" type="tns:authTest"/>
+  <xs:element name="authTestResponse" type="tns:authTestResponse"/>
+  <xs:element name="cambiarUsuario" type="tns:cambiarUsuario"/>
+  <xs:element name="cambiarUsuarioResponse" type="tns:cambiarUsuarioResponse"/>
+  <xs:element name="obtenerUsuario" type="tns:obtenerUsuario"/>
+  <xs:element name="obtenerUsuarioResponse" type="tns:obtenerUsuarioResponse"/>
+  <xs:element name="resetearClave" type="tns:resetearClave"/>
+  <xs:element name="resetearClaveResponse" type="tns:resetearClaveResponse"/>
+  <xs:element name="solicitarCodigo" type="tns:solicitarCodigo"/>
+  <xs:element name="solicitarCodigoResponse" type="tns:solicitarCodigoResponse"/>
+  <xs:element name="validarCodigo" type="tns:validarCodigo"/>
+  <xs:element name="validarCodigoResponse" type="tns:validarCodigoResponse"/>
+  <xs:complexType name="obtenerUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuario" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bcontrasenia" type="xs:string"/>
+      <xs:element minOccurs="0" name="contrasenia" type="xs:string"/>
+      <xs:element minOccurs="0" name="contraseniaB" type="xs:string"/>
+      <xs:element minOccurs="0" name="correo" type="tns:correo"/>
+      <xs:element name="eliminarSeguimiento" type="xs:boolean"/>
+      <xs:element name="estado" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="menu" nillable="true" type="tns:menu"/>
+      <xs:element name="numLlamada" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="opcionesPermisosmenu" nillable="true" type="tns:menu"/>
+      <xs:element minOccurs="0" name="perApeMat" type="xs:string"/>
+      <xs:element minOccurs="0" name="perApePat" type="xs:string"/>
+      <xs:element name="perId" type="xs:int"/>
+      <xs:element minOccurs="0" name="perNom" type="xs:string"/>
+      <xs:element minOccurs="0" name="rol" type="tns:rol"/>
+      <xs:element minOccurs="0" name="telefono" type="tns:telefono"/>
+      <xs:element minOccurs="0" name="usuarioId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="correo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="corDesc" type="xs:string"/>
+      <xs:element name="corId" type="xs:int"/>
+      <xs:element minOccurs="0" name="corTipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="menu">
+    <xs:sequence>
+      <xs:element name="btn1" type="xs:boolean"/>
+      <xs:element name="btn10" type="xs:boolean"/>
+      <xs:element name="btn2" type="xs:boolean"/>
+      <xs:element name="btn3" type="xs:boolean"/>
+      <xs:element name="btn4" type="xs:boolean"/>
+      <xs:element name="btn5" type="xs:boolean"/>
+      <xs:element name="btn6" type="xs:boolean"/>
+      <xs:element name="btn7" type="xs:boolean"/>
+      <xs:element name="btn8" type="xs:boolean"/>
+      <xs:element name="btn9" type="xs:boolean"/>
+      <xs:element name="cmenu" type="xs:int"/>
+      <xs:element name="cmenuId" type="xs:int"/>
+      <xs:element name="cmenuPadre" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="listaEventos" nillable="true" type="tns:menuEventos"/>
+      <xs:element minOccurs="0" name="menuA" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAE" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAUrl" type="xs:string"/>
+      <xs:element minOccurs="0" name="simbolo" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="oMenuList" nillable="true" type="tns:menu"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="oMenuList2" nillable="true" type="tns:menu"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="menuEventos">
+    <xs:sequence>
+      <xs:element name="cmenu" type="xs:int"/>
+      <xs:element name="cmenuId" type="xs:int"/>
+      <xs:element minOccurs="0" name="menu" type="tns:menu"/>
+      <xs:element minOccurs="0" name="menuA" type="xs:string"/>
+      <xs:element minOccurs="0" name="menuAUrl" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="rol">
+    <xs:sequence>
+      <xs:element name="rolId" type="xs:int"/>
+      <xs:element minOccurs="0" name="rolNombre" type="xs:string"/>
+      <xs:element name="rolUsuarioId" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="telefono">
+    <xs:sequence>
+      <xs:element name="telId" type="xs:int"/>
+      <xs:element minOccurs="0" name="telNumero" type="xs:string"/>
+      <xs:element minOccurs="0" name="telTipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="obtenerUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuarioB" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authTest">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="authTestResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resetearClave">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuario" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resetearClaveResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validarCodigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuario" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validarCodigoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solicitarCodigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="oUsuario" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solicitarCodigoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerUsuario">
+    <wsdl:part element="tns:obtenerUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerUsuarioResponse">
+    <wsdl:part element="tns:obtenerUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cambiarUsuario">
+    <wsdl:part element="tns:cambiarUsuario" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cambiarUsuarioResponse">
+    <wsdl:part element="tns:cambiarUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarCodigoResponse">
+    <wsdl:part element="tns:validarCodigoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarCodigoResponse">
+    <wsdl:part element="tns:solicitarCodigoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarCodigo">
+    <wsdl:part element="tns:solicitarCodigo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetearClaveResponse">
+    <wsdl:part element="tns:resetearClaveResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authTest">
+    <wsdl:part element="tns:authTest" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetearClave">
+    <wsdl:part element="tns:resetearClave" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarCodigo">
+    <wsdl:part element="tns:validarCodigo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authTestResponse">
+    <wsdl:part element="tns:authTestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="seguridadWS">
+    <wsdl:operation name="obtenerUsuario">
+      <wsdl:input message="tns:obtenerUsuario" name="obtenerUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerUsuarioResponse" name="obtenerUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cambiarUsuario">
+      <wsdl:input message="tns:cambiarUsuario" name="cambiarUsuario">
+    </wsdl:input>
+      <wsdl:output message="tns:cambiarUsuarioResponse" name="cambiarUsuarioResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="authTest">
+      <wsdl:input message="tns:authTest" name="authTest">
+    </wsdl:input>
+      <wsdl:output message="tns:authTestResponse" name="authTestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="resetearClave">
+      <wsdl:input message="tns:resetearClave" name="resetearClave">
+    </wsdl:input>
+      <wsdl:output message="tns:resetearClaveResponse" name="resetearClaveResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarCodigo">
+      <wsdl:input message="tns:validarCodigo" name="validarCodigo">
+    </wsdl:input>
+      <wsdl:output message="tns:validarCodigoResponse" name="validarCodigoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarCodigo">
+      <wsdl:input message="tns:solicitarCodigo" name="solicitarCodigo">
+    </wsdl:input>
+      <wsdl:output message="tns:solicitarCodigoResponse" name="solicitarCodigoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="seguridadWSSoapBinding" type="tns:seguridadWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtenerUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cambiarUsuario">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cambiarUsuario">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cambiarUsuarioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="authTest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="authTest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authTestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="resetearClave">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="resetearClave">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetearClaveResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarCodigo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="validarCodigo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validarCodigoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarCodigo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="solicitarCodigo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="solicitarCodigoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="seguridadWS">
+    <wsdl:port binding="tns:seguridadWSSoapBinding" name="seguridadWSPort">
+      <soap:address location="http://localhost:8080/ProcesamientoCredencial-ejb-1.0-SNAPSHOT/seguridadWS/seguridadWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
