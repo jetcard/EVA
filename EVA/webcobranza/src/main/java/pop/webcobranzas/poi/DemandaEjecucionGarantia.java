@@ -59,9 +59,9 @@ public class DemandaEjecucionGarantia extends Comunes{
         " con ",
         "REG. CAL N° 65958,",
         " al ",
-        "Dr. MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ",
-        " con ",
-        "REG. CAL N° 75947,",
+        "Dra. VERA LUCIA PAPUICO MINO",//"Dr. MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ", //26 JUN 2024 Se reemplaza según Req
+        " con ",//" con ", //26 JUN 2024 Se reemplaza según Req
+        "REG. CAL N° 95940,",//"REG. CAL N° 75947,", //26 JUN 2024 Se reemplaza según Req
         " a la ",
         "Dra. YANET VICTORIO COLLAZOS",
         " con ",
@@ -80,9 +80,10 @@ public class DemandaEjecucionGarantia extends Comunes{
         "REG. CAL N° 90674",
         " declarando estar instruida en la representación que otorgo y sus alcances, señalando como Domicilio Procesal en la Casilla N° 22756 ubicada en los Juzgados y Salas Civiles Sub Especialidad Comercial de Lima."};
     String otrosidigo3="TERCER OTROSÍ DECIMOS:";
-    String otrosidigo4="CUARTO OTROSÍ DECIMOS:";
-    String[] otrosidigo4contenido = {" Por convenir al derecho de la entidad recurrente autorizamos a través del presente escrito a la Srta. ","VERA LUCIA PAPUICO MINO",", identificado con DNI N°71029015, para que de conformidad con el artículo 138° Código Procesal Civil procedan a practicar desgloses, recabar anexos, títulos u otros documentos cuya devolución pudiera ordenarse, retirar exhortos, cédulas, oficios, copias certificadas, certificados de consignación, entre otros y en general realizar cualquiera otra gestión respecto de la cual fuere suficiente la presente."};
-    String otrosidigo5="QUINTO OTROSÍ DECIMOS:";
+    //String otrosidigo4="CUARTO OTROSÍ DECIMOS:";
+    //String[] otrosidigo4contenido = {" Por convenir al derecho de la entidad recurrente autorizamos a través del presente escrito a la Srta. ","VERA LUCIA PAPUICO MINO",", identificado con DNI N°71029015, para que de conformidad con el artículo 138° Código Procesal Civil procedan a practicar desgloses, recabar anexos, títulos u otros documentos cuya devolución pudiera ordenarse, retirar exhortos, cédulas, oficios, copias certificadas, certificados de consignación, entre otros y en general realizar cualquiera otra gestión respecto de la cual fuere suficiente la presente."};
+    //String otrosidigo5="QUINTO OTROSÍ DECIMOS:";
+    String otrosidigo5="CUARTO OTROSÍ DECIMOS:";
     String[] otrosidigo5contenido = {" Que, se adjunta un juego adicional del escrito de demanda y anexos para que se ","notifique a los ocupantes del inmueble objeto de ejecución."};
     String otrosidigo51="POR TANTO:";
     String[] otrosidigo52={"A Usted Señor Juez",", solicitamos admitir la presente demanda conforme su naturaleza y consecuentemente ordenar a los DEMANDADOS el pago de la obligación, bajo apercibimiento de proceder al remate del inmueble hipotecado."};
@@ -179,32 +180,33 @@ public class DemandaEjecucionGarantia extends Comunes{
         }
         
         String[] textoPopular = {
-            FONDO_DESCRIPCION,", ",
-            " con RUC N° ",
-            FONDO_RUC,
-            " (en adelante ",
-            "EL FONDO"
-            ,"), administrado por ",
-            "POPULAR S.A. SOCIEDAD ADMINISTRADORA DE FONDOS DE INVERSIÓN, ",
-            "con Registro Único de Contribuyentes N.º 20512726411, debidamente representado por sus Apoderados Judiciales los Sres.  ",
-            "DENISSE ADRIANA INÉS VEGA FARRO, ",
-            " identificada con DNI N.º 45443332, ",
-            "MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ",
-            " con DNI N° 72394662, ",
-            "YANET VICTORIO COLLAZOS",
-            " con DNI N° 42480673, ",
-            "NEYLI MONDRAGON IZQUIERDO",
-            " identificada con DNI N° 71079919, ",
-            "HISAEL JHAZEEL HURTADO BAYONA",
-            " con DNI N° 44678313 y ",
-            "JHON RICARDO SALAZAR SALGUEDO ",
+            FONDO_DESCRIPCION,//texto[0]
+            ", ",//texto[1]
+            " con RUC N° ",//texto[2]
+            FONDO_RUC,//texto[3]
+            " (en adelante ",//texto[4]
+            "EL FONDO",//texto[5]
+            "), administrado por ",//texto[6]
+            "POPULAR S.A. SOCIEDAD ADMINISTRADORA DE FONDOS DE INVERSIÓN, ",//texto[7]
+            "con Registro Único de Contribuyentes N.º 20512726411, debidamente representado por sus Apoderados Judiciales los Sres.  ",//texto[8]
+            "DENISSE ADRIANA INÉS VEGA FARRO, ",//texto[9]
+            " identificada con DNI N.º 45443332, ",//texto[10]
+            ///"MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ",//26 JUN 2024 Se elinina según Req //texto[11]
+            ///" con DNI N° 72394662, ",//26 JUN 2024 Se elimina según Req ////texto[12]
+            "YANET VICTORIO COLLAZOS",//texto[13]
+            " con DNI N° 42480673, ",//texto[14]
+            "NEYLI MONDRAGON IZQUIERDO",//texto[15]
+            " identificada con DNI N° 71079919, ",//texto[16]
+            "HISAEL JHAZEEL HURTADO BAYONA",//texto[17]
+            " con DNI N° 44678313 y ",//texto[18]
+            "JHON RICARDO SALAZAR SALGUEDO ",//texto[19]
             "con DNI N° 47352594 según poder que adjuntamos; todos ellos con domicilio real en Av. Nicolás de Piérola N.º 938 - Oficina N.º 302, Distrito, Provincia y Departamento de Lima, con domicilio procesal en la Casilla N° ",
-            "22756",
-            " ubicada en los Juzgados y Salas Civiles Sub Especialidad Comercial de Lima y con Casilla Electrónica N° ",
-            "76101",
-            ", con correo electrónico ",
-            "oper.legal.psafi@gmail.com",
-            " y celular N° 960894127 a Ud. respetuosamente decimos a Ud. respetuosamente decimos:"
+            "22756",//texto[21]
+            " ubicada en los Juzgados y Salas Civiles Sub Especialidad Comercial de Lima y con Casilla Electrónica N° ",//texto[22]
+            "76101",//texto[23]
+            ", con correo electrónico ",//texto[24]
+            "oper.legal.psafi@gmail.com",//texto[25]
+            " y celular N° 960894127 a Ud. respetuosamente decimos a Ud. respetuosamente decimos:"//texto[26]
         };
 
         String[] viaProcedimental={"POPULAR SAFI",
@@ -313,7 +315,7 @@ public class DemandaEjecucionGarantia extends Comunes{
                                };
         String[] otrosidigo34={"-   Copia Legalizada de la Vigencia de Poder de POPULAR S.A. SOCIEDAD ADMINISTRADORA DE FONDOS DE INVERSIÓN, donde mediante Sesión de Directorio, se acordó otorgar poderes a "
                 + "DENISSE ADRIANA INÉS VEGA FARRO, "
-                + "MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ, "
+                //+ "MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ, "//26 JUN 2024 Se elimina según Req
                 + "YANET VICTORIO COLLAZOS, "
                 + "NEYLI MONDRAGON IZQUIERDO, "
                 + "HISAEL JHAZEEL HURTADO BAYONA Y "
@@ -466,7 +468,8 @@ public class DemandaEjecucionGarantia extends Comunes{
             parrafoVignetas(document, otrosidigo33);
             parrafoVignetas(document, otrosidigo34);
 
-            otrosidigoBold(document, otrosidigo4, otrosidigo4contenido);
+            //26 JUN 2024 se elimina el cuarto otrosí decimos
+            //otrosidigoBold(document, otrosidigo4, otrosidigo4contenido);
             otrosidigo5(document, otrosidigo5, otrosidigo5contenido);
            
             porTantoBold(document, otrosidigo51);
@@ -516,7 +519,7 @@ public class DemandaEjecucionGarantia extends Comunes{
             agregarFirma2(table, "HISAEL JHAZEEL HURTADO BAYONA", "APODERADO", "");
             agregarFirma1(table, "JHON RICARDO SALAZAR SALGUEDO", "ABOGADO", "REG. C.A.L. N° 82036");
             agregarFirma2(table, "JHON RICARDO SALAZAR SALGUEDO", "APODERADO", "");
-            //agregarFirmaCentro(table, "JHON RICARDO SALAZAR SALGUEDO", "ABOGADO", "REG. C.A.L N° 82036");
+            agregarFirmaCentro(table, "VERA LUCIA PAPUICO MINO", "ABOGADA", "REG. C.A.L N° 95940");
             mergeCellsHorizontal(table, 1, 0, 1);
 
             configurarInterlineado(document);

@@ -97,13 +97,11 @@ public class Comunes {
         subParagraph.setIndentationLeft(subIndentation);
         subParagraph.setIndentFromLeft(subIndentation);
        
-       
         int subIndentationHanging = (int) (0.375 * 1440);
         subParagraph.setIndentationHanging(subIndentationHanging);
 
         for (int i = 0; i < texto.length; i++) {
             XWPFRun run = subParagraph.createRun();
-           
             run.setBold(i % 2 != 0);
             run.setText(texto[i]);
             run.setFontFamily("Arial");
@@ -622,7 +620,7 @@ public class Comunes {
         run10.setBold(false);
         run10.setText(texto[10]);
 
-        XWPFRun run11 = subParagraph.createRun();
+        /*XWPFRun run11 = subParagraph.createRun();
         run11.setFontFamily("Arial");
         run11.setFontSize(10);
         run11.setBold(true);
@@ -632,7 +630,7 @@ public class Comunes {
         run12.setFontFamily("Arial");
         run12.setFontSize(10);
         run12.setBold(false);
-        run12.setText(texto[12]);
+        run12.setText(texto[12]);*/
 
         XWPFRun run13 = subParagraph.createRun();
         run13.setFontFamily("Arial");

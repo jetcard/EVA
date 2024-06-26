@@ -520,7 +520,7 @@ public class FilePOI  extends Comunes{
             agregarFirma1(table, "DENISSE ADRIANA I. VEGA FARRO", "ABOGADA", "REG. C.A.L. N° 65958");
             agregarFirma2(table, "DENISSE ADRIANA I. VEGA FARRO", "APODERADA", "");
             agregarFirma1(table, "MIGUEL A.A. MENDIETA SANCHEZ", "ABOGADO", "REG. C.A.L. N° 75947");
-            agregarFirma2(table, "MIGUEL A.A. MENDIETA SANCHEZ", "APODERADO", "");    
+            agregarFirma2(table, "MIGUEL A.A. MENDIETA SANCHEZ", "APODERADO", "");
             agregarFirma1(table, "YANET VICTORIO COLLAZOS", "ABOGADA", "REG. C.A.L. N° 50944");
             agregarFirma2(table, "YANET VICTORIO COLLAZOS", "APODERADA", "");
             agregarFirma1(table, "NEYLI MONDRAGON IZQUIERDO", "ABOGADA", "REG. C.A.L. N° 84522");
@@ -530,6 +530,7 @@ public class FilePOI  extends Comunes{
             agregarFirma1(table, "JHON RICARDO SALAZAR SALGUEDO", "ABOGADO", "REG. C.A.L. N° 82036");
             agregarFirma2(table, "JHON RICARDO SALAZAR SALGUEDO", "APODERADO", "");
             //agregarFirmaCentro(table, "JHON RICARDO SALAZAR SALGUEDO", "ABOGADO", "REG. C.A.L N° 82036");
+            agregarFirmaCentro(table, "VERA LUCIA PAPUICO MINO", "ABOGADA", "REG. C.A.L N° 95940");
             mergeCellsHorizontal(table, 1, 0, 1);
 
             configurarInterlineado(document);
