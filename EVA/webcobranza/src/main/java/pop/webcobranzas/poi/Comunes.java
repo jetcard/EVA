@@ -620,17 +620,17 @@ public class Comunes {
         run10.setBold(false);
         run10.setText(texto[10]);
 
-        /*XWPFRun run11 = subParagraph.createRun();
+        XWPFRun run11 = subParagraph.createRun();
         run11.setFontFamily("Arial");
         run11.setFontSize(10);
-        run11.setBold(true);
+        run11.setBold(false);
         run11.setText(texto[11]);
 
         XWPFRun run12 = subParagraph.createRun();
         run12.setFontFamily("Arial");
         run12.setFontSize(10);
         run12.setBold(false);
-        run12.setText(texto[12]);*/
+        run12.setText(texto[12]);
 
         XWPFRun run13 = subParagraph.createRun();
         run13.setFontFamily("Arial");
