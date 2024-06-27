@@ -58,7 +58,7 @@ public class DemandaEjecucionGarantia extends Comunes{
         "Dra. DENISSE ADRIANA INES VEGA FARRO",
         " con ",
         "REG. CAL N° 65958,",
-        " al ",
+        " a la ",
         "Dra. VERA LUCIA PAPUICO MINO",//"Dr. MIGUEL ALBERTO ANTONIO MENDIETA SANCHEZ", //26 JUN 2024 Se reemplaza según Req
         " con ",//" con ", //26 JUN 2024 Se reemplaza según Req
         "REG. CAL N° 95940,",//"REG. CAL N° 75947,", //26 JUN 2024 Se reemplaza según Req
